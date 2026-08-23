@@ -21,8 +21,7 @@
   "files": [
     "deliverables",
     "dictionaries",
-    "NOTICE",
-    "THIRD-PARTY-LICENSES"
+    "NOTICE"
   ],
   "scripts": {
     "format": "prettier --write .",

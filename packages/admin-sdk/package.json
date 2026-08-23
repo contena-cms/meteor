@@ -84,8 +84,7 @@
     "umd",
     "es",
     "cdn",
-    "NOTICE",
-    "THIRD-PARTY-LICENSES"
+    "NOTICE"
   ],
   "scripts": {
     "build": "rm -rf es && rm -rf umd && rm -rf cdn && npm run build:umd && npm run build:es && npm run build:cdn",
