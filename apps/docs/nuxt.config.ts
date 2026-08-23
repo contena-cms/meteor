@@ -121,10 +121,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  css: [
-    "@contena/meteor-component-library/font.css",
-    "~/assets/css/main.css",
-  ],
+  css: ["@contena/meteor-component-library/font.css", "~/assets/css/main.css"],
   fonts: {
     families: [
       // Inter is already self-hosted via @contena/meteor-component-library/font.css

@@ -29,13 +29,3 @@ Install the dependencies and start Storybook and the documentation site together
 pnpm install
 pnpm dev
 ```
-
-This serves Storybook on `http://localhost:6006` and the documentation on `http://localhost:3001`. See the [contribution guidelines](./CONTRIBUTING.md#local-development) for more ways to run the packages.
-
-## Contribute to Meteor
-
-Pull requests are welcome. See the [contribution guidelines](./CONTRIBUTING.md) for more information.
-
-## License
-
-Source code is under a custom license based on MIT.

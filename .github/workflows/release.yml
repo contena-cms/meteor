@@ -18,6 +18,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      pull-requests: read
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -44,7 +45,7 @@ jobs:
       - name: Create canary versions
         run: pnpm run version --snapshot canary
         env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Publish canary packages
         run: pnpm changeset publish --no-git-tag --tag canary
@@ -94,7 +95,7 @@ jobs:
           create-github-releases: false
           push-git-tags: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push release tags
