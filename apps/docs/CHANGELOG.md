@@ -1,5 +1,27 @@
 # meteor-docs
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+  - @contena/meteor-component-library@5.5.0
+  - @contena/meteor-icon-kit@5.10.0
+  - @contena/meteor-tokens@1.4.1
+
 ## 0.0.5
 
 ### Patch Changes

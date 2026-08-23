@@ -1,5 +1,18 @@
 # CHANGELOG.md
 
+## 5.10.0
+
+### Minor Changes
+
+- 6b3238d: Added icons:
+  `regular-trust`
+  `solid-trust`
+- 6b3238d: Add the palette icon for interface appearance settings.
+
+### Patch Changes
+
+- 6b3238d: Move the Figma sync tooling (`@t3-oss/env-core`, `dotenv`, `ora`, `winston`, `zod`) to `devDependencies`. It is only used by the unpublished icon sync script — installs get ~10 MB smaller. If you imported one of these packages without declaring it, add it to your own `dependencies`.
+
 ## 5.9.0
 
 ### Minor Changes

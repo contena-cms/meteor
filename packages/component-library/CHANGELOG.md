@@ -1,5 +1,33 @@
 # Changelog
 
+## 5.5.0
+
+### Minor Changes
+
+- 6b3238d: Add an optional `hint` prop to all form fields for rendering a caption below the field. The existing `#hint` slot still works and takes precedence. Hint content now renders with a consistent info-icon style, which also applies to existing `#hint` slot usage.
+- 6b3238d: Add the `mt-theme-select` component for choosing the application color theme (light, dark, or system) and the `useTheme` composable that resolves the system preference, applies the resolved theme to `data-theme`, and persists the choice.
+
+### Patch Changes
+
+- 6b3238d: Add inheritance support to `mt-datepicker`.
+- 6b3238d: Align the form field hint icon with the first line of the hint text instead of the vertical center, so it stays in place when the hint wraps onto multiple lines
+- 6b3238d: Give every form field story separate Storybook controls for the `hint` prop and the `#hint` slot, so the prop is no longer shadowed by the slot.
+- 6b3238d: Move `inter-ui` to `devDependencies`. The Inter font files are copied into `dist/assets/fonts/` at build time, so the package stays self-contained — keep using the `font.css` export. If you imported `inter-ui` directly without declaring it, add it to your own `dependencies`.
+- 6b3238d: Stop publishing source maps. They were built with `sourcemap: "hidden"`, so no published file referenced them — removes 23.6 MB of unreachable files from the package.
+- 6b3238d: Let `mt-link` keep the `href` that `router-link` resolves, instead of overriding it with a stringified route location. Passing a route object such as `:to="{ name: 'ct.customer.detail', params: { id } }"` produced `href="[object Object]"`, which broke hover previews, ctrl/middle-click and "Open link in new tab" while a plain left-click still worked. Disabled links are now fully inert: they render no `href` and clicks on them no longer navigate or bubble
+- 6b3238d: Stop publishing the `src` directory. The `exports` map only exposes `dist`, so `src` was never reachable through supported imports. If you reached into `src` via raw `node_modules` paths (e.g. SCSS imports), switch to the documented `dist` entry points.
+- 6b3238d: Keep browser-autofilled form fields on the active light or dark theme background.
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+  - @contena/meteor-admin-sdk@6.11.0
+  - @contena/meteor-icon-kit@5.10.0
+  - @contena/meteor-tokens@1.4.1
+
 ## 5.4.0
 
 ### Minor Changes

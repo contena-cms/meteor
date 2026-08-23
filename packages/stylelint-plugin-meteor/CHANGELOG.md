@@ -1,5 +1,12 @@
 # @contena/stylelint-plugin-meteor
 
+## 5.0.1
+
+### Patch Changes
+
+- Updated dependencies [6b3238d]
+  - @contena/meteor-tokens@1.4.1
+
 ## 5.0.0
 
 ### Patch Changes

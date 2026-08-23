@@ -1,5 +1,21 @@
 # nuxt-app
 
+## 0.0.72
+
+### Patch Changes
+
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+- Updated dependencies [6b3238d]
+  - @contena/meteor-component-library@5.5.0
+
 ## 0.0.71
 
 ### Patch Changes
