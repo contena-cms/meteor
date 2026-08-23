@@ -1,0 +1,19 @@
+{
+  "name": "@contena/meteor-prettier-config",
+  "version": "1.0.0",
+  "description": "Prettier configuration for Contena projects",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contena/meteor"
+  },
+  "type": "module",
+  "exports": "./index.js",
+  "license": "Apache-2.0",
+  "private": false,
+  "peerDependencies": {
+    "prettier": ">=3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  }
+}

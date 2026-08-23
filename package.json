@@ -1,0 +1,26 @@
+{
+  "name": "@contena/meteor-workspace",
+  "version": "0.0.0",
+  "author": "contena AG",
+  "private": true,
+  "description": "The monorepo that contains all Meteor related projects",
+  "keywords": [],
+  "license": "Apache-2.0",
+  "scripts": {
+    "version": "changeset version",
+    "validate:changesets": "node scripts/validate-changesets.js",
+    "validate:docs-redirects": "node scripts/validate-docs-redirects.js",
+    "predev": "pnpm --filter=meteor-docs sync:changelog",
+    "dev": "turbo run dev --filter=meteor-docs --filter=@contena/meteor-component-library"
+  },
+  "devDependencies": {
+    "@changesets/cli": "2.29.8",
+    "@changesets/changelog-github": "0.5.2",
+    "turbo": "^2.5.4"
+  },
+  "packageManager": "pnpm@10.12.3",
+  "volta": {
+    "node": "22.13.0",
+    "pnpm": "10.12.3"
+  }
+}
