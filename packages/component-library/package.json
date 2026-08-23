@@ -93,7 +93,7 @@
     "@tiptap/vue-3": "^2.22.3",
     "@vuepic/vue-datepicker": "^12.1.0",
     "@vueuse/components": "^12.4.0",
-    "@vueuse/core": "^13.1.0",
+    "@vueuse/core": "^14.4.0",
     "apexcharts": "^5.2.0",
     "codemirror": "^6.0.1",
     "convert-units": "^2.3.4",
