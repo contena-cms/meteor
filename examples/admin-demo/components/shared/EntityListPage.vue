@@ -1,57 +1,59 @@
 <template>
   <div class="page-stack enterprise-list-page">
-    <div class="page-title-row">
-      <div class="page-title-meta">
-        <h1>{{ title }}</h1>
-        <span class="page-count">共 {{ result.total }} 条</span>
+    <section class="page-command-surface">
+      <div class="page-title-row">
+        <div class="page-title-meta">
+          <h1>{{ title }}</h1>
+          <span class="page-count">共 {{ result.total }} 条</span>
+        </div>
+        <div class="page-title-actions">
+          <MtButton v-if="!readonly" variant="primary" @click="emit('add')">
+            <MtIcon name="regular-plus-s" />{{ addLabel }}
+          </MtButton>
+          <MtDropdownMenuRoot>
+            <MtDropdownMenuTrigger as-child>
+              <MtButton variant="tertiary">
+                <MtIcon name="regular-ellipsis-h-s" />更多
+              </MtButton>
+            </MtDropdownMenuTrigger>
+            <MtDropdownMenuPortal>
+              <MtActionMenu>
+                <MtActionMenuGroup>
+                  <MtActionMenuItem icon="regular-file-export" @select="exportRecords">导出当前结果</MtActionMenuItem>
+                  <MtActionMenuItem icon="regular-undo-s" @select="reload">刷新数据</MtActionMenuItem>
+                  <MtActionMenuItem icon="regular-filter" @select="resetFilters">清空筛选</MtActionMenuItem>
+                </MtActionMenuGroup>
+              </MtActionMenu>
+            </MtDropdownMenuPortal>
+          </MtDropdownMenuRoot>
+        </div>
       </div>
-      <div class="page-title-actions">
-        <MtButton v-if="!readonly" variant="primary" @click="emit('add')">
-          <MtIcon name="regular-plus-s" />{{ addLabel }}
-        </MtButton>
-        <MtDropdownMenuRoot>
-          <MtDropdownMenuTrigger as-child>
-            <MtButton variant="tertiary">
-              <MtIcon name="regular-ellipsis-h-s" />更多
-            </MtButton>
-          </MtDropdownMenuTrigger>
-          <MtDropdownMenuPortal>
-            <MtActionMenu>
-              <MtActionMenuGroup>
-                <MtActionMenuItem icon="regular-file-export" @select="exportRecords">导出当前结果</MtActionMenuItem>
-                <MtActionMenuItem icon="regular-undo-s" @select="reload">刷新数据</MtActionMenuItem>
-                <MtActionMenuItem icon="regular-filter" @select="resetFilters">清空筛选</MtActionMenuItem>
-              </MtActionMenuGroup>
-            </MtActionMenu>
-          </MtDropdownMenuPortal>
-        </MtDropdownMenuRoot>
-      </div>
-    </div>
 
-    <form class="filter-toolbar" aria-label="列表筛选" @submit.prevent="applyFilters">
-      <MtSearch v-model="searchDraft" class="filter-toolbar__search" :placeholder="searchPlaceholder" />
-      <MtSelect
-        v-for="filter in filters"
-        :key="filter.key"
-        v-model="filterDraft[filter.key]"
-        class="filter-toolbar__select"
-        :label="filter.label"
-        :options="[{ label: '全部', value: '' }, ...filter.options]"
-        hide-clearable-button
-      />
-      <MtDatepicker
-        v-if="dateKey"
-        v-model="dateDraft"
-        class="filter-toolbar__date"
-        label="日期范围"
-        date-type="date"
-        range
-      />
-      <div class="filter-toolbar__actions">
-        <MtButton type="submit" variant="primary">搜索</MtButton>
-        <MtButton variant="secondary" @click="resetFilters">重置</MtButton>
-      </div>
-    </form>
+      <form class="filter-toolbar" aria-label="列表筛选" @submit.prevent="applyFilters">
+        <MtSearch v-model="searchDraft" class="filter-toolbar__search" :placeholder="searchPlaceholder" />
+        <MtSelect
+          v-for="filter in filters"
+          :key="filter.key"
+          v-model="filterDraft[filter.key]"
+          class="filter-toolbar__select"
+          :label="filter.label"
+          :options="[{ label: '全部', value: '' }, ...filter.options]"
+          hide-clearable-button
+        />
+        <MtDatepicker
+          v-if="dateKey"
+          v-model="dateDraft"
+          class="filter-toolbar__date"
+          label="日期范围"
+          date-type="date"
+          range
+        />
+        <div class="filter-toolbar__actions">
+          <MtButton type="submit" variant="primary">搜索</MtButton>
+          <MtButton variant="tertiary" @click="resetFilters">重置</MtButton>
+        </div>
+      </form>
+    </section>
 
     <section ref="workspace" class="table-workspace" :class="`table-workspace--${density}`" aria-label="数据列表">
       <div class="table-toolbar">
@@ -129,6 +131,16 @@
           @change-show-stripes="showStripes = $event"
           @change-outline-framing="outlineFraming = $event"
         >
+          <template #column-paymentStatus="{ data }">
+            <div class="semantic-status">
+              <MtStatusDot
+                size="s"
+                :label="String(data.paymentStatus)"
+                :variant="paymentStatusVariant(String(data.paymentStatus))"
+              />
+              <span>{{ data.paymentStatus }}</span>
+            </div>
+          </template>
           <template #empty-state>
             <MtEmptyState icon="regular-search" headline="没有匹配结果" description="请调整搜索或筛选条件后重试。" />
           </template>
@@ -160,6 +172,7 @@ import {
   MtIcon,
   MtSearch,
   MtSelect,
+  MtStatusDot,
   useSnackbar,
 } from "@contena/meteor-component-library";
 import ConfirmModal from "~/components/shared/ConfirmModal.vue";
@@ -316,6 +329,12 @@ function onSort(property: string, direction: "ASC" | "DESC") {
   query.sortDirection = direction;
 }
 
+function paymentStatusVariant(status: string) {
+  if (status === "已支付") return "positive" as const;
+  if (status === "已退款") return "attention" as const;
+  return "neutral" as const;
+}
+
 function onLimit(limit: number) {
   query.limit = limit;
   query.page = 1;
@@ -423,6 +442,17 @@ function exportRecords() {
   min-width: 0;
 }
 
+.page-command-surface {
+  margin: 0 calc(var(--scale-size-24) * -1);
+  padding: var(--scale-size-20) var(--scale-size-24) var(--scale-size-16);
+  border-bottom: 1px solid var(--color-border-secondary-default);
+  background: var(--color-elevation-surface-default);
+}
+
+.page-command-surface .page-title-row {
+  margin-bottom: var(--scale-size-18);
+}
+
 .page-title-actions,
 .filter-toolbar__actions,
 .table-toolbar,
@@ -443,8 +473,7 @@ function exportRecords() {
   flex-wrap: wrap;
   align-items: flex-end;
   gap: var(--scale-size-12);
-  padding: 0 0 var(--scale-size-16);
-  border-bottom: 1px solid var(--color-border-secondary-default);
+  padding: 0;
 }
 
 .filter-toolbar__search {
@@ -453,9 +482,14 @@ function exportRecords() {
   max-width: calc(var(--scale-size-256) + var(--scale-size-96));
 }
 
+.filter-toolbar__search :deep(.mt-search__input) {
+  font-family: var(--font-family-body);
+}
+
 .filter-toolbar__select {
   flex: 0 1 var(--scale-size-160);
   width: var(--scale-size-160);
+  margin-bottom: 0;
 }
 
 .filter-toolbar__date {
@@ -465,7 +499,7 @@ function exportRecords() {
 
 .table-workspace {
   border: 1px solid var(--color-border-secondary-default);
-  border-radius: var(--border-radius-xs);
+  border-radius: var(--border-radius-s);
   background: var(--color-elevation-surface-default);
   overflow: hidden;
 }
@@ -480,7 +514,7 @@ function exportRecords() {
   justify-content: flex-end;
   padding: var(--scale-size-8) var(--scale-size-12);
   border-bottom: 1px solid var(--color-border-secondary-default);
-  background: var(--color-elevation-surface-default);
+  background: var(--color-elevation-surface-sunken);
 }
 
 .table-toolbar__selection {
@@ -536,12 +570,30 @@ function exportRecords() {
   background: var(--color-elevation-surface-sunken);
   border-inline: 0;
   border-color: var(--color-border-secondary-default);
+  color: var(--color-text-secondary-default);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
   text-transform: none;
 }
 
 .table-surface :deep(tbody td) {
   border-inline: 0;
   border-color: var(--color-border-secondary-default);
+  color: var(--color-text-primary-default);
+  font-size: var(--font-size-xs);
+}
+
+.table-surface :deep([data-cell-column-property="orderNo"] .mt-data-table-text-renderer) {
+  color: var(--color-text-brand-default);
+  font-weight: var(--font-weight-semibold);
+}
+
+.semantic-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scale-size-6);
+  color: var(--color-text-secondary-default);
+  white-space: nowrap;
 }
 
 .table-surface :deep(tbody tr:hover td) {
@@ -567,6 +619,11 @@ function exportRecords() {
 }
 
 @media (max-width: 900px) {
+  .page-command-surface {
+    margin: calc(var(--scale-size-16) * -1) calc(var(--scale-size-16) * -1) 0;
+    padding: var(--scale-size-16);
+  }
+
   .filter-toolbar__search,
   .filter-toolbar__select,
   .filter-toolbar__date {

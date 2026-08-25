@@ -40,12 +40,12 @@ const drawerOpen = ref(false);
 const current = ref<DemoRecord | null>(null);
 const drawerMode = ref<"create" | "edit" | "view">("view");
 const columns: any[] = [
-  { label: "订单号", property: "orderNo", renderer: "text", position: 0, sortable: true, clickable: true, width: 170 },
-  { label: "客户", property: "customer", renderer: "text", position: 100, sortable: true, width: 160 },
+  { label: "订单号", property: "orderNo", renderer: "text", position: 0, sortable: true, clickable: true, width: 190 },
+  { label: "客户", property: "customer", renderer: "text", position: 100, sortable: true, width: 190 },
   { label: "渠道", property: "channel", renderer: "text", position: 200, sortable: true, width: 110, visible: false },
   { label: "商品数", property: "itemCount", renderer: "number", position: 300, sortable: true, width: 90, visible: false },
-  { label: "应付金额", property: "amountText", renderer: "text", position: 400, sortable: true, width: 130 },
-  { label: "支付状态", property: "paymentStatus", renderer: "badge", position: 500, sortable: true, width: 110, rendererOptions: { renderItemBadge: (data: DemoRecord) => ({ label: data.paymentStatus, variant: data.paymentStatus === "已支付" ? "positive" : data.paymentStatus === "已退款" ? "critical" : "default" }) } },
+  { label: "应付金额", property: "amountText", renderer: "text", position: 400, sortable: true, width: 120 },
+  { label: "支付状态", property: "paymentStatus", renderer: "text", position: 500, sortable: true, width: 104 },
   { label: "履约状态", property: "fulfillmentStatus", renderer: "text", position: 600, sortable: true, width: 110 },
   { label: "下单时间", property: "createdAt", renderer: "text", position: 700, sortable: true, width: 160 },
 ];
