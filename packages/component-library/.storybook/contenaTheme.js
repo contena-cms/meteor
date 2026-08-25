@@ -5,7 +5,7 @@ export const contenaTheme = create({
 
   brandTitle: "Contena",
   brandUrl: "https://meteor.contena.cn",
-  brandImage: "/contena-meteor-logo.svg",
+  brandImage: "/contena-logo.svg",
   brandTarget: "_blank",
 
   colorPrimary: "#0870ff",

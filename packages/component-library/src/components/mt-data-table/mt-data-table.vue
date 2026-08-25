@@ -5,7 +5,7 @@
     original reason no longer applies — confirm whether any inline height handling is still needed here.
   -->
   <mt-card class="mt-data-table" :class="MtDataTableClasses" :title="title" :subtitle="subtitle">
-    <template #toolbar>
+    <template v-if="showToolbar()" #toolbar>
       <div class="mt-data-table__toolbar">
         <mt-search
           v-if="disableSearch !== true"
@@ -646,6 +646,7 @@ import { reactive } from "vue";
 import type { Filter } from "./mt-data-table.interfaces";
 import { useI18n } from "vue-i18n";
 import { useDebounceFn } from "@vueuse/core";
+import { hasSlotContent } from "@/utils/slot";
 
 export interface BaseColumnDefinition {
   label: string; // the label for the column
@@ -1050,7 +1051,7 @@ export default defineComponent({
     "update:appliedFilters",
     "context-select",
   ],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const { t } = useI18n({
       messages: {
         en: {
@@ -1127,6 +1128,12 @@ export default defineComponent({
     const filterChildViews = computed(() => {
       return props.filters.map(({ id, label }) => ({ name: id, title: label }));
     });
+
+    const showToolbar = () =>
+      props.disableSearch !== true ||
+      props.filters.length > 0 ||
+      props.appliedFilters.length > 0 ||
+      hasSlotContent(slots.toolbar);
 
     /**
      * General
@@ -2021,6 +2028,7 @@ export default defineComponent({
       emptyData,
       getRealIndex,
       isDragging,
+      showToolbar,
       filterChildViews,
       removeFilter,
       addOption,

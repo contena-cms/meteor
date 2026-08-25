@@ -1,8 +1,40 @@
 import { screen, render } from "@testing-library/vue";
 import MtCard from "./mt-card.vue";
 import { userEvent } from "@testing-library/user-event";
+import { Comment, h } from "vue";
 
 describe("mt-card", () => {
+  it("does not render tabs and toolbar containers without matching slots", () => {
+    const { container } = render(MtCard);
+
+    expect(container.querySelector(".mt-card__tabs")).not.toBeInTheDocument();
+    expect(container.querySelector(".mt-card__toolbar")).not.toBeInTheDocument();
+  });
+
+  it("renders tabs and toolbar containers for matching slots", () => {
+    const { container } = render(MtCard, {
+      slots: {
+        tabs: "Tabs",
+        toolbar: "Toolbar",
+      },
+    });
+
+    expect(container.querySelector(".mt-card__tabs")).toHaveTextContent("Tabs");
+    expect(container.querySelector(".mt-card__toolbar")).toHaveTextContent("Toolbar");
+  });
+
+  it("does not render tabs and toolbar containers for empty matching slots", () => {
+    const { container } = render(MtCard, {
+      slots: {
+        tabs: () => h(Comment),
+        toolbar: () => h(Comment),
+      },
+    });
+
+    expect(container.querySelector(".mt-card__tabs")).not.toBeInTheDocument();
+    expect(container.querySelector(".mt-card__toolbar")).not.toBeInTheDocument();
+  });
+
   it("hides the inheritance toggle by default", () => {
     // ARRANGE
     render(MtCard, {

@@ -5,6 +5,7 @@ import flushPromises from "flush-promises";
 import { get } from "@/utils/object";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useI18n } from "vue-i18n";
+import { Comment, h, type Slot } from "vue";
 
 // Mock "useDebounceFn" from "@vueuse/core"
 vi.mock("@vueuse/core", () => ({
@@ -88,6 +89,20 @@ const columnsFixture: ColumnDefinition[] = [
 
 const DEFAULT_MIN_WIDTH = "100px";
 
+const filterFixture = {
+  id: "status",
+  label: "Status",
+  type: {
+    id: "multi-select",
+    options: [
+      {
+        id: "active",
+        label: "Active",
+      },
+    ],
+  },
+};
+
 // mock resizeOvserver
 global.ResizeObserver = class ResizeObserver {
   observe() {
@@ -101,7 +116,7 @@ global.ResizeObserver = class ResizeObserver {
   }
 };
 
-function createWrapper(options?: { slots?: Record<string, string> }) {
+function createWrapper(options?: { slots?: Record<string, string | Slot> }) {
   return mount(MtDataTable, {
     attachTo: document.body,
     props: {
@@ -1134,9 +1149,10 @@ describe("mt-data-table", () => {
       const wrapper = createWrapper();
 
       expect(wrapper.find(".mt-search").exists()).toBeTruthy();
+      expect(wrapper.find(".mt-card__toolbar").exists()).toBeTruthy();
     });
 
-    it("should not render the search input field", async () => {
+    it("should not render a toolbar without search, filters, or custom content", async () => {
       const wrapper = createWrapper();
 
       await wrapper.setProps({
@@ -1145,6 +1161,66 @@ describe("mt-data-table", () => {
       });
 
       expect(wrapper.find(".mt-search").exists()).toBeFalsy();
+      expect(wrapper.find(".mt-data-table__toolbar").exists()).toBeFalsy();
+      expect(wrapper.find(".mt-card__toolbar").exists()).toBeFalsy();
+    });
+
+    it("should render the toolbar when filters are available", async () => {
+      const wrapper = createWrapper();
+
+      await wrapper.setProps({
+        ...wrapper.props(),
+        disableSearch: true,
+        filters: [filterFixture],
+      });
+
+      expect(wrapper.find(".mt-card__toolbar").exists()).toBeTruthy();
+    });
+
+    it("should render the toolbar when filters are applied", async () => {
+      const wrapper = createWrapper();
+
+      await wrapper.setProps({
+        ...wrapper.props(),
+        disableSearch: true,
+        filters: [filterFixture],
+        appliedFilters: [filterFixture],
+      });
+
+      expect(wrapper.find(".mt-card__toolbar").exists()).toBeTruthy();
+      expect(wrapper.find(".mt-data-table__filter").exists()).toBeTruthy();
+    });
+
+    it("should render the toolbar when custom content is provided", async () => {
+      const wrapper = createWrapper({
+        slots: {
+          toolbar: "Custom toolbar",
+        },
+      });
+
+      await wrapper.setProps({
+        ...wrapper.props(),
+        disableSearch: true,
+      });
+
+      expect(wrapper.find(".mt-card__toolbar").exists()).toBeTruthy();
+      expect(wrapper.find(".mt-data-table__toolbar").text()).toContain("Custom toolbar");
+    });
+
+    it("should not render the toolbar when the custom slot is empty", async () => {
+      const wrapper = createWrapper({
+        slots: {
+          toolbar: () => [h(Comment)],
+        },
+      });
+
+      await wrapper.setProps({
+        ...wrapper.props(),
+        disableSearch: true,
+      });
+
+      expect(wrapper.find(".mt-data-table__toolbar").exists()).toBeFalsy();
+      expect(wrapper.find(".mt-card__toolbar").exists()).toBeFalsy();
     });
 
     it("should use the search value from prop", async () => {

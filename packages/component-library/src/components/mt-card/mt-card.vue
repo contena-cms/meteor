@@ -64,12 +64,12 @@
       </div>
     </header>
 
-    <div class="mt-card__tabs">
+    <div v-if="hasSlotContent(slots.tabs)" class="mt-card__tabs">
       <!-- @slot Slot for adding a tab bar. The content need to be changed manually and you can't use the content slot of the tab bar -->
       <slot name="tabs" />
     </div>
 
-    <div class="mt-card__toolbar">
+    <div v-if="hasSlotContent(slots.toolbar)" class="mt-card__toolbar">
       <!-- @slot Slot for adding toolbar functionality like search-bar, buttons, etc. -->
       <slot name="toolbar" />
     </div>
@@ -95,12 +95,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, type VNode } from "vue";
 import MtContextButton from "../mt-context-button/mt-context-button.vue";
 import MtLoader from "../mt-loader/mt-loader.vue";
 import MtIcon from "../mt-icon/mt-icon.vue";
 import MtText from "../mt-text/mt-text.vue";
 import { useFutureFlags } from "@/composables/useFutureFlags";
+import { hasSlotContent } from "@/utils/slot";
 import { useI18n } from "vue-i18n";
 
 const props = withDefaults(
@@ -141,8 +142,8 @@ const slots = defineSlots<{
   grid(): void;
   footer(): void;
   default(): void;
-  toolbar(): void;
-  tabs(): void;
+  toolbar?(): VNode[];
+  tabs?(): VNode[];
   "before-card"(): void;
   "after-card"(): void;
   headerRight(): void;

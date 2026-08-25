@@ -17,16 +17,17 @@ const i18n = createI18n({
   // something vue-i18n options here ...
   legacy: false,
   globalInjection: true,
-  locale: "zh",
+  locale: "zh-CN",
   fallbackLocale: "en",
   messages: {
     en: {},
-    zh: {},
+    "zh-CN": {},
   },
   allowComposition: true,
 });
 
 setup((app) => {
+  document.documentElement.lang = "zh-CN";
   app.use(i18n);
   app.use(DeviceHelperPlugin);
 });
