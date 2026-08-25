@@ -1,5 +1,5 @@
 <template>
-  <EntityListPage title="用户管理" add-label="新增用户" search-placeholder="搜索姓名、用户名或手机号" :items="records" :columns="columns" :searchable="['name', 'username', 'phone']" :filters="filters" @add="openCreate" @open="openEdit" @delete="remove" @bulk-edit="bulkDisable" />
+  <EntityListPage title="用户管理" add-label="新增用户" search-placeholder="搜索姓名或用户名，按 Enter 查询" :items="records" :columns="columns" :searchable="['name', 'username', 'phone']" :filters="filters" @add="openCreate" @open="openEdit" @delete="remove" @bulk-edit="bulkDisable" />
   <RecordDrawer :open="drawerOpen" kind="user" :record="current" :creating="creating" @close="drawerOpen = false" @save="save" />
 </template>
 
@@ -13,18 +13,18 @@ const { records, add, update, remove, bulkUpdate } = useDemoRepository("users", 
 const { addSnackbar } = useSnackbar();
 const drawerOpen = ref(false); const creating = ref(false); const current = ref<DemoRecord | null>(null);
 const columns: any[] = [
-  { label: "姓名", property: "name", renderer: "text", position: 0, sortable: true, clickable: true, width: 110 },
-  { label: "用户名", property: "username", renderer: "text", position: 100, sortable: true, width: 130 },
+  { label: "姓名", property: "name", renderer: "text", position: 0, sortable: true, clickable: true, width: 150 },
+  { label: "用户名", property: "username", renderer: "text", position: 100, sortable: true, clickable: true, width: 150 },
   { label: "部门", property: "department", renderer: "text", position: 200, sortable: true, width: 150 },
   { label: "角色", property: "role", renderer: "text", position: 300, sortable: true, width: 120 },
   { label: "手机号", property: "phone", renderer: "text", position: 400, sortable: false, width: 130 },
-  { label: "状态", property: "status", renderer: "badge", position: 500, sortable: true, width: 90, rendererOptions: { renderItemBadge: (data: DemoRecord) => ({ label: data.status, variant: data.status === "启用" ? "positive" : "critical" }) } },
+  { label: "状态", property: "status", renderer: "text", position: 500, sortable: true, width: 90 },
   { label: "最近登录", property: "lastLogin", renderer: "text", position: 600, sortable: true, width: 160 },
 ];
 const filters = [
   { key: "department", label: "部门", options: userOptions.departments },
   { key: "role", label: "角色", options: userOptions.roles },
-  { key: "status", label: "状态", options: ["启用", "停用"].map((label) => ({ label, value: label })) },
+  { key: "status", label: "状态", options: [{ label: "正常", value: "启用" }, { label: "未激活", value: "未激活" }, { label: "已停用", value: "停用" }] },
 ];
 function openCreate() { creating.value = true; current.value = null; drawerOpen.value = true; }
 function openEdit(record: DemoRecord) { creating.value = false; current.value = record; drawerOpen.value = true; }

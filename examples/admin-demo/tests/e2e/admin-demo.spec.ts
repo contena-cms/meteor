@@ -52,8 +52,9 @@ test.describe.serial("星云内容中台关键流程", () => {
   test("用户筛选、排序、分页、批量停用与重新启用", async ({ page }) => {
     await login(page);
     await page.goto("/organization/users");
-    await page.getByPlaceholder("搜索姓名、用户名或手机号").fill("yunfan01");
-    await page.getByRole("button", { name: "搜索", exact: true }).click();
+    const search = page.getByPlaceholder("搜索姓名或用户名，按 Enter 查询");
+    await search.fill("yunfan01");
+    await search.press("Enter");
     await expect(page.getByText("共 1 条", { exact: true })).toBeVisible();
     await expect(page.getByText("yunfan01", { exact: true })).toBeVisible();
     await page.getByRole("button", { name: "重置", exact: true }).click();
@@ -68,7 +69,7 @@ test.describe.serial("星云内容中台关键流程", () => {
     await page.getByRole("button", { name: "批量处理" }).click();
     await expect(page.getByText("所选用户已重新启用")).toBeVisible();
     await page.getByRole("button", { name: "下一页", exact: true }).click({ timeout: 5_000 });
-    await expect(page.getByText("第 21-32 条，共 32 条", { exact: true })).toBeVisible();
+    await expect(page.locator("tbody tr")).toHaveCount(12);
   });
 
   test("新增、编辑和删除用户", async ({ page }) => {
@@ -79,8 +80,8 @@ test.describe.serial("星云内容中台关键流程", () => {
     await page.getByLabel("用户名").fill("testuser");
     await page.getByRole("button", { name: "保存", exact: true }).click();
     await expect(page.getByText("用户已创建")).toBeVisible();
-    await page.getByPlaceholder("搜索姓名、用户名或手机号").fill("testuser");
-    await page.getByRole("button", { name: "搜索", exact: true }).click();
+    await page.getByPlaceholder("搜索姓名或用户名，按 Enter 查询").fill("testuser");
+    await page.getByPlaceholder("搜索姓名或用户名，按 Enter 查询").press("Enter");
     await expect(page.getByText("测试用户")).toBeVisible();
     await page.getByText("编辑", { exact: true }).last().click();
     await page.getByLabel("姓名").fill("测试用户已编辑");
@@ -115,6 +116,10 @@ test.describe.serial("星云内容中台关键流程", () => {
     await login(page);
     await page.screenshot({ path: "test-results/visual/dashboard-1440.png", fullPage: false });
     await page.goto("/organization/users");
+    await expect(page.getByText("共 32 条", { exact: true })).toHaveCount(1);
+    const firstUserRow = await page.locator("tbody tr").first().boundingBox();
+    expect(firstUserRow?.y).toBeGreaterThanOrEqual(230);
+    expect(firstUserRow?.y).toBeLessThanOrEqual(270);
     await page.screenshot({ path: "test-results/visual/users-1440.png", fullPage: false });
     await page.getByText("编辑", { exact: true }).first().click();
     await page.screenshot({ path: "test-results/visual/user-drawer-1440.png", fullPage: false });
@@ -152,6 +157,9 @@ test.describe.serial("星云内容中台关键流程", () => {
     await page.getByRole("button", { name: "打开菜单" }).click();
     await expect(page.locator(".admin-sidebar--mobile-open")).toBeVisible();
     await expect(page.locator(".admin-sidebar--mobile-open .brand-copy")).toBeVisible();
+    await page.getByRole("button", { name: "收起侧栏" }).click();
+    await expect(page.locator(".admin-sidebar")).not.toHaveClass(/admin-sidebar--mobile-open/);
+    await page.getByRole("button", { name: "打开菜单" }).click();
     await page.waitForTimeout(250);
     await page.screenshot({ path: "test-results/visual/mobile-menu-390.png", fullPage: false });
     await page.mouse.click(350, 700);

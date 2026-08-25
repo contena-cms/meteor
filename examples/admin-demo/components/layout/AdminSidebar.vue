@@ -10,7 +10,7 @@
   >
     <div class="admin-sidebar__brand">
       <div v-if="!collapsed || !hovered" class="brand-mark" aria-hidden="true">
-        <MtIcon name="regular-sparkle" size="var(--scale-size-14)" />
+        <MtIcon name="regular-layer-group" size="var(--scale-size-16)" />
       </div>
       <div v-if="!collapsed" class="brand-copy">
         <strong>星云内容中台</strong>
@@ -116,6 +116,10 @@
         </section>
       </template>
     </nav>
+    <div v-if="!collapsed" class="admin-sidebar__help">
+      <MtIcon name="regular-question-circle" size="var(--scale-size-16)" aria-hidden="true" />
+      <span>帮助与反馈</span>
+    </div>
   </aside>
   <div v-if="mobileOpen" class="mobile-sidebar-backdrop" @click="emit('mobile-close')" />
 </template>
@@ -194,9 +198,11 @@ async function navigateFromPopover(path: string, close: () => void) {
   inset: 0 auto 0 0;
   z-index: 800;
   width: var(--admin-sidebar-width);
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  background: var(--color-elevation-surface-sunken);
-  border-right: 1px solid var(--color-border-secondary-default);
+  background: var(--color-slate-950);
+  border-right: 1px solid var(--color-slate-900);
   transition: width 180ms ease, transform 180ms ease;
 }
 
@@ -213,14 +219,14 @@ async function navigateFromPopover(path: string, close: () => void) {
   align-items: center;
   gap: var(--scale-size-10);
   padding: 0 var(--scale-size-14);
-  border-bottom: 1px solid var(--color-border-secondary-default);
-  background: var(--color-elevation-surface-default);
+  border-bottom: 1px solid var(--color-slate-900);
+  background: var(--color-slate-950);
 }
 
 .brand-mark {
-  width: var(--scale-size-24);
-  height: var(--scale-size-24);
-  flex: 0 0 var(--scale-size-24);
+  width: var(--scale-size-30);
+  height: var(--scale-size-30);
+  flex: 0 0 var(--scale-size-30);
   display: grid;
   place-items: center;
   border-radius: var(--border-radius-xs);
@@ -242,7 +248,7 @@ async function navigateFromPopover(path: string, close: () => void) {
 
 .brand-copy strong {
   overflow: hidden;
-  color: var(--color-text-primary-default);
+  color: var(--color-text-static-default);
   font-size: var(--font-size-xs);
   line-height: var(--font-line-height-xs);
   text-overflow: ellipsis;
@@ -250,14 +256,17 @@ async function navigateFromPopover(path: string, close: () => void) {
 }
 
 .brand-copy span {
-  color: var(--color-text-secondary-default);
+  color: var(--color-slate-500);
   font-size: var(--font-size-2xs);
   line-height: var(--font-line-height-2xs);
 }
 
 .sidebar-toggle {
   flex: 0 0 auto;
+  color: var(--color-slate-400);
 }
+
+.sidebar-toggle :deep(.mt-icon) { color: var(--color-slate-400); }
 
 .admin-sidebar--collapsed .admin-sidebar__brand {
   justify-content: center;
@@ -265,21 +274,34 @@ async function navigateFromPopover(path: string, close: () => void) {
 }
 
 .admin-sidebar__nav {
+  flex: 1;
+  align-content: start;
   display: grid;
   gap: var(--scale-size-6);
   padding: var(--scale-size-14) var(--scale-size-10) var(--scale-size-24);
 }
 
+.admin-sidebar__help {
+  height: calc(var(--scale-size-48) + var(--scale-size-4));
+  display: flex;
+  align-items: center;
+  gap: var(--scale-size-10);
+  padding: 0 var(--scale-size-20);
+  color: var(--color-slate-500);
+  border-top: 1px solid var(--color-slate-900);
+  font-size: var(--font-size-xs);
+}
+
 .nav-divider {
   height: 1px;
   margin: var(--scale-size-4) var(--scale-size-8) var(--scale-size-8);
-  background: var(--color-border-secondary-default);
+  background: var(--color-slate-900);
 }
 
 .nav-primary,
 .nav-group__trigger,
 .nav-collapsed-trigger {
-  color: var(--color-text-secondary-default);
+  color: var(--color-slate-300);
 }
 
 .nav-primary {
@@ -303,8 +325,8 @@ async function navigateFromPopover(path: string, close: () => void) {
 .nav-primary:hover,
 .nav-group__trigger:hover,
 .nav-collapsed-trigger:hover {
-  background: var(--color-interaction-secondary-hover);
-  color: var(--color-text-primary-default);
+  background: var(--color-slate-900);
+  color: var(--color-text-static-default);
 }
 
 .nav-primary:focus-visible,
@@ -317,8 +339,8 @@ async function navigateFromPopover(path: string, close: () => void) {
 
 .nav-primary--active {
   border-left-color: var(--color-border-brand-default);
-  background: var(--color-background-brand-default);
-  color: var(--color-text-brand-default);
+  background: var(--color-slate-900);
+  color: var(--color-text-static-default);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -338,12 +360,12 @@ async function navigateFromPopover(path: string, close: () => void) {
 }
 
 .nav-group--active .nav-group__trigger {
-  color: var(--color-text-primary-default);
+  color: var(--color-text-static-default);
 }
 
 .nav-group__chevron {
   margin-left: auto;
-  color: var(--color-icon-secondary-default);
+  color: var(--color-slate-500);
 }
 
 .nav-group__items {
@@ -358,19 +380,19 @@ async function navigateFromPopover(path: string, close: () => void) {
   align-items: center;
   padding: 0 var(--scale-size-10);
   border-left: var(--scale-size-2) solid transparent;
-  color: var(--color-text-secondary-default);
+  color: var(--color-slate-500);
   font-size: var(--font-size-xs);
 }
 
 .nav-item:hover {
-  background: var(--color-interaction-secondary-hover);
-  color: var(--color-text-primary-default);
+  background: var(--color-slate-900);
+  color: var(--color-text-static-default);
 }
 
 .nav-item--active {
   border-left-color: var(--color-border-brand-default);
-  background: var(--color-background-brand-default);
-  color: var(--color-text-brand-default);
+  background: var(--color-slate-900);
+  color: var(--color-text-static-default);
   font-weight: var(--font-weight-semibold);
 }
 

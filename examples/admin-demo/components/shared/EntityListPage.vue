@@ -1,7 +1,6 @@
 <template>
-  <div class="page-stack enterprise-list-page">
-    <section class="page-command-surface">
-      <div class="page-title-row">
+  <div class="enterprise-list-page">
+    <header class="page-title-row">
         <div class="page-title-meta">
           <h1>{{ title }}</h1>
           <span class="page-count">共 {{ result.total }} 条</span>
@@ -27,17 +26,25 @@
             </MtDropdownMenuPortal>
           </MtDropdownMenuRoot>
         </div>
-      </div>
+    </header>
 
-      <form class="filter-toolbar" aria-label="列表筛选" @submit.prevent="applyFilters">
-        <MtSearch v-model="searchDraft" class="filter-toolbar__search" :placeholder="searchPlaceholder" />
+    <section ref="workspace" class="table-workspace" :class="`table-workspace--${density}`" aria-label="数据工作区">
+      <div v-if="!selected.length" class="table-toolbar">
+        <form class="filter-toolbar" aria-label="列表筛选" @submit.prevent="applyFilters">
+          <MtSearch
+            v-model="searchDraft"
+            class="filter-toolbar__search"
+            :placeholder="searchPlaceholder"
+            @keydown.enter.prevent="applyFilters"
+          />
         <MtSelect
           v-for="filter in filters"
           :key="filter.key"
           v-model="filterDraft[filter.key]"
           class="filter-toolbar__select"
-          :label="filter.label"
-          :options="[{ label: '全部', value: '' }, ...filter.options]"
+          :aria-label="filter.label"
+          :placeholder="filter.label"
+          :options="[{ label: filter.label, value: '' }, ...filter.options]"
           hide-clearable-button
         />
         <MtDatepicker
@@ -48,42 +55,48 @@
           date-type="date"
           range
         />
-        <div class="filter-toolbar__actions">
-          <MtButton type="submit" variant="primary">搜索</MtButton>
-          <MtButton variant="tertiary" @click="resetFilters">重置</MtButton>
+          <MtButton v-if="hasActiveFilters" class="filter-toolbar__reset" size="small" variant="tertiary" @click="resetFilters">重置</MtButton>
+        </form>
+        <div class="table-toolbar__tools" aria-label="表格工具">
+          <MtTooltip content="刷新数据">
+            <template #default="tooltip">
+              <MtButton v-bind="tooltip" square size="small" variant="tertiary" :is-loading="loading" aria-label="刷新" @click="reload">
+                <MtIcon name="regular-undo-s" size="var(--scale-size-14)" />
+              </MtButton>
+            </template>
+          </MtTooltip>
+          <MtTooltip content="列设置">
+            <template #default="tooltip">
+              <MtButton v-bind="tooltip" square size="small" variant="tertiary" aria-label="列设置" @click="openColumnSettings">
+                <MtIcon name="regular-table" size="var(--scale-size-14)" />
+              </MtButton>
+            </template>
+          </MtTooltip>
+          <MtTooltip :content="density === 'standard' ? '切换为紧凑密度' : '切换为标准密度'">
+            <template #default="tooltip">
+              <MtButton v-bind="tooltip" square size="small" variant="tertiary" aria-label="表格密度" @click="toggleDensity">
+                <MtIcon name="regular-view-compact" size="var(--scale-size-14)" />
+              </MtButton>
+            </template>
+          </MtTooltip>
         </div>
-      </form>
-    </section>
+      </div>
 
-    <section ref="workspace" class="table-workspace" :class="`table-workspace--${density}`" aria-label="数据列表">
-      <div class="table-toolbar">
-        <div v-if="selected.length" class="table-toolbar__selection">
-          <strong>已选择 {{ selected.length }} 条</strong>
-          <MtButton v-if="!readonly" size="small" variant="secondary" @click="emit('bulk-edit', selected)">批量处理</MtButton>
-          <MtButton v-if="!readonly" size="small" variant="critical" @click="requestBulkDelete">
-            <MtIcon name="regular-trash-s" />批量删除
+      <div v-else class="table-toolbar table-toolbar--selection">
+        <div class="table-toolbar__selection">
+          <MtButton square size="small" variant="tertiary" aria-label="取消选择" @click="selected = []">
+            <MtIcon name="regular-times-s" />
           </MtButton>
+          <strong>已选择 {{ selected.length }} 条</strong>
+          <span>可执行批量操作</span>
+        </div>
+        <div class="table-toolbar__tools">
+          <MtButton v-if="!readonly" size="small" variant="secondary" @click="emit('bulk-edit', selected)">批量处理</MtButton>
           <MtButton size="small" variant="secondary" @click="exportRecords">
             <MtIcon name="regular-file-export" />批量导出
           </MtButton>
-        </div>
-        <div class="table-toolbar__tools">
-          <MtButton size="small" variant="secondary" :is-loading="loading" @click="reload">
-            <MtIcon name="regular-undo-s" />刷新
-          </MtButton>
-          <MtButton size="small" variant="secondary" @click="openColumnSettings">
-            <MtIcon name="regular-table" />列设置
-          </MtButton>
-          <MtSelect
-            v-model="density"
-            class="density-select"
-            aria-label="表格密度"
-            :options="densityOptions"
-            hide-clearable-button
-            small
-          />
-          <MtButton square size="small" variant="secondary" :aria-label="fullscreen ? '退出全屏' : '全屏显示'" @click="toggleFullscreen">
-            <MtIcon :name="fullscreen ? 'regular-compress-arrows-s' : 'regular-expand-arrows-s'" />
+          <MtButton v-if="!readonly" size="small" variant="critical" @click="requestBulkDelete">
+            <MtIcon name="regular-trash-s" />批量删除
           </MtButton>
         </div>
       </div>
@@ -108,7 +121,7 @@
           :disable-edit="readonly || menuOnly"
           :disable-delete="readonly || menuOnly"
           :disable-settings-table="false"
-          :enable-reload="true"
+          :enable-reload="false"
           :disable-search="true"
           :is-loading="loading"
           :caption="`${title}数据表格`"
@@ -141,6 +154,19 @@
               <span>{{ data.paymentStatus }}</span>
             </div>
           </template>
+          <template #column-name="{ data }">
+            <div class="user-name-cell">
+              <MtAvatar v-if="title === '用户管理'" :first-name="String(data.name)" size="xs" />
+              <a v-if="title !== '用户管理'" href="#" class="cell-link" @click.prevent="onOpenDetails(data)">{{ data.name }}</a>
+              <span v-else class="user-name-cell__text">{{ data.name }}</span>
+            </div>
+          </template>
+          <template #column-status="{ data }">
+            <div class="semantic-status">
+              <MtStatusDot size="s" :label="displayStatus(String(data.status))" :variant="statusVariant(String(data.status))" />
+              <span>{{ displayStatus(String(data.status)) }}</span>
+            </div>
+          </template>
           <template #empty-state>
             <MtEmptyState icon="regular-search" headline="没有匹配结果" description="请调整搜索或筛选条件后重试。" />
           </template>
@@ -162,6 +188,7 @@ import {
   MtActionMenu,
   MtActionMenuGroup,
   MtActionMenuItem,
+  MtAvatar,
   MtButton,
   MtDataTable,
   MtDatepicker,
@@ -173,6 +200,7 @@ import {
   MtSearch,
   MtSelect,
   MtStatusDot,
+  MtTooltip,
   useSnackbar,
 } from "@contena/meteor-component-library";
 import ConfirmModal from "~/components/shared/ConfirmModal.vue";
@@ -233,21 +261,15 @@ const dateDraft = ref<string[] | Date[] | null>(null);
 const appliedDateRange = ref<string[] | null>(null);
 const selected = ref<string[]>([]);
 const loading = ref(false);
-const fullscreen = ref(false);
 const density = ref<"compact" | "standard">("standard");
 const confirmOpen = ref(false);
 const pendingDelete = ref<string[]>([]);
-const workspace = ref<HTMLElement | null>(null);
 const tableRoot = ref<HTMLElement | null>(null);
 const showOutlines = ref(false);
 const showStripes = ref(false);
 const outlineFraming = ref(false);
 const columnChanges = reactive<Record<string, Record<string, unknown>>>({});
 const { addSnackbar } = useSnackbar();
-const densityOptions = [
-  { label: "紧凑", value: "compact" },
-  { label: "标准", value: "standard" },
-];
 const rowActions = computed(() => props.menuOnly
   ? [
       { key: "view", label: "查看" },
@@ -273,6 +295,11 @@ const filteredItems = computed(() => {
   });
 });
 const result = computed(() => queryRecords(filteredItems.value, query, props.searchable));
+const hasActiveFilters = computed(() =>
+  Boolean(query.search)
+  || Object.values(query.filters).some(Boolean)
+  || Boolean(appliedDateRange.value?.some(Boolean)),
+);
 const confirmMessage = computed(() => pendingDelete.value.length > 1
   ? `确认删除已选择的 ${pendingDelete.value.length} 条记录吗？此操作不可撤销。`
   : "确认删除这条记录吗？此操作不可撤销。");
@@ -286,10 +313,7 @@ onMounted(() => {
       localStorage.removeItem(columnStorageKey.value);
     }
   }
-  document.addEventListener("fullscreenchange", syncFullscreen);
 });
-
-onBeforeUnmount(() => document.removeEventListener("fullscreenchange", syncFullscreen));
 
 watch(columnChanges, (value) => {
   if (import.meta.client) localStorage.setItem(columnStorageKey.value, JSON.stringify(value));
@@ -297,6 +321,16 @@ watch(columnChanges, (value) => {
 
 watch(() => props.items, () => {
   selected.value = selected.value.filter((id) => props.items.some((item) => item.id === id));
+}, { deep: true });
+
+watch(filterDraft, () => {
+  query.filters = { ...filterDraft };
+  query.page = 1;
+}, { deep: true });
+
+watch(dateDraft, (value) => {
+  appliedDateRange.value = value ? value.map(formatDateValue) : null;
+  query.page = 1;
 }, { deep: true });
 
 function formatDateValue(value: string | Date | undefined) {
@@ -335,9 +369,27 @@ function paymentStatusVariant(status: string) {
   return "neutral" as const;
 }
 
+function statusVariant(status: string) {
+  if (["启用", "正常", "已发布", "活跃"].includes(status)) return "positive" as const;
+  if (["停用", "已停用", "已下线"].includes(status)) return "critical" as const;
+  if (["待审核", "未激活"].includes(status)) return "attention" as const;
+  return "neutral" as const;
+}
+
+function displayStatus(status: string) {
+  if (props.title !== "用户管理") return status;
+  if (status === "启用") return "正常";
+  if (status === "停用") return "已停用";
+  return status;
+}
+
 function onLimit(limit: number) {
   query.limit = limit;
   query.page = 1;
+}
+
+function toggleDensity() {
+  density.value = density.value === "standard" ? "compact" : "standard";
 }
 
 function onSelection(payload: { id: string; value: boolean }) {
@@ -404,16 +456,6 @@ function openColumnSettings() {
   trigger?.click();
 }
 
-async function toggleFullscreen() {
-  if (!workspace.value) return;
-  if (document.fullscreenElement) await document.exitFullscreen();
-  else await workspace.value.requestFullscreen();
-}
-
-function syncFullscreen() {
-  fullscreen.value = document.fullscreenElement === workspace.value;
-}
-
 function exportRecords() {
   const source = selected.value.length
     ? props.items.filter((item) => selected.value.includes(item.id))
@@ -442,44 +484,47 @@ function exportRecords() {
   min-width: 0;
 }
 
-.page-command-surface {
-  margin: 0 calc(var(--scale-size-24) * -1);
-  padding: var(--scale-size-20) var(--scale-size-24) var(--scale-size-16);
-  border-bottom: 1px solid var(--color-border-secondary-default);
-  background: var(--color-elevation-surface-default);
+.enterprise-list-page {
+  display: grid;
+  gap: 0;
 }
 
-.page-command-surface .page-title-row {
-  margin-bottom: var(--scale-size-18);
-}
-
+.page-title-row,
 .page-title-actions,
-.filter-toolbar__actions,
+.filter-toolbar,
 .table-toolbar,
 .table-toolbar__selection,
 .table-toolbar__tools {
   display: flex;
   align-items: center;
-  gap: var(--scale-size-8);
 }
 
-.page-title-actions {
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
+.page-title-row { justify-content: space-between; gap: var(--scale-size-16); min-height: calc(var(--scale-size-64) + var(--scale-size-12)); margin: 0 calc(var(--scale-size-24) * -1); padding: 0 var(--scale-size-24); background: var(--color-elevation-surface-default); }
+.page-title-actions { justify-content: flex-end; gap: var(--scale-size-8); }
+.page-title-row h1 { margin: 0; font-size: var(--font-size-l); line-height: var(--font-line-height-l); font-weight: var(--font-weight-semibold); }
+.page-title-meta { display: flex; align-items: baseline; gap: var(--scale-size-8); }
+.page-count { color: var(--color-text-secondary-default); font-size: var(--font-size-xs); }
+
+.table-workspace { overflow: hidden; border: 1px solid var(--color-border-secondary-default); border-radius: var(--border-radius-s); background: var(--color-elevation-surface-default); }
+.table-workspace:fullscreen { padding: var(--scale-size-16); background: var(--color-elevation-surface-sunken); }
+.table-toolbar { min-height: calc(var(--scale-size-48) + var(--scale-size-4)); justify-content: space-between; gap: var(--scale-size-12); padding: var(--scale-size-8) var(--scale-size-12); border-bottom: 1px solid var(--color-border-secondary-default); background: var(--color-elevation-surface-default); }
+.table-toolbar__selection { margin-right: auto; min-width: 0; gap: var(--scale-size-8); }
+.table-toolbar__selection strong { color: var(--color-text-primary-default); font-size: var(--font-size-xs); white-space: nowrap; }
+.table-toolbar__selection span { color: var(--color-text-secondary-default); font-size: var(--font-size-xs); white-space: nowrap; }
+.table-toolbar__tools { flex: 0 0 auto; justify-content: flex-end; gap: var(--scale-size-4); }
+.table-toolbar--selection { background: var(--color-background-brand-default); }
 
 .filter-toolbar {
-  display: flex;
+  flex: 1 1 auto;
   flex-wrap: wrap;
-  align-items: flex-end;
-  gap: var(--scale-size-12);
-  padding: 0;
+  gap: var(--scale-size-8);
+  min-width: 0;
 }
 
 .filter-toolbar__search {
   flex: 1 1 calc(var(--scale-size-256) + var(--scale-size-64));
   min-width: var(--scale-size-256);
-  max-width: calc(var(--scale-size-256) + var(--scale-size-96));
+  max-width: calc(var(--scale-size-256) + var(--scale-size-128));
 }
 
 .filter-toolbar__search :deep(.mt-search__input) {
@@ -487,7 +532,7 @@ function exportRecords() {
 }
 
 .filter-toolbar__select {
-  flex: 0 1 var(--scale-size-160);
+  flex: 0 1 calc(var(--scale-size-128) + var(--scale-size-16));
   width: var(--scale-size-160);
   margin-bottom: 0;
 }
@@ -496,50 +541,10 @@ function exportRecords() {
   flex: 0 1 var(--scale-size-256);
   width: var(--scale-size-256);
 }
-
-.table-workspace {
-  border: 1px solid var(--color-border-secondary-default);
-  border-radius: var(--border-radius-s);
-  background: var(--color-elevation-surface-default);
-  overflow: hidden;
-}
-
-.table-workspace:fullscreen {
-  padding: var(--scale-size-16);
-  background: var(--color-elevation-surface-sunken);
-}
-
-.table-toolbar {
-  min-height: var(--scale-size-48);
-  justify-content: flex-end;
-  padding: var(--scale-size-8) var(--scale-size-12);
-  border-bottom: 1px solid var(--color-border-secondary-default);
-  background: var(--color-elevation-surface-sunken);
-}
-
-.table-toolbar__selection {
-  margin-right: auto;
-  min-width: 0;
-  flex-wrap: wrap;
-}
-
-.table-toolbar__selection strong {
-  color: var(--color-text-secondary-default);
-  font-size: var(--font-size-xs);
-  line-height: var(--font-line-height-xs);
-  white-space: nowrap;
-}
-
-.table-toolbar__tools {
-  justify-content: flex-end;
-}
-
-.density-select {
-  width: var(--scale-size-128);
-}
+.filter-toolbar__reset { flex: 0 0 auto; }
 
 .table-surface {
-  height: calc(100vh - var(--scale-size-256) - var(--scale-size-48));
+  height: calc(100vh - var(--scale-size-224) - var(--scale-size-8));
   min-height: calc(var(--scale-size-256) + var(--scale-size-256));
   background: var(--color-elevation-surface-default);
 }
@@ -555,6 +560,9 @@ function exportRecords() {
 .table-surface :deep(.mt-data-table__table-selection-bulk-edit) {
   display: none;
 }
+
+.table-surface :deep(.mt-data-table__pagination-info-text) { display: none; }
+.table-surface :deep(.mt-pagination__info-text) { display: none; }
 
 .table-surface :deep(.mt-data-table__table-settings-button > *) {
   opacity: 0;
@@ -600,6 +608,14 @@ function exportRecords() {
   background: var(--color-interaction-secondary-hover);
 }
 
+.table-surface :deep(tbody tr:has(input[type="checkbox"]:checked) td) {
+  background: var(--color-background-brand-default);
+}
+
+.user-name-cell { display: inline-flex; align-items: center; gap: var(--scale-size-8); }
+.user-name-cell__text { font-weight: var(--font-weight-medium); }
+.cell-link { padding: 0; color: var(--color-text-brand-default); border: 0; background: transparent; cursor: pointer; }
+
 .table-workspace--compact .table-surface :deep(thead th),
 .table-workspace--compact .table-surface :deep(tbody td) {
   padding-block: var(--scale-size-10);
@@ -619,10 +635,7 @@ function exportRecords() {
 }
 
 @media (max-width: 900px) {
-  .page-command-surface {
-    margin: calc(var(--scale-size-16) * -1) calc(var(--scale-size-16) * -1) 0;
-    padding: var(--scale-size-16);
-  }
+  .page-title-row { margin-inline: calc(var(--scale-size-16) * -1); padding-inline: var(--scale-size-16); }
 
   .filter-toolbar__search,
   .filter-toolbar__select,
@@ -662,13 +675,8 @@ function exportRecords() {
     min-width: 0;
   }
 
-  .filter-toolbar__actions {
-    width: 100%;
-  }
-
-  .filter-toolbar__actions > * {
-    flex: 1;
-  }
+  .filter-toolbar { width: 100%; }
+  .table-toolbar__tools { width: 100%; justify-content: flex-start; overflow-x: auto; }
 
   .table-surface {
     height: calc(var(--scale-size-256) * 2 + var(--scale-size-8));
