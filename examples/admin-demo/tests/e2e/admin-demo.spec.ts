@@ -128,6 +128,7 @@ test.describe.serial("星云内容中台关键流程", () => {
     await page.reload();
     await page.getByRole("button", { name: "列设置" }).click();
     await page.getByText("列", { exact: true }).click();
+    await page.waitForTimeout(350);
     await page.screenshot({ path: "test-results/visual/orders-columns-1440.png", fullPage: false });
     await page.keyboard.press("Escape");
     await page.getByText("CT20260800001", { exact: true }).click();
