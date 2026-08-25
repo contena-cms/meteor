@@ -117,6 +117,7 @@ test.describe.serial("星云内容中台关键流程", () => {
     await page.screenshot({ path: "test-results/visual/dashboard-1440.png", fullPage: false });
     await page.goto("/organization/users");
     await expect(page.getByText("共 32 条", { exact: true })).toHaveCount(1);
+    await expect(page.locator(".mt-data-table__table-settings-button button")).toBeVisible();
     const firstUserRow = await page.locator("tbody tr").first().boundingBox();
     expect(firstUserRow?.y).toBeGreaterThanOrEqual(230);
     expect(firstUserRow?.y).toBeLessThanOrEqual(270);

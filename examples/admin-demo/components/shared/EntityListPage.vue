@@ -564,11 +564,6 @@ function exportRecords() {
 .table-surface :deep(.mt-data-table__pagination-info-text) { display: none; }
 .table-surface :deep(.mt-pagination__info-text) { display: none; }
 
-.table-surface :deep(.mt-data-table__table-settings-button > *) {
-  opacity: 0;
-  pointer-events: none;
-}
-
   .table-surface :deep(.mt-data-table__table-wrapper table) {
   width: 100%;
   min-width: calc(var(--scale-size-256) * 4 + var(--scale-size-32));
