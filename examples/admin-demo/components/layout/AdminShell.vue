@@ -5,7 +5,7 @@
       <AdminHeader @open-menu="mobileOpen = true" />
       <nav v-if="current && currentGroup" class="admin-breadcrumb" aria-label="面包屑">
         <span v-if="!currentGroup.isPrimary">{{ currentGroup.label }}</span>
-        <MtIcon v-if="!currentGroup.isPrimary" name="regular-chevron-right-s" aria-hidden="true" />
+        <MtIcon v-if="!currentGroup.isPrimary" name="regular-chevron-right-s" size="var(--scale-size-10)" aria-hidden="true" />
         <NuxtLink :to="current.path" aria-current="page">{{ current.label }}</NuxtLink>
       </nav>
       <main class="admin-content">

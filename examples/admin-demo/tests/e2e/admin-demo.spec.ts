@@ -24,6 +24,7 @@ test.describe.serial("星云内容中台关键流程", () => {
 
   test("侧栏状态持久化并切换主题", async ({ page }) => {
     await login(page);
+    await page.locator(".admin-sidebar").hover();
     await page.getByRole("button", { name: "收起侧栏" }).click();
     await expect(page.locator(".admin-shell")).toHaveClass(/admin-shell--collapsed/);
     await page.reload();
@@ -135,7 +136,9 @@ test.describe.serial("星云内容中台关键流程", () => {
     await page.screenshot({ path: "test-results/visual/orders-detail-1440.png", fullPage: false });
     await page.getByRole("button", { name: "关闭抽屉" }).click();
     await page.screenshot({ path: "test-results/visual/shell-expanded-1440.png", fullPage: false });
+    await page.locator(".admin-sidebar").hover();
     await page.getByRole("button", { name: "收起侧栏" }).click();
+    await page.waitForTimeout(250);
     await page.screenshot({ path: "test-results/visual/shell-collapsed-1440.png", fullPage: false });
 
     await page.setViewportSize({ width: 390, height: 844 });

@@ -10,21 +10,22 @@
   >
     <div class="admin-sidebar__brand">
       <div v-if="!collapsed || !hovered" class="brand-mark" aria-hidden="true">
-        <MtIcon name="regular-sparkle" />
+        <MtIcon name="regular-sparkle" size="var(--scale-size-14)" />
       </div>
       <div v-if="!collapsed" class="brand-copy">
         <strong>星云内容中台</strong>
         <span>企业运营工作台</span>
       </div>
       <MtButton
-        v-if="!collapsed || hovered"
+        v-if="hovered || mobileOpen"
         class="sidebar-toggle"
         square
+        size="small"
         variant="tertiary"
         :aria-label="collapsed ? '展开侧栏' : '收起侧栏'"
         @click="emit('toggle')"
       >
-        <MtIcon :name="collapsed ? 'regular-chevron-right-s' : 'regular-chevron-left-s'" />
+        <MtIcon :name="collapsed ? 'regular-chevron-right-s' : 'regular-chevron-left-s'" size="var(--scale-size-14)" />
       </MtButton>
     </div>
 
@@ -37,7 +38,7 @@
         :title="collapsed ? primaryGroup.label : undefined"
         @click="emit('mobile-close')"
       >
-        <MtIcon :name="primaryGroup.icon" aria-hidden="true" />
+        <MtIcon :name="primaryGroup.icon" size="var(--scale-size-16)" aria-hidden="true" />
         <span v-if="!collapsed">{{ primaryGroup.label }}</span>
       </NuxtLink>
 
@@ -55,16 +56,18 @@
             v-if="!collapsed"
             class="nav-group__trigger"
             variant="tertiary"
+            size="small"
             block
             :aria-expanded="isGroupOpen(group)"
             :aria-controls="`nav-group-${group.label}`"
             @click="toggleGroup(group.label)"
           >
-            <MtIcon :name="group.icon" aria-hidden="true" />
+            <MtIcon :name="group.icon" size="var(--scale-size-16)" aria-hidden="true" />
             <span>{{ group.label }}</span>
             <MtIcon
               class="nav-group__chevron"
               :name="isGroupOpen(group) ? 'regular-chevron-up-s' : 'regular-chevron-down-s'"
+              size="var(--scale-size-12)"
               aria-hidden="true"
             />
           </MtButton>
@@ -74,12 +77,13 @@
               <MtButton
                 class="nav-collapsed-trigger"
                 square
+                size="small"
                 variant="tertiary"
                 :aria-label="group.label"
                 :title="group.label"
                 @click="toggleFloatingUi"
               >
-                <MtIcon :name="group.icon" aria-hidden="true" />
+                <MtIcon :name="group.icon" size="var(--scale-size-18)" aria-hidden="true" />
                 <span v-if="isActive(group)" class="nav-collapsed-trigger__dot" aria-hidden="true" />
               </MtButton>
             </template>
@@ -214,9 +218,9 @@ async function navigateFromPopover(path: string, close: () => void) {
 }
 
 .brand-mark {
-  width: var(--scale-size-28);
-  height: var(--scale-size-28);
-  flex: 0 0 var(--scale-size-28);
+  width: var(--scale-size-24);
+  height: var(--scale-size-24);
+  flex: 0 0 var(--scale-size-24);
   display: grid;
   place-items: center;
   border-radius: var(--border-radius-xs);
@@ -226,8 +230,6 @@ async function navigateFromPopover(path: string, close: () => void) {
 }
 
 .brand-mark :deep(.mt-icon) {
-  width: var(--scale-size-16);
-  height: var(--scale-size-16);
   color: var(--color-text-static-default);
 }
 
@@ -255,6 +257,11 @@ async function navigateFromPopover(path: string, close: () => void) {
 
 .sidebar-toggle {
   flex: 0 0 auto;
+}
+
+.admin-sidebar--collapsed .admin-sidebar__brand {
+  justify-content: center;
+  padding-inline: 0;
 }
 
 .admin-sidebar__nav {
@@ -285,6 +292,12 @@ async function navigateFromPopover(path: string, close: () => void) {
   border-radius: 0;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
+}
+
+.nav-primary > :deep(.mt-icon),
+.nav-group__trigger > :deep(.mt-icon:first-child),
+.nav-collapsed-trigger > :deep(.mt-icon) {
+  flex: 0 0 auto;
 }
 
 .nav-primary:hover,
@@ -329,8 +342,6 @@ async function navigateFromPopover(path: string, close: () => void) {
 }
 
 .nav-group__chevron {
-  width: var(--scale-size-12);
-  height: var(--scale-size-12);
   margin-left: auto;
   color: var(--color-icon-secondary-default);
 }
@@ -371,6 +382,16 @@ async function navigateFromPopover(path: string, close: () => void) {
   position: relative;
   width: 100%;
   min-height: var(--scale-size-40);
+}
+
+.admin-sidebar--collapsed .admin-sidebar__nav {
+  padding-inline: var(--scale-size-8);
+}
+
+.admin-sidebar--collapsed .nav-primary {
+  min-height: var(--scale-size-40);
+  justify-content: center;
+  padding-inline: 0;
 }
 
 .nav-collapsed-trigger__dot {

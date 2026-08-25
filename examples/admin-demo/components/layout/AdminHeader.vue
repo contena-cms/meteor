@@ -8,7 +8,7 @@
         aria-label="打开菜单"
         @click="emit('open-menu')"
       >
-        <MtIcon name="regular-bars-alt-s" />
+        <MtIcon name="regular-bars-alt-s" size="var(--scale-size-18)" />
       </MtButton>
 
       <MtPopover class="global-search" title="全局搜索" width="large">
@@ -39,7 +39,7 @@
         <template #trigger="{ toggleFloatingUi }">
           <div class="notification-button">
             <MtButton square variant="tertiary" aria-label="查看消息" @click="toggleFloatingUi">
-              <MtIcon name="regular-bell" />
+              <MtIcon name="regular-bell" size="var(--scale-size-18)" />
             </MtButton>
             <MtBadge variant="info" size="s">3</MtBadge>
           </div>
@@ -54,7 +54,7 @@
       <MtDropdownMenuRoot>
         <MtDropdownMenuTrigger as-child>
           <MtButton square variant="tertiary" aria-label="切换主题">
-            <MtIcon :name="theme === 'dark' ? 'regular-moon' : 'regular-sun'" />
+            <MtIcon :name="theme === 'dark' ? 'regular-moon' : 'regular-sun'" size="var(--scale-size-18)" />
           </MtButton>
         </MtDropdownMenuTrigger>
         <MtDropdownMenuPortal>
@@ -83,7 +83,7 @@
               <strong>陈管理员</strong>
               <small>平台管理员</small>
             </span>
-            <MtIcon name="regular-chevron-down-s" aria-hidden="true" />
+            <MtIcon name="regular-chevron-down-s" size="var(--scale-size-12)" aria-hidden="true" />
           </MtButton>
         </MtDropdownMenuTrigger>
         <MtDropdownMenuPortal>
