@@ -238,18 +238,6 @@ $font-family-variables:
   Roboto,
   "Helvetica Neue",
   sans-serif;
-$font-family-default-feature-settings:
-  "ss01" on,
-  "ss02" on,
-  "case" on,
-  "cpsp" on,
-  "zero" on,
-  "cv09" on,
-  "cv07" on,
-  "cv06" on,
-  "cv10" on,
-  "cv11" on;
-
 $line-height-auto: auto;
 $line-height-xs: 18px;
 $line-height-sm: 20px;

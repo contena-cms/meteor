@@ -216,7 +216,7 @@ const lastVisibleItemNumber = computed(() => {
   font-size: var(--font-size-xs);
   line-height: var(--font-line-height-xs);
   font-family: var(--font-family-body);
-  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

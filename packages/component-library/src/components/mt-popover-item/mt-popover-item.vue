@@ -307,18 +307,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$font-family-default-feature-settings:
-  "ss01" on,
-  "ss02" on,
-  "case" on,
-  "cpsp" on,
-  "zero" on,
-  "cv09" on,
-  "cv07" on,
-  "cv06" on,
-  "cv10" on,
-  "cv11" on;
-
 $color-custom-dark: #0f172a;
 $color-custom-grey: #64748b;
 $color-custom-lightgrey: #cbd5e1;
@@ -336,12 +324,6 @@ $scrollShadowColor: rgba(120, 120, 120, 0.2);
   // Inherit the host application's complete font stack, including CJK fallbacks.
   * {
     font-family: var(--font-family-body);
-  }
-
-  @supports (font-variation-settings: normal) {
-    * {
-      font-feature-settings: $font-family-default-feature-settings;
-    }
   }
 
   &.mt-popover-item--clickable {

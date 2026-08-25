@@ -2044,18 +2044,6 @@ export default defineComponent({
 /**
 * Use inter-font instead of normal font for data-table. Also add the new variables to this file.
 */
-$font-family-default-feature-settings:
-  "ss01" on,
-  "ss02" on,
-  "case" on,
-  "cpsp" on,
-  "zero" on,
-  "cv09" on,
-  "cv07" on,
-  "cv06" on,
-  "cv10" on,
-  "cv11" on;
-
 $color-card-headline: #1c1c1c;
 $color-contena-brand-vivacious-500: #0f76de;
 
@@ -2126,12 +2114,6 @@ $tableCellPadding: $tableCellPaddingTop $tableCellPaddingRight $tableCellPadding
   // add new Inter font to data table
   * {
     font-family: var(--font-family-body);
-  }
-
-  @supports (font-variation-settings: normal) {
-    * {
-      font-feature-settings: $font-family-default-feature-settings;
-    }
   }
 
   // adjust font styling
@@ -2698,9 +2680,6 @@ $tableCellPadding: $tableCellPaddingTop $tableCellPaddingRight $tableCellPadding
 
   // set the normal table header cell styling
   font-family: var(--font-family-body);
-  @supports (font-variation-settings: normal) {
-    font-feature-settings: $font-family-default-feature-settings;
-  }
   text-align: left;
   font-size: var(--font-size-xs);
   padding: $tableCellPadding;
