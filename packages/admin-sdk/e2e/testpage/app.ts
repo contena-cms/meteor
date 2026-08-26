@@ -1,4 +1,4 @@
-import * as sw from '../../src/index';
+import * as ct from '../../src/index';
 import { handle, publish, send, setExtensions } from '../../src/channel';
 import Criteria from '../../src/data/Criteria';
 import EntityCollection from "../../src/_internals/data/EntityCollection";
@@ -17,12 +17,12 @@ export interface sw_internal {
 
 declare global {
   interface Window {
-    sw: typeof sw;
+    ct: typeof ct;
     sw_internal: sw_internal
   }
 }
 
-window.sw = sw;
+window.ct = ct;
 window.sw_internal = {
   handle: handle,
   publish: publish,

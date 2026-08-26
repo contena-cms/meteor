@@ -28,7 +28,7 @@ module.exports = defineConfig(({ command, mode }) => {
       sourcemap: false,
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
-        name: 'sw',
+        name: 'ct',
         fileName: () => 'index.js',
         formats: ['umd']
       }
