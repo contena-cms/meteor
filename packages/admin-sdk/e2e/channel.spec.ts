@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { setup } from './test.utils';
 import type * as sw from '../src/index';
-import type { sw_internal } from './testpage/app';
+import type { ct_internal } from './testpage/app';
 
 declare global {
   interface Window {
     sw: typeof sw;
-    sw_internal: sw_internal
+    ct_internal: ct_internal
   }
 }
 
@@ -53,14 +53,14 @@ test.describe('Main communication test', () => {
 
     // respond to multiply with value 42
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('_multiply', () => {
+      window.ct_internal.handle('_multiply', () => {
         return 42;
       })
     })
 
     // ask value from subFrame
     const result = await subFrame.evaluate(async () => {
-      return await window.sw_internal.send('_multiply', {
+      return await window.ct_internal.send('_multiply', {
         firstNumber: 5,
         secondNumber: 5,
       })
@@ -74,7 +74,7 @@ test.describe('Main communication test', () => {
 
     // respond to multiply with value 42
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('_multiply', ({ firstNumber, secondNumber }) => {
+      window.ct_internal.handle('_multiply', ({ firstNumber, secondNumber }) => {
         return firstNumber * secondNumber;
       })
     })
@@ -88,7 +88,7 @@ test.describe('Main communication test', () => {
 
     await Promise.all(testMatrix.map(async (testScenario) => {
       expect(await subFrame.evaluate(async ([firstNumber, secondNumber]) => {
-        return await window.sw_internal.send('_multiply', { firstNumber, secondNumber})
+        return await window.ct_internal.send('_multiply', { firstNumber, secondNumber})
       }, testScenario)).toEqual(testScenario[2]);
     }));
   });
@@ -98,7 +98,7 @@ test.describe('Main communication test', () => {
 
     // handle the methods from incoming events
     await mainFrame.evaluate(async () => {
-      window.sw_internal.handle('notificationDispatch', ({ actions }) => {
+      window.ct_internal.handle('notificationDispatch', ({ actions }) => {
         if (!actions) return;
 
         actions.forEach(({ method }) => {
@@ -156,7 +156,7 @@ test.describe('Main communication test', () => {
 
     // handle the methods from incoming events
     await mainFrame.evaluate(async () => {
-      window.sw_internal.handle('notificationDispatch', () => {
+      window.ct_internal.handle('notificationDispatch', () => {
         // Do nothing with the incoming message
       })
     })
@@ -210,7 +210,7 @@ test.describe('Context tests', () => {
 
     // create handler in main window
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('contextLanguage', () => {
+      window.ct_internal.handle('contextLanguage', () => {
         return {
           languageId: 'LANGUAGE_ID',
           systemLanguageId: 'SYSTEM_LANGUAGE_ID'
@@ -241,7 +241,7 @@ test.describe('Context tests', () => {
     // publish in main window
     await mainFrame.evaluate(async () => {
       // publish language
-      await window.sw_internal.publish('contextLanguage', {
+      await window.ct_internal.publish('contextLanguage', {
         languageId: 'EXAMPLE_LANGUAGE_ID',
         systemLanguageId: 'EXAMPLE_SYSTEM_LANGUAGE_ID',
       });
@@ -298,7 +298,7 @@ test.describe('Embedded context', () => {
       subFrameSrc: 'http://localhost:8182?color-scheme=light',
       // The handler must exist before the sub frame registers
       mainFrameSetup: (mainPage) => mainPage.evaluate(() => {
-        window.sw_internal.handle('contextTheme', () => 'dark' as const);
+        window.ct_internal.handle('contextTheme', () => 'dark' as const);
       }),
     });
 
@@ -307,7 +307,7 @@ test.describe('Embedded context', () => {
     expect((await embeddedState(subFrame)).colorScheme).toBe('dark');
 
     await mainFrame.evaluate(async () => {
-      await window.sw_internal.publish('contextTheme', 'light');
+      await window.ct_internal.publish('contextTheme', 'light');
     });
 
     await expect.poll(async () => (await embeddedState(subFrame)).theme).toBe('light');
@@ -321,9 +321,9 @@ test.describe('Serializing tests', () => {
 
     // handle incoming criteria
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('_criteriaTest', ({ title, myCriteria }) => {
+      window.ct_internal.handle('_criteriaTest', ({ title, myCriteria }) => {
         // check if myCriteria is a real Criteria object
-        if (!(myCriteria instanceof window.sw_internal.Criteria)) {
+        if (!(myCriteria instanceof window.ct_internal.Criteria)) {
           return {
             title: 'myCriteria is not a Criteria instance',
             myCriteria,
@@ -339,9 +339,9 @@ test.describe('Serializing tests', () => {
 
     // send criteria from subFrame
     const result = await subFrame.evaluate(async () => {
-      const criteriaExample = new window.sw_internal.Criteria();
+      const criteriaExample = new window.ct_internal.Criteria();
 
-      const result = await window.sw_internal.send('_criteriaTest', {
+      const result = await window.ct_internal.send('_criteriaTest', {
         title: 'Criteria testing',
         myCriteria: criteriaExample,
       })
@@ -349,7 +349,7 @@ test.describe('Serializing tests', () => {
       return {
         title: result.title,
         // the criteria check needs to be done inside the frame
-        isCriteriaInstance: result.myCriteria instanceof window.sw_internal.Criteria
+        isCriteriaInstance: result.myCriteria instanceof window.ct_internal.Criteria
       };
     })
 
@@ -363,9 +363,9 @@ test.describe('Serializing tests', () => {
 
     // handle incoming collection
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('_collectionTest', ({ title, collection}) => {
+      window.ct_internal.handle('_collectionTest', ({ title, collection}) => {
         // check if collection is a real collection object
-        if (!(collection instanceof window.sw_internal.Collection)) {
+        if (!(collection instanceof window.ct_internal.Collection)) {
           return {
             title: 'collection is not a EntityCollection instance',
             collection,
@@ -397,41 +397,41 @@ test.describe('Serializing tests', () => {
 
     // send collection from subFrame
     const result = await subFrame.evaluate(async () => {
-      const collection = new window.sw_internal.Collection(
+      const collection = new window.ct_internal.Collection(
           'playwright',
           'test',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
       );
-      const subCollection = new window.sw_internal.Collection(
+      const subCollection = new window.ct_internal.Collection(
           'playwright',
           'test',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
       );
-      subCollection.add(new window.sw_internal.Entity('1', 'test', {}));
-      subCollection.add(new window.sw_internal.Entity('2', 'test', {}));
-      collection.add(new window.sw_internal.Entity('1', 'test', {}));
-      collection.add(new window.sw_internal.Entity('2', 'test', {
-        foo: new window.sw_internal.Entity('exampleId', 'foo', {
+      subCollection.add(new window.ct_internal.Entity('1', 'test', {}));
+      subCollection.add(new window.ct_internal.Entity('2', 'test', {}));
+      collection.add(new window.ct_internal.Entity('1', 'test', {}));
+      collection.add(new window.ct_internal.Entity('2', 'test', {
+        foo: new window.ct_internal.Entity('exampleId', 'foo', {
           anotherCollection: subCollection,
         })
       }));
 
-      const result = await window.sw_internal.send('_collectionTest', {
+      const result = await window.ct_internal.send('_collectionTest', {
         title: 'Collection testing',
         collection,
       })
 
       return {
         title: result.title,
-        isCollectionInstance: result.collection instanceof window.sw_internal.Collection,
+        isCollectionInstance: result.collection instanceof window.ct_internal.Collection,
         // @ts-expect-error
         nestedEntityIsEntity: typeof result.collection[1].foo.getDraft === 'function',
         // @ts-expect-error
-        nestedCollectionIsCollection: result.collection[1].foo.anotherCollection instanceof window.sw_internal.Collection,
+        nestedCollectionIsCollection: result.collection[1].foo.anotherCollection instanceof window.ct_internal.Collection,
       };
     })
 
@@ -447,7 +447,7 @@ test.describe('Serializing tests', () => {
 
     // handle incoming collection
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('_entityTest', ({ title, entity}) => {
+      window.ct_internal.handle('_entityTest', ({ title, entity}) => {
         // check if entity is a real entity
         if (!entity || typeof entity.getDraft !== 'function') {
           return {
@@ -465,34 +465,34 @@ test.describe('Serializing tests', () => {
 
     // send collection from subFrame
     const result = await subFrame.evaluate(async () => {
-      const collection = new window.sw_internal.Collection(
+      const collection = new window.ct_internal.Collection(
           'playwright',
           'test',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
       );
-      const subCollection = new window.sw_internal.Collection(
+      const subCollection = new window.ct_internal.Collection(
           'playwright',
           'test',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
       );
-      subCollection.add(new window.sw_internal.Entity('1', 'test', {}));
-      collection.add(new window.sw_internal.Entity('1', 'test', {}));
-      collection.add(new window.sw_internal.Entity('2', 'test', {
-        foo: new window.sw_internal.Entity('exampleId', 'foo', {
+      subCollection.add(new window.ct_internal.Entity('1', 'test', {}));
+      collection.add(new window.ct_internal.Entity('1', 'test', {}));
+      collection.add(new window.ct_internal.Entity('2', 'test', {
+        foo: new window.ct_internal.Entity('exampleId', 'foo', {
           anotherCollection: subCollection,
         })
       }));
 
-      const mainEntity = new window.sw_internal.Entity('1', 'test', {
+      const mainEntity = new window.ct_internal.Entity('1', 'test', {
         collection,
         subCollection,
       })
 
-      const result = await window.sw_internal.send('_entityTest', {
+      const result = await window.ct_internal.send('_entityTest', {
         title: 'Entity testing',
         entity: mainEntity,
       })
@@ -501,9 +501,9 @@ test.describe('Serializing tests', () => {
         title: result.title,
         entity: result.entity,
         // @ts-expect-error
-        anotherCollectionIsCollection: result.entity.collection.get('2').foo.anotherCollection instanceof window.sw_internal.Collection,
+        anotherCollectionIsCollection: result.entity.collection.get('2').foo.anotherCollection instanceof window.ct_internal.Collection,
         // @ts-expect-error
-        originCollectionIsCollection: result.entity.collection.get('2').foo.getOrigin().anotherCollection instanceof window.sw_internal.Collection
+        originCollectionIsCollection: result.entity.collection.get('2').foo.getOrigin().anotherCollection instanceof window.ct_internal.Collection
       };
     })
 
@@ -518,21 +518,21 @@ test.describe('Serializing tests', () => {
 
     // handle incoming criteria
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('_collectionTest', ({ title, collection}) => {
+      window.ct_internal.handle('_collectionTest', ({ title, collection}) => {
         return { title, collection };
       })
     })
 
     // send criteria from subFrame
     const result = await subFrame.evaluate(async () => {
-      const collection = new window.sw_internal.Collection(
+      const collection = new window.ct_internal.Collection(
           'playwright',
           'test',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
       );
-      collection.add(new window.sw_internal.Entity('1', 'test', {
+      collection.add(new window.ct_internal.Entity('1', 'test', {
         foo: 'bar',
       }));
 
@@ -541,7 +541,7 @@ test.describe('Serializing tests', () => {
         collection: collection,
       }
 
-      const result = await window.sw_internal.send('_collectionTest', sendObject)
+      const result = await window.ct_internal.send('_collectionTest', sendObject)
 
       return {
         title: result.title,
@@ -562,13 +562,13 @@ test.describe('Privilege tests', () => {
     const { mainFrame, subFrame } = await setup({ page });
 
     await mainFrame.evaluate(() => {
-      window.sw_internal.handle('repositorySearch', () => {
+      window.ct_internal.handle('repositorySearch', () => {
         return Promise.reject('Test Reason');
       })
     })
 
     const result = await subFrame.evaluate(async () => {
-      return await window.sw_internal.send('repositorySearch', {entityName: 'product'})
+      return await window.ct_internal.send('repositorySearch', {entityName: 'product'})
     }).catch(e => e);
 
     expect(result instanceof Error).toBe(true);
@@ -595,13 +595,13 @@ test.describe('Privilege tests', () => {
         }
       };
 
-      window.sw_internal.handle('repositorySearch', () => {
+      window.ct_internal.handle('repositorySearch', () => {
         return Promise.reject(error);
       })
     })
 
     const result = await subFrame.evaluate(async () => {
-      return await window.sw_internal.send('repositorySearch', {entityName: 'product'})
+      return await window.ct_internal.send('repositorySearch', {entityName: 'product'})
     }).catch(e => e);
 
     expect(result instanceof Error).toBe(true);
@@ -612,7 +612,7 @@ test.describe('Privilege tests', () => {
     const { mainFrame, subFrame } = await setup({ page });
 
     await mainFrame.evaluate(() => {
-      window.sw_internal.setExtensions({
+      window.ct_internal.setExtensions({
         example: {
           baseUrl: 'http://localhost:8182',
           permissions: {
@@ -621,18 +621,18 @@ test.describe('Privilege tests', () => {
         }
       });
 
-      window.sw_internal.handle('_collectionTest', () => {
-        const collection = new window.sw_internal.Collection(
+      window.ct_internal.handle('_collectionTest', () => {
+        const collection = new window.ct_internal.Collection(
           'playwright',
           'product',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
         );
 
-        collection.add(new window.sw_internal.Entity('productEntityId', 'product', {
+        collection.add(new window.ct_internal.Entity('productEntityId', 'product', {
           name: 'Amazing T-Shirt',
-          foo: new window.sw_internal.Entity('manufacturerEntityId', 'manufacturer', {
+          foo: new window.ct_internal.Entity('manufacturerEntityId', 'manufacturer', {
             name: 'Contena AG',
           })
         }));
@@ -645,23 +645,23 @@ test.describe('Privilege tests', () => {
     })
 
     const response = await subFrame.evaluate(async () => {
-      const collection = new window.sw_internal.Collection(
+      const collection = new window.ct_internal.Collection(
         'playwright',
         'product',
         // @ts-expect-error
         {},
-        new window.sw_internal.Criteria(),
+        new window.ct_internal.Criteria(),
       );
 
-      collection.add(new window.sw_internal.Entity('productEntityId', 'product', {
+      collection.add(new window.ct_internal.Entity('productEntityId', 'product', {
         name: 'Amazing SDK T-Shirt',
-        foo: new window.sw_internal.Entity('manufacturerEntityId', 'manufacturer', {
+        foo: new window.ct_internal.Entity('manufacturerEntityId', 'manufacturer', {
           name: 'Best manufacturer ever',
         })
       }));
 
       try {
-        const result = await window.sw_internal.send('_collectionTest', {
+        const result = await window.ct_internal.send('_collectionTest', {
           title: 'From SDK',
           collection: collection,
         });
@@ -674,7 +674,7 @@ test.describe('Privilege tests', () => {
         return {
           response: error,
           errorMessage: error.toString(),
-          isMissingPrivilesErrorInstance: error instanceof window.sw_internal.MissingPrivilegesError
+          isMissingPrivilesErrorInstance: error instanceof window.ct_internal.MissingPrivilegesError
         }
       }
     });
@@ -687,7 +687,7 @@ test.describe('Privilege tests', () => {
     const { mainFrame, subFrame } = await setup({ page });
 
     await mainFrame.evaluate(() => {
-      window.sw_internal.setExtensions({
+      window.ct_internal.setExtensions({
         example: {
           baseUrl: 'http://localhost:8182',
           permissions: {
@@ -696,18 +696,18 @@ test.describe('Privilege tests', () => {
         }
       });
 
-      window.sw_internal.handle('_collectionTest', () => {
-        const collection = new window.sw_internal.Collection(
+      window.ct_internal.handle('_collectionTest', () => {
+        const collection = new window.ct_internal.Collection(
           'playwright',
           'product',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
         );
 
-        collection.add(new window.sw_internal.Entity('productEntityId', 'product', {
+        collection.add(new window.ct_internal.Entity('productEntityId', 'product', {
           name: 'Amazing T-Shirt',
-          foo: new window.sw_internal.Entity('manufacturerEntityId', 'manufacturer', {
+          foo: new window.ct_internal.Entity('manufacturerEntityId', 'manufacturer', {
             name: 'Contena AG',
           })
         }));
@@ -720,23 +720,23 @@ test.describe('Privilege tests', () => {
     })
 
     const response = await mainFrame.evaluate(async () => {
-      const collection = new window.sw_internal.Collection(
+      const collection = new window.ct_internal.Collection(
         'playwright',
         'product',
         // @ts-expect-error
         {},
-        new window.sw_internal.Criteria(),
+        new window.ct_internal.Criteria(),
       );
 
-      collection.add(new window.sw_internal.Entity('productEntityId', 'product', {
+      collection.add(new window.ct_internal.Entity('productEntityId', 'product', {
         name: 'Amazing SDK T-Shirt',
-        foo: new window.sw_internal.Entity('manufacturerEntityId', 'manufacturer', {
+        foo: new window.ct_internal.Entity('manufacturerEntityId', 'manufacturer', {
           name: 'Best manufacturer ever',
         })
       }));
 
       try {
-        const result = await window.sw_internal.send('_collectionTest', {
+        const result = await window.ct_internal.send('_collectionTest', {
           title: 'From SDK',
           collection: collection,
         });
@@ -750,7 +750,7 @@ test.describe('Privilege tests', () => {
         return {
           response: error,
           errorMessage: error.toString(),
-          isMissingPrivilesErrorInstance: error instanceof window.sw_internal.MissingPrivilegesError
+          isMissingPrivilesErrorInstance: error instanceof window.ct_internal.MissingPrivilegesError
         }
       }
     });
@@ -774,7 +774,7 @@ test.describe('Privilege tests', () => {
     const { mainFrame, subFrame } = await setup({ page });
 
     await mainFrame.evaluate(() => {
-      window.sw_internal.setExtensions({
+      window.ct_internal.setExtensions({
         example: {
           baseUrl: 'http://localhost:8182',
           permissions: {
@@ -783,18 +783,18 @@ test.describe('Privilege tests', () => {
         }
       });
 
-      window.sw_internal.handle('_collectionTest', () => {
-        const collection = new window.sw_internal.Collection(
+      window.ct_internal.handle('_collectionTest', () => {
+        const collection = new window.ct_internal.Collection(
           'playwright',
           'product',
           // @ts-expect-error
           {},
-          new window.sw_internal.Criteria(),
+          new window.ct_internal.Criteria(),
         );
 
-        collection.add(new window.sw_internal.Entity('productEntityId', 'product', {
+        collection.add(new window.ct_internal.Entity('productEntityId', 'product', {
           name: 'Amazing T-Shirt',
-          foo: new window.sw_internal.Entity('manufacturerEntityId', 'manufacturer', {
+          foo: new window.ct_internal.Entity('manufacturerEntityId', 'manufacturer', {
             name: 'Contena AG',
           })
         }));
@@ -809,7 +809,7 @@ test.describe('Privilege tests', () => {
     const response = await subFrame.evaluate(async () => {
       try {
         // @ts-expect-error
-        const result = await window.sw_internal.send('_collectionTest', {});
+        const result = await window.ct_internal.send('_collectionTest', {});
 
         return {
           response: result,
@@ -819,7 +819,7 @@ test.describe('Privilege tests', () => {
         return {
           response: error,
           errorMessage: error.toString(),
-          isMissingPrivilesErrorInstance: error instanceof window.sw_internal.MissingPrivilegesError
+          isMissingPrivilesErrorInstance: error instanceof window.ct_internal.MissingPrivilegesError
         }
       }
     });
@@ -847,7 +847,7 @@ test.describe('Privilege tests', () => {
 
     // publish dataset
     await mainFrame.evaluate(async () => {
-      window.sw_internal.setExtensions({
+      window.ct_internal.setExtensions({
         example: {
           baseUrl: 'http://localhost:8182',
           permissions: {
@@ -856,7 +856,7 @@ test.describe('Privilege tests', () => {
         }
       });
 
-      const exampleProduct = new window.sw_internal.Entity('exampleProductEntityId', 'product', {
+      const exampleProduct = new window.ct_internal.Entity('exampleProductEntityId', 'product', {
         name: 'T-Shirt',
         description: 'An awesome T-Shirt'
       });
@@ -871,7 +871,7 @@ test.describe('Privilege tests', () => {
     const result = await subFrame.evaluate(() => {
       return {
         // @ts-expect-error
-        isError: window.result.data instanceof window.sw_internal.MissingPrivilegesError,
+        isError: window.result.data instanceof window.ct_internal.MissingPrivilegesError,
         // @ts-expect-error
         errorText: window.result.data.toString(),
       };
@@ -902,7 +902,7 @@ test.describe('Privilege tests', () => {
 
     // publish dataset
     await mainFrame.evaluate(async () => {
-      window.sw_internal.setExtensions({
+      window.ct_internal.setExtensions({
         example: {
           baseUrl: 'http://localhost:8182',
           permissions: {
@@ -911,7 +911,7 @@ test.describe('Privilege tests', () => {
         }
       });
 
-      const exampleProduct = new window.sw_internal.Entity('exampleProductEntityId', 'product', {
+      const exampleProduct = new window.ct_internal.Entity('exampleProductEntityId', 'product', {
         name: 'T-Shirt',
         description: 'An awesome T-Shirt'
       });
@@ -926,7 +926,7 @@ test.describe('Privilege tests', () => {
     const result = await subFrame.evaluate(() => {
       return {
         // @ts-expect-error
-        isError: window.result.data instanceof window.sw_internal.MissingPrivilegesError,
+        isError: window.result.data instanceof window.ct_internal.MissingPrivilegesError,
         // @ts-expect-error
         data: window.result.data,
       };

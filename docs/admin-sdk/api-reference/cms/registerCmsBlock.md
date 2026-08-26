@@ -64,7 +64,7 @@ in the same file.
 Example:
 
 ```html
-{% sw_extends '@Storefront/storefront/block/cms-block-app-renderer.html.twig' %}
+{% ct_extends '@Storefront/storefront/block/cms-block-app-renderer.html.twig' %}
 
 {% block block_app_renderer_dailymotion_dual_block %}
     <div>
@@ -75,7 +75,7 @@ Example:
             {% set element = block.slots.getSlot(slot.slot) %}
 
             <div>
-                {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                {% ct_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
             </div>
         {% endfor %}
     </div>

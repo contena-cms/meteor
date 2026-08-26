@@ -20,52 +20,52 @@ describe('telemetry', () => {
   describe('trackPageView', () => {
     it('dispatches page_viewed with the correct property names', async () => {
       await trackPageView({
-        sw_route_from_href: '/dashboard',
-        sw_route_from_name: 'ct.dashboard.index',
-        sw_route_to_href: '/products',
-        sw_route_to_name: 'ct.product.index',
+        ct_route_from_href: '/dashboard',
+        ct_route_from_name: 'ct.dashboard.index',
+        ct_route_to_href: '/products',
+        ct_route_to_name: 'ct.product.index',
       });
 
       expect(mockSend).toHaveBeenCalledWith({
         event: 'page_viewed',
         data: {
-          sw_route_from_href: '/dashboard',
-          sw_route_from_name: 'ct.dashboard.index',
-          sw_route_to_href: '/products',
-          sw_route_to_name: 'ct.product.index',
+          ct_route_from_href: '/dashboard',
+          ct_route_from_name: 'ct.dashboard.index',
+          ct_route_to_href: '/products',
+          ct_route_to_name: 'ct.product.index',
         },
       });
     });
 
-    it('includes sw_route_to_query when provided', async () => {
+    it('includes ct_route_to_query when provided', async () => {
       await trackPageView({
-        sw_route_from_href: '/dashboard',
-        sw_route_from_name: null,
-        sw_route_to_href: '/products',
-        sw_route_to_name: null,
-        sw_route_to_query: 'limit=25',
+        ct_route_from_href: '/dashboard',
+        ct_route_from_name: null,
+        ct_route_to_href: '/products',
+        ct_route_to_name: null,
+        ct_route_to_query: 'limit=25',
       });
 
       expect(mockSend).toHaveBeenCalledWith(expect.objectContaining({
-        data: expect.objectContaining({ sw_route_to_query: 'limit=25' }),
+        data: expect.objectContaining({ ct_route_to_query: 'limit=25' }),
       }));
     });
   });
 
   describe('trackLinkVisited', () => {
     it('dispatches link_visited with href and internal type', async () => {
-      await trackLinkVisited({ sw_link_href: '/products', sw_link_type: 'internal' });
+      await trackLinkVisited({ ct_link_href: '/products', ct_link_type: 'internal' });
       expect(mockSend).toHaveBeenCalledWith({
         event: 'link_visited',
-        data: { sw_link_href: '/products', sw_link_type: 'internal' },
+        data: { ct_link_href: '/products', ct_link_type: 'internal' },
       });
     });
 
     it('dispatches link_visited with external type', async () => {
-      await trackLinkVisited({ sw_link_href: 'https://example.com', sw_link_type: 'external' });
+      await trackLinkVisited({ ct_link_href: 'https://example.com', ct_link_type: 'external' });
       expect(mockSend).toHaveBeenCalledWith({
         event: 'link_visited',
-        data: { sw_link_href: 'https://example.com', sw_link_type: 'external' },
+        data: { ct_link_href: 'https://example.com', ct_link_type: 'external' },
       });
     });
   });

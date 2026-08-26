@@ -4,7 +4,7 @@ import Criteria from '../../src/data/Criteria';
 import EntityCollection from "../../src/_internals/data/EntityCollection";
 import EntityClass from "../../src/_internals/data/Entity";
 import MissingPrivilegesError from '../../src/_internals/privileges/missing-privileges-error';
-export interface sw_internal {
+export interface ct_internal {
   handle: typeof handle,
   publish: typeof publish,
   send: typeof send,
@@ -18,12 +18,12 @@ export interface sw_internal {
 declare global {
   interface Window {
     ct: typeof ct;
-    sw_internal: sw_internal
+    ct_internal: ct_internal
   }
 }
 
 window.ct = ct;
-window.sw_internal = {
+window.ct_internal = {
   handle: handle,
   publish: publish,
   send: send,
@@ -35,7 +35,7 @@ window.sw_internal = {
 }
 
 
-window.sw_internal.setExtensions({
+window.ct_internal.setExtensions({
   example: {
     baseUrl: 'http://localhost:8182',
     permissions: {

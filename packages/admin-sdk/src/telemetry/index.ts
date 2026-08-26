@@ -26,11 +26,11 @@ export const getSourceExtensionName = findExtensionNameByBaseUrl;
  * Use this instead of `dispatch` to ensure consistent property names.
  */
 export function trackPageView(properties: {
-  sw_route_from_href: string,
-  sw_route_from_name: string | null,
-  sw_route_to_href: string,
-  sw_route_to_name: string | null,
-  sw_route_to_query?: string,
+  ct_route_from_href: string,
+  ct_route_from_name: string | null,
+  ct_route_to_href: string,
+  ct_route_to_name: string | null,
+  ct_route_to_query?: string,
   [key: string]: TrackableType | undefined,
 }): Promise<void> {
   return dispatch({ event: 'page_viewed', data: properties });
@@ -41,8 +41,8 @@ export function trackPageView(properties: {
  * Use this instead of `dispatch` to ensure consistent property names.
  */
 export function trackLinkVisited(properties: {
-  sw_link_href: string,
-  sw_link_type: 'internal' | 'external',
+  ct_link_href: string,
+  ct_link_type: 'internal' | 'external',
   [key: string]: TrackableType | undefined,
 }): Promise<void> {
   return dispatch({ event: 'link_visited', data: properties });
