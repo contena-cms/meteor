@@ -22,8 +22,8 @@ export async function loginToContena(page: Page): Promise<void> {
   await page.click('button[type="submit"]')
 
   // Wait for successful navigation to admin dashboard
-  // The admin panel loads with a hash route like #/sw/dashboard/index
-  await page.waitForURL(/.*#\/sw\/.*/, { timeout: 15000 })
+  // The admin panel loads with a hash route like #/ct/dashboard/index
+  await page.waitForURL(/.*#\/ct\/.*/, { timeout: 15000 })
 
   // Wait for the main admin interface to load
   await page.waitForSelector('.ct-admin-menu', { timeout: 10000 })

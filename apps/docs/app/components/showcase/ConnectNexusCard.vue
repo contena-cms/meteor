@@ -53,7 +53,7 @@ onMounted(() => {
       <mt-card>
         <div class="connect">
           <div class="connect__logos">
-            <span class="connect__logo connect__logo--sw">
+            <span class="connect__logo connect__logo--ct">
               <mt-icon
                 name="solid-contena"
                 size="20"
@@ -124,7 +124,7 @@ onMounted(() => {
   border: 2px solid var(--color-elevation-surface-raised);
   flex-shrink: 0;
 }
-.connect__logo--sw {
+.connect__logo--ct {
   background: var(--color-icon-brand-default);
 }
 .connect__logo--nx {

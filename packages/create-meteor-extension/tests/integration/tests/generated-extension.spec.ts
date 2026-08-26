@@ -20,7 +20,7 @@ test.describe('Generated Meteor Extension', () => {
   test('Dashboard card is visible', async ({ authenticatedPage }) => {
     // Navigate to dashboard
     await authenticatedPage.goto(
-      `${process.env.ADMIN_URL || 'http://localhost:8000/admin/'}#/sw/dashboard/index`,
+      `${process.env.ADMIN_URL || 'http://localhost:8000/admin/'}#/ct/dashboard/index`,
     )
 
     // Wait for the dashboard to load
@@ -63,7 +63,7 @@ test.describe('Generated Meteor Extension', () => {
 
     // Navigate to product detail page
     await authenticatedPage.goto(
-      `${process.env.ADMIN_URL || 'http://localhost:8000/admin/'}#/sw/product/detail/${product.id}`,
+      `${process.env.ADMIN_URL || 'http://localhost:8000/admin/'}#/ct/product/detail/${product.id}`,
     )
 
     // Wait for the product detail page to load by checking for the main tabs container
@@ -100,7 +100,7 @@ test.describe('Generated Meteor Extension', () => {
 
     // Navigate to product detail page
     await authenticatedPage.goto(
-      `${process.env.ADMIN_URL || 'http://localhost:8000/admin/'}#/sw/product/detail/${product.id}`,
+      `${process.env.ADMIN_URL || 'http://localhost:8000/admin/'}#/ct/product/detail/${product.id}`,
     )
 
     // Wait for the product detail page to load by checking for the main tabs container

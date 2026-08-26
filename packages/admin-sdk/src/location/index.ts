@@ -107,7 +107,7 @@ export type locationUpdateUrl = {
    * The hash of the url
    * 
    * @example
-   * #/sw/dashboard
+   * #/ct/dashboard
    */
   hash: string,
 

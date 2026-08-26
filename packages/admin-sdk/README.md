@@ -16,7 +16,7 @@ npm i --save @contena/meteor-admin-sdk
 and import it in your app:
 ```js
 // import everything
-import * as sw from '@contena/meteor-admin-sdk';
+import * as ct from '@contena/meteor-admin-sdk';
 
 // or import only needed functionality
 import { notification }  from '@contena/meteor-admin-sdk';
@@ -33,7 +33,7 @@ Import the source from the CDN
 <script src="https://unpkg.com/@contena/meteor-admin-sdk@1.2.3/cdn"></script>
 ```
 
-and then you can access it with the global variable `sw`.
+and then you can access it with the global variable `ct`.
 
 ```js
 ct.notification.dispatch({

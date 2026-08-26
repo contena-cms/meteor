@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { setup } from './test.utils';
-import type * as sw from '../src/index';
+import type * as ct from '../src/index';
 import type { ct_internal } from './testpage/app';
 
 declare global {
   interface Window {
-    sw: typeof sw;
+    ct: typeof ct;
     ct_internal: ct_internal
   }
 }

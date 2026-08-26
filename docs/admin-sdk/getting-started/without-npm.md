@@ -14,7 +14,7 @@ This is useful for quick prototypes or very small setups. For production project
 <script src="https://unpkg.com/@contena/meteor-admin-sdk/cdn"></script>
 ```
 
-This exposes the SDK globally as `sw`, for example `ct.notification.dispatch(...)`.
+This exposes the SDK globally as `ct`, for example `ct.notification.dispatch(...)`.
 
 ## Plugins
 

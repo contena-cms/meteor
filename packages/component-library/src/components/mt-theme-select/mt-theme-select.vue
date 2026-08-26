@@ -36,10 +36,10 @@ const { t } = useI18n({
       dark: "Dark",
       system: "System",
     },
-    de: {
-      light: "Hell",
-      dark: "Dunkel",
-      system: "System",
+    zh: {
+      light: "浅色",
+      dark: "深色",
+      system: "跟随系统",
     },
   },
 });
@@ -55,6 +55,8 @@ function isTheme(value: unknown): value is Theme {
 }
 
 function onSelect(value: unknown): void {
-  if (isTheme(value)) model.value = value;
+  if (isTheme(value)) {
+    model.value = value;
+  }
 }
 </script>
