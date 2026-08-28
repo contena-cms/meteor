@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.6.0
+
+### Minor Changes
+
+- [`b3bd6d1`](https://github.com/contena-cms/meteor/commit/b3bd6d1a7c4a4525e3123e171a4705948f9dffb1) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Add the `MtGrantPermissionServiceBanner` component and the Admin SDK APIs required to request and manage service permissions.
+
+### Patch Changes
+
+- Updated dependencies [[`b3bd6d1`](https://github.com/contena-cms/meteor/commit/b3bd6d1a7c4a4525e3123e171a4705948f9dffb1), [`b3bd6d1`](https://github.com/contena-cms/meteor/commit/b3bd6d1a7c4a4525e3123e171a4705948f9dffb1)]:
+  - @contena/meteor-admin-sdk@6.12.0
+
 ## 5.5.0
 
 ### Minor Changes
