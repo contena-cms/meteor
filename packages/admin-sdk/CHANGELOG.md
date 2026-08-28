@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.12.0
+
+### Minor Changes
+
+- [`b3bd6d1`](https://github.com/contena-cms/meteor/commit/b3bd6d1a7c4a4525e3123e171a4705948f9dffb1) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Add the `MtGrantPermissionServiceBanner` component and the Admin SDK APIs required to request and manage service permissions.
+
+- [`b3bd6d1`](https://github.com/contena-cms/meteor/commit/b3bd6d1a7c4a4525e3123e171a4705948f9dffb1) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Embedded app documents now always receive an explicit color scheme instead of `color-scheme: light dark`. The initial scheme is read from the `color-scheme` URL param that theme-aware Administrations append to the iframe src, so the correct scheme applies before the first paint. Without the param the document is pinned to `light`, which matches Administrations without theme support and prevents the OS dark mode preference from switching embedded apps to dark. Documents that declare `data-theme` themselves stay untouched and are responsible for declaring a matching `color-scheme` in their own styles.
+
 ## 6.11.0
 
 ### Minor Changes

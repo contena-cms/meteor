@@ -1,5 +1,12 @@
 # meteor-docs
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`b3bd6d1`](https://github.com/contena-cms/meteor/commit/b3bd6d1a7c4a4525e3123e171a4705948f9dffb1)]:
+  - @contena/meteor-component-library@5.6.0
+
 ## 0.0.6
 
 ### Patch Changes
