@@ -52,10 +52,22 @@ jobs:
       - name: Create plugin using Contena CLI
         working-directory: contena/
         run: |
-          # The trunk custom-field scaffold still targets the removed product entity.
-          # This integration only needs the required plugin files and Meteor app path.
           bin/console plugin:create TestExtensionPlugin Test --no-interaction --no-scaffold
-          mkdir -p custom/plugins/TestExtensionPlugin/src/Resources/app
+          # Contena trunk uses native setup SFC overrides instead of Meteor app iframes.
+          mkdir -p custom/plugins/TestExtensionPlugin/src/Resources/app/administration/src/module/ct-dashboard/page/ct-dashboard-index
+          printf '%s\n' 'export {};' > custom/plugins/TestExtensionPlugin/src/Resources/app/administration/src/main.js
+          cat > custom/plugins/TestExtensionPlugin/src/Resources/app/administration/src/module/ct-dashboard/page/ct-dashboard-index/ct-dashboard-index.override.vue <<'EOF'
+          <template>
+              <ct-block extends="sw_dashboard_index_content">
+                  <ct-block-parent />
+                  <div data-testid="meteor-native-dashboard-block">Meteor native extension</div>
+              </ct-block>
+          </template>
+
+          <script setup lang="ts">
+          swDefineOverride({});
+          </script>
+          EOF
 
       # 5. Install meteor dependencies and build CLI
       - name: Install meteor dependencies

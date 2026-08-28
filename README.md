@@ -29,3 +29,15 @@ Install the dependencies and start Storybook and the documentation site together
 pnpm install
 pnpm dev
 ```
+
+Start Storybook on its own:
+
+```shell
+pnpm --filter=@contena/meteor-component-library run storybook
+```
+
+With Storybook running on port 6006, regenerate the visual snapshots:
+
+```shell
+pnpm --filter=@contena/meteor-component-library run test:storybook -u
+```
