@@ -12,11 +12,11 @@ export async function loginToContena(page: Page): Promise<void> {
   await page.goto(adminUrl)
 
   // Wait for login form to be visible
-  await page.waitForSelector('#ct-field--username', { timeout: 10000 })
+  await page.waitForSelector('input[name="username"]', { timeout: 10000 })
 
   // Fill in credentials
-  await page.fill('#ct-field--username', username)
-  await page.fill('#ct-field--password', password)
+  await page.fill('input[name="username"]', username)
+  await page.fill('input[name="password"]', password)
 
   // Click login button
   await page.click('button[type="submit"]')
