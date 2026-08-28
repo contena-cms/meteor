@@ -21,6 +21,9 @@ jobs:
         with:
           contena-version: trunk
           contena-repository: contena-cms/contena
+          php-version: "8.5"
+          # Contena trunk may intentionally pin dependencies with advisories while they are being updated.
+          allow-insecure-versions: true
           install: true
           install-locale: en-GB
           install-currency: EUR
