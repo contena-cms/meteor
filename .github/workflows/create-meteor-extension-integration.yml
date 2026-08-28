@@ -52,7 +52,10 @@ jobs:
       - name: Create plugin using Contena CLI
         working-directory: contena/
         run: |
-          bin/console plugin:create TestExtensionPlugin Test --no-interaction
+          # The trunk custom-field scaffold still targets the removed product entity.
+          # This integration only needs the required plugin files and Meteor app path.
+          bin/console plugin:create TestExtensionPlugin Test --no-interaction --no-scaffold
+          mkdir -p custom/plugins/TestExtensionPlugin/src/Resources/app
 
       # 5. Install meteor dependencies and build CLI
       - name: Install meteor dependencies
