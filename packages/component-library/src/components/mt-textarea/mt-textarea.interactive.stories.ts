@@ -24,7 +24,7 @@ export const VisualTestCharacterCount: MtTextareaStory = {
 
     await userEvent.type(canvas.getByRole("textbox"), "Contena");
 
-    expect(canvas.getByText("8/60")).toBeDefined();
+    expect(canvas.getByText("7/60")).toBeDefined();
   },
 };
 
@@ -39,7 +39,7 @@ export const VisualTestCharacterCountWithHint: MtTextareaStory = {
 
     await userEvent.type(canvas.getByRole("textbox"), "Contena");
 
-    expect(canvas.getByText("8/60")).toBeDefined();
+    expect(canvas.getByText("7/60")).toBeDefined();
     expect(canvas.getByText(args.hint)).toBeDefined();
   },
 };

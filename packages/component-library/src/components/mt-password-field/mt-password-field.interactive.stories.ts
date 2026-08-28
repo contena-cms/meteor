@@ -72,7 +72,7 @@ export const VisualTestShowPassword: MtPasswordFieldStory = {
 
     await userEvent.click(
       canvas.getByRole("button", {
-        name: "Show password",
+        name: "显示密码",
       }),
     );
   },

@@ -68,6 +68,7 @@ test.describe.serial("星云内容中台关键流程", () => {
     await expect(page.getByText("所选用户已停用，可再次批量编辑以启用")).toBeVisible();
     await page.getByRole("button", { name: "批量处理" }).click();
     await expect(page.getByText("所选用户已重新启用")).toBeVisible();
+    await expect(page.getByText("所选用户已重新启用")).toBeHidden({ timeout: 10_000 });
     await page.getByRole("button", { name: "下一页", exact: true }).click({ timeout: 5_000 });
     await expect(page.locator("tbody tr")).toHaveCount(12);
   });

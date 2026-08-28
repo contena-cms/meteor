@@ -18,10 +18,10 @@ export const VisualTestRenderWithOnePage = defineStory<typeof MtPagination>(
       totalItems: 100,
     },
     async play({ screen }) {
-      const infoText = screen.getByText("1-100 of 100");
+      const infoText = screen.getByText("第 1-100 条，共 100 条");
 
       expect(infoText).not.toBeNull();
-      expect(infoText.innerText).toEqual("1-100 of 100");
+      expect(infoText.innerText).toEqual("第 1-100 条，共 100 条");
     },
   },
   { from: Default },
@@ -35,10 +35,10 @@ export const TestManyPages = defineStory<typeof MtPagination>(
       totalItems: 100,
     },
     play: async ({ screen }) => {
-      const infoText = screen.getByText("1-1 of 100");
+      const infoText = screen.getByText("第 1-1 条，共 100 条");
 
       expect(infoText).not.toBeNull();
-      expect(infoText.innerText).toEqual("1-1 of 100");
+      expect(infoText.innerText).toEqual("第 1-1 条，共 100 条");
     },
   },
   { from: Default },
@@ -48,15 +48,15 @@ export const TestPageChange = defineStory<typeof MtPagination>(
   {
     name: "Test page change",
     async play({ screen }) {
-      const nextPageButton = screen.getByRole("button", { name: "Next page" });
+      const nextPageButton = screen.getByRole("button", { name: "下一页" });
       await userEvent.click(nextPageButton);
 
       await flushPromises();
 
-      const infoText = screen.getByText("26-50 of 100");
+      const infoText = screen.getByText("第 26-50 条，共 100 条");
 
       expect(infoText).not.toBeNull();
-      expect(infoText.innerText).toEqual("26-50 of 100");
+      expect(infoText.innerText).toEqual("第 26-50 条，共 100 条");
     },
   },
   { from: Default },

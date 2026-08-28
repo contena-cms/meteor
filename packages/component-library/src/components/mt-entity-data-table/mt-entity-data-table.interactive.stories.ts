@@ -115,7 +115,7 @@ export const TestRenderEmptyState: MtEntityDataTableStory = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await waitForLoadingComplete(canvasElement);
-    await expect(canvas.getByText("Currently no items are available yet.")).toBeInTheDocument();
+    await expect(canvas.getByText("当前暂无记录。")).toBeInTheDocument();
   },
 };
 
@@ -133,7 +133,7 @@ export const InteractionTestPaginationChangePage: MtEntityDataTableStory = {
     await expect(canvas.getByText("Fantastic Cotton Sausages")).toBeInTheDocument();
 
     // Click on the next page button
-    const nextPageButton = canvas.getByRole("button", { name: /Next page|Go to page 2/ });
+    const nextPageButton = canvas.getByRole("button", { name: /下一页|转到第 2 页/ });
     await userEvent.click(nextPageButton);
     await waitForLoadingComplete(canvasElement);
 
@@ -156,7 +156,7 @@ export const InteractionTestPaginationChangeLimit: MtEntityDataTableStory = {
     await expect(canvas.getByText("Awesome Concrete Chair")).toBeInTheDocument();
 
     // Change limit to 5
-    const limitSelectComponent = await canvas.getByLabelText(/Items per page/i);
+    const limitSelectComponent = await canvas.getByLabelText(/每页条数/);
     const chevronIcon = within(limitSelectComponent).getByTestId("mt-select__select-indicator");
     await userEvent.click(chevronIcon);
 
@@ -196,7 +196,7 @@ export const InteractionTestSorting: MtEntityDataTableStory = {
       { timeout: 3000 },
     );
     const popover = within(popoverContent as HTMLElement);
-    const sortDescButton = await popover.findByText(/Sort descending/i); // This is a label in the HTML
+    const sortDescButton = await popover.findByText(/降序排列/); // This is a label in the HTML
     await userEvent.click(sortDescButton);
 
     // Wait for the loading to complete
@@ -218,7 +218,7 @@ export const InteractionTestSearch: MtEntityDataTableStory = {
     await waitForLoadingComplete(canvasElement);
 
     // Search for "Concrete"
-    const searchInput = canvas.getByPlaceholderText(/Search/i);
+    const searchInput = canvas.getByPlaceholderText(/搜索/);
     await userEvent.type(searchInput, "Handmade Granite Mouse");
 
     // Wait for the search to complete
@@ -242,7 +242,7 @@ export const InteractionTestApplyBooleanFilter: MtEntityDataTableStory = {
     await waitForLoadingComplete(canvasElement);
 
     // Open "Add filter" button which opens the filter dialog
-    const addFilterButton = canvas.getByRole("button", { name: /Add filter/i });
+    const addFilterButton = canvas.getByRole("button", { name: /添加筛选/ });
     await userEvent.click(addFilterButton);
 
     // Open "Active" filter in the opened dialog
@@ -279,7 +279,7 @@ export const InteractionTestApplyMultiSelectFilter: MtEntityDataTableStory = {
     await waitForLoadingComplete(canvasElement);
 
     // Open "Add filter" button which opens the filter dialog
-    const addFilterButton = canvas.getByRole("button", { name: /Add filter/i });
+    const addFilterButton = canvas.getByRole("button", { name: /添加筛选/ });
     await userEvent.click(addFilterButton);
 
     // Open "Manufacturer" filter in the opened dialog
@@ -314,7 +314,7 @@ export const InteractionTestClearFilter: MtEntityDataTableStory = {
     await waitForLoadingComplete(canvasElement);
 
     // Open "Add filter" button which opens the filter dialog
-    const addFilterButton = canvas.getByRole("button", { name: /Add filter/i });
+    const addFilterButton = canvas.getByRole("button", { name: /添加筛选/ });
     await userEvent.click(addFilterButton);
 
     // Open "Manufacturer" filter in the opened dialog
@@ -340,11 +340,11 @@ export const InteractionTestClearFilter: MtEntityDataTableStory = {
     });
 
     // Clear the filter
-    const clearFilterButton = await canvas.findByText("Remove filter");
+    const clearFilterButton = await canvas.findByText("移除筛选");
     await userEvent.click(clearFilterButton);
 
     // Wait until "Remove filter" button is not visible anymore
-    await waitFor(() => !canvas.queryByText("Remove filter"));
+    await waitFor(() => !canvas.queryByText("移除筛选"));
 
     await waitFor(() => {
       within(tableWrapper).getByText("Fantastic Cotton Sausages");
@@ -384,7 +384,7 @@ export const InteractionTestEmitBulkEdit: MtEntityDataTableStory = {
     await userEvent.click(rowCheckboxes[0]);
 
     // Wait until "25 items selected" is visible
-    await waitFor(() => canvas.getByText("25 items selected"));
+    await waitFor(() => canvas.getByText("已选择 25 项"));
 
     // Click on "Edit" button
     const editButton = await waitFor(() => canvas.getByRole("button", { name: /Edit/i }));
@@ -414,10 +414,10 @@ export const InteractionTestEmitBulkDelete: MtEntityDataTableStory = {
     await userEvent.click(rowCheckboxes[0]);
 
     // Wait until "25 items selected" is visible
-    await waitFor(() => canvas.getByText("25 items selected"));
+    await waitFor(() => canvas.getByText("已选择 25 项"));
 
     // Click on "Delete" button
-    const deleteButton = await waitFor(() => canvas.getByRole("button", { name: /Delete/i }));
+    const deleteButton = await waitFor(() => canvas.getByRole("button", { name: /删除/ }));
     await userEvent.click(deleteButton);
 
     // Check if "onBulkDelete" event was emitted with the correct IDs
@@ -440,7 +440,7 @@ export const VisualTestDeleteModal: MtEntityDataTableStory = {
     await userEvent.click(contextButton);
 
     // Click on "Delete" menuItem in context menu
-    const deleteMenuItem = await screen.findByRole("menuitem", { name: /Delete/i });
+    const deleteMenuItem = await screen.findByRole("menuitem", { name: /删除/ });
     await userEvent.click(deleteMenuItem);
 
     // Wait for the delete modal to be visible

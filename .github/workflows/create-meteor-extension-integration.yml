@@ -15,12 +15,12 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      # 1. Setup Contena 6 using contena/setup-contena
+      # 1. Setup Contena 6 using contena-cms/setup-contena
       - name: Setup Contena
-        uses: contena/setup-contena@v2
+        uses: contena-cms/setup-contena@v2
         with:
           contena-version: trunk
-          contena-repository: contena/contena
+          contena-repository: contena-cms/contena
           install: true
           install-locale: en-GB
           install-currency: EUR

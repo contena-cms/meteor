@@ -22,7 +22,7 @@ export const FocusCloseButton = defineStory<typeof MtDataTableFilter>({
     onRemoveFilter: fn(),
   },
   async play({ screen, args }) {
-    await userEvent.click(screen.getByRole("button", { name: "Remove filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "移除筛选" }));
 
     expect(args?.onRemoveFilter).toHaveBeenCalledOnce();
   },

@@ -125,7 +125,7 @@ export const VisualTestCopyToClipboard: MtUrlFieldStory = {
 
     const canvas = within(canvasElement);
 
-    await userEvent.click(canvas.getByRole("button", { name: "Copy URL to clipboard" }));
+    await userEvent.click(canvas.getByRole("button", { name: "复制 URL 到剪贴板" }));
   },
 };
 

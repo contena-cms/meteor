@@ -183,14 +183,14 @@ export const VisualTestRenderEditorInlineModeSelected: MtTextEditorStory = defin
     await waitUntil(() => document.querySelector(".mt-text-editor-toolbar") !== null);
 
     // Expect the bubble menu to be rendered
-    expect(canvas.getByLabelText("Format")).toBeDefined();
-    expect(canvas.getByLabelText("Bold")).toBeDefined();
-    expect(canvas.getByLabelText("Italic")).toBeDefined();
+    expect(canvas.getByLabelText("格式")).toBeDefined();
+    expect(canvas.getByLabelText("加粗")).toBeDefined();
+    expect(canvas.getByLabelText("斜体")).toBeDefined();
 
     // Expect the contextual buttons to be rendered
-    expect(canvas.getByLabelText("Insert row before")).toBeDefined();
-    expect(canvas.getByLabelText("Insert row after")).toBeDefined();
-    expect(canvas.getByLabelText("Delete row")).toBeDefined();
+    expect(canvas.getByLabelText("在上方插入行")).toBeDefined();
+    expect(canvas.getByLabelText("在下方插入行")).toBeDefined();
+    expect(canvas.getByLabelText("删除行")).toBeDefined();
   },
 });
 
@@ -205,10 +205,10 @@ export const SetParagraph: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
 
     // Click on button with aria-label "Format"
-    await userEvent.click(canvas.getByLabelText("Format"));
+    await userEvent.click(canvas.getByLabelText("格式"));
 
     // Click on menuitem with text "Paragraph"
-    await userEvent.click(screen.getByText("Paragraph"));
+    await userEvent.click(screen.getByText("正文"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue.mock.calls.length > 0);
@@ -229,10 +229,10 @@ export const SetHeadlineH1: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
 
     // Click on button with aria-label "Format"
-    await userEvent.click(canvas.getByLabelText("Format"));
+    await userEvent.click(canvas.getByLabelText("格式"));
 
     // Click on menuitem with text "Headline 1"
-    await userEvent.click(screen.getByText("Headline 1"));
+    await userEvent.click(screen.getByText("标题 1"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue.mock.calls.length > 0);
@@ -253,10 +253,10 @@ export const SetHeadlineH2: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
 
     // Click on button with aria-label "Format"
-    await userEvent.click(canvas.getByLabelText("Format"));
+    await userEvent.click(canvas.getByLabelText("格式"));
 
     // Click on menuitem with text "Headline 2"
-    await userEvent.click(screen.getByText("Headline 2"));
+    await userEvent.click(screen.getByText("标题 2"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue.mock.calls.length > 0);
@@ -277,10 +277,10 @@ export const SetHeadlineH3: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
 
     // Click on button with aria-label "Format"
-    await userEvent.click(canvas.getByLabelText("Format"));
+    await userEvent.click(canvas.getByLabelText("格式"));
 
     // Click on menuitem with text "Headline 3"
-    await userEvent.click(screen.getByText("Headline 3"));
+    await userEvent.click(screen.getByText("标题 3"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue.mock.calls.length > 0);
@@ -301,10 +301,10 @@ export const SetHeadlineH4: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
 
     // Click on button with aria-label "Format"
-    await userEvent.click(canvas.getByLabelText("Format"));
+    await userEvent.click(canvas.getByLabelText("格式"));
 
     // Click on menuitem with text "Headline 4"
-    await userEvent.click(screen.getByText("Headline 4"));
+    await userEvent.click(screen.getByText("标题 4"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue.mock.calls.length > 0);
@@ -325,10 +325,10 @@ export const SetHeadlineH5: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
 
     // Click on button with aria-label "Format"
-    await userEvent.click(canvas.getByLabelText("Format"));
+    await userEvent.click(canvas.getByLabelText("格式"));
 
     // Click on menuitem with text "Headline 5"
-    await userEvent.click(screen.getByText("Headline 5"));
+    await userEvent.click(screen.getByText("标题 5"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue.mock.calls.length > 0);
@@ -349,10 +349,10 @@ export const SetHeadlineH6: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
 
     // Click on button with aria-label "Format"
-    await userEvent.click(canvas.getByLabelText("Format"));
+    await userEvent.click(canvas.getByLabelText("格式"));
 
     // Click on menuitem with text "Headline 6"
-    await userEvent.click(screen.getByText("Headline 6"));
+    await userEvent.click(screen.getByText("标题 6"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue.mock.calls.length > 0);
@@ -425,7 +425,7 @@ export const MakeFontBold: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "bold"
-    await userEvent.click(canvas.getByLabelText("Bold"));
+    await userEvent.click(canvas.getByLabelText("加粗"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -454,7 +454,7 @@ export const MakeFontItalic: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "italic"
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -483,7 +483,7 @@ export const MakeFontUnderline: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "underline"
-    await userEvent.click(canvas.getByLabelText("Underline"));
+    await userEvent.click(canvas.getByLabelText("下划线"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -512,7 +512,7 @@ export const MakeFontStrikeThrough: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "strike-through"
-    await userEvent.click(canvas.getByLabelText("Strikethrough"));
+    await userEvent.click(canvas.getByLabelText("删除线"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -541,7 +541,7 @@ export const MakeFontSuperScript: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "superscript"
-    await userEvent.click(canvas.getByLabelText("Superscript"));
+    await userEvent.click(canvas.getByLabelText("上标"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -570,7 +570,7 @@ export const MakeFontSubScript: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "subscript"
-    await userEvent.click(canvas.getByLabelText("Subscript"));
+    await userEvent.click(canvas.getByLabelText("下标"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -599,10 +599,10 @@ export const SetTextAlignmentLeft: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "Text Alignment"
-    await userEvent.click(canvas.getByLabelText("Text Alignment"));
+    await userEvent.click(canvas.getByLabelText("文本对齐"));
 
     // Click on menuitem with text "Align left"
-    await userEvent.click(screen.getByText("Align left"));
+    await userEvent.click(screen.getByText("左对齐"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -631,10 +631,10 @@ export const SetTextAlignmentCenter: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "Text Alignment"
-    await userEvent.click(canvas.getByLabelText("Text Alignment"));
+    await userEvent.click(canvas.getByLabelText("文本对齐"));
 
     // Click on menuitem with text "Align center"
-    await userEvent.click(screen.getByText("Align center"));
+    await userEvent.click(screen.getByText("居中"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -663,10 +663,10 @@ export const SetTextAlignmentRight: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "Text Alignment"
-    await userEvent.click(canvas.getByLabelText("Text Alignment"));
+    await userEvent.click(canvas.getByLabelText("文本对齐"));
 
     // Click on menuitem with text "Align right"
-    await userEvent.click(screen.getByText("Align right"));
+    await userEvent.click(screen.getByText("右对齐"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -693,10 +693,10 @@ export const SetTextAlignmentJustify: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "Text Alignment"
-    await userEvent.click(canvas.getByLabelText("Text Alignment"));
+    await userEvent.click(canvas.getByLabelText("文本对齐"));
 
     // Click on menuitem with text "Align justify"
-    await userEvent.click(screen.getByText("Justify"));
+    await userEvent.click(screen.getByText("两端对齐"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -726,7 +726,7 @@ export const SetUnorderedList: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "Unordered list"
-    await userEvent.click(canvas.getByLabelText("Insert Unordered List"));
+    await userEvent.click(canvas.getByLabelText("无序列表"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -756,7 +756,7 @@ export const SetOrderedList: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "Ordered list"
-    await userEvent.click(canvas.getByLabelText("Insert Ordered List"));
+    await userEvent.click(canvas.getByLabelText("有序列表"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -786,12 +786,12 @@ export const SetLink: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Hello World"));
 
     // Click on button with aria-label "Link"
-    await userEvent.click(canvas.getByLabelText("Link"));
+    await userEvent.click(canvas.getByLabelText("链接"));
 
     const linkDialog = withinLinkDialog();
 
     // Set link url
-    const linkInput = linkDialog.getByLabelText("Link URL");
+    const linkInput = linkDialog.getByLabelText("链接 URL");
     await userEvent.clear(linkInput);
     await userEvent.type(linkInput, "https://www.contena.cn");
 
@@ -799,7 +799,7 @@ export const SetLink: MtTextEditorStory = defineStory({
     await userEvent.click(linkDialog.getByRole("checkbox", { name: "Open in new tab" }));
 
     // Click on button with text "Apply link"
-    await userEvent.click(linkDialog.getByText("Apply link"));
+    await userEvent.click(linkDialog.getByText("应用链接"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -825,15 +825,15 @@ export const SetLinkWithoutNewTab: MtTextEditorStory = defineStory({
 
     selectText(canvas.getByText("Hello World"));
 
-    await userEvent.click(canvas.getByLabelText("Link"));
+    await userEvent.click(canvas.getByLabelText("链接"));
 
     const linkDialog = withinLinkDialog();
 
-    const linkInput = linkDialog.getByLabelText("Link URL");
+    const linkInput = linkDialog.getByLabelText("链接 URL");
     await userEvent.clear(linkInput);
     await userEvent.type(linkInput, "https://www.contena.cn");
 
-    await userEvent.click(linkDialog.getByText("Apply link"));
+    await userEvent.click(linkDialog.getByText("应用链接"));
 
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
 
@@ -861,7 +861,7 @@ export const RemoveLink: MtTextEditorStory = defineStory({
     await userEvent.click(canvas.getByRole("link", { name: "Hello World" }));
     selectText(canvas.getByText("Hello World"));
 
-    await userEvent.click(canvas.getByLabelText("Remove link"));
+    await userEvent.click(canvas.getByLabelText("移除链接"));
 
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
 
@@ -883,7 +883,7 @@ export const VisualTestShowRemoveLinkContextualButton: MtTextEditorStory = defin
     await userEvent.click(canvas.getByRole("link", { name: "Hello World" }));
     selectText(canvas.getByText("Hello World"));
 
-    expect(canvas.getByLabelText("Remove link")).toBeDefined();
+    expect(canvas.getByLabelText("移除链接")).toBeDefined();
   },
 });
 
@@ -896,21 +896,21 @@ export const InsertTable: MtTextEditorStory = defineStory({
     const canvas = within(canvasElement);
 
     // Click on button with aria-label "Table"
-    await userEvent.click(canvas.getByLabelText("Table"));
+    await userEvent.click(canvas.getByLabelText("表格"));
 
     // Get body
     const body = within(document.body);
 
     // Set table columns
-    const columnsInput = body.getByLabelText("Columns");
+    const columnsInput = body.getByLabelText("列数");
     await userEvent.type(columnsInput, "{selectall}{backspace}4");
 
     // Set table rows
-    const rowsInput = body.getByLabelText("Rows");
+    const rowsInput = body.getByLabelText("行数");
     await userEvent.type(rowsInput, "{selectall}{backspace}2");
 
     // Click on button with text "Insert table"
-    await userEvent.click(body.getByText("Insert table"));
+    await userEvent.click(body.getByText("插入表格"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -931,7 +931,7 @@ export const VisualTestShowContextualButtons: MtTextEditorStory = defineStory({
     const canvas = within(canvasElement);
 
     // Click on button with aria-label "Table"
-    await userEvent.click(canvas.getByLabelText("Table"));
+    await userEvent.click(canvas.getByLabelText("表格"));
 
     // Get body
     const body = within(document.body);
@@ -941,15 +941,15 @@ export const VisualTestShowContextualButtons: MtTextEditorStory = defineStory({
     await waitUntil(() => !document.body.querySelector(".modal-enter-active"));
 
     // Set table columns
-    const columnsInput = body.getByLabelText("Columns");
+    const columnsInput = body.getByLabelText("列数");
     await userEvent.type(columnsInput, "{selectall}{backspace}4");
 
     // Set table rows
-    const rowsInput = body.getByLabelText("Rows");
+    const rowsInput = body.getByLabelText("行数");
     await userEvent.type(rowsInput, "{selectall}{backspace}2");
 
     // Click on button with text "Insert table"
-    await userEvent.click(body.getByText("Insert table"));
+    await userEvent.click(body.getByText("插入表格"));
 
     // Wait until modal is closed
     await waitUntil(() => !document.body.querySelector("div[role='dialog']"));
@@ -966,11 +966,11 @@ export const VisualTestShowContextualButtons: MtTextEditorStory = defineStory({
     // Expect the contextual buttons to be rendered
     expect(canvas.getByLabelText("Insert row before")).toBeDefined();
     expect(canvas.getByLabelText("Insert row after")).toBeDefined();
-    expect(canvas.getByLabelText("Delete row")).toBeDefined();
-    expect(canvas.getByLabelText("Insert column before")).toBeDefined();
-    expect(canvas.getByLabelText("Insert column after")).toBeDefined();
-    expect(canvas.getByLabelText("Delete column")).toBeDefined();
-    expect(canvas.getByLabelText("Remove table")).toBeDefined();
+    expect(canvas.getByLabelText("删除行")).toBeDefined();
+    expect(canvas.getByLabelText("在左侧插入列")).toBeDefined();
+    expect(canvas.getByLabelText("在右侧插入列")).toBeDefined();
+    expect(canvas.getByLabelText("删除列")).toBeDefined();
+    expect(canvas.getByLabelText("移除表格")).toBeDefined();
   },
 });
 
@@ -983,7 +983,7 @@ export const VisualTestRenderCodeView: MtTextEditorStory = defineStory({
     const canvas = within(canvasElement);
 
     // Click on button with aria-label "Switch to code mode"
-    await userEvent.click(canvas.getByLabelText("Switch to code mode"));
+    await userEvent.click(canvas.getByLabelText("切换到代码模式"));
 
     // Expect the code view to be rendered
     const codeEditor = canvas.getByRole("textbox");
@@ -1004,7 +1004,7 @@ export const ToggleFullscreenMode: MtTextEditorStory = defineStory({
     await waitForCharacterCounter(canvasElement);
     expect(editor).toBeDefined();
 
-    await userEvent.click(canvas.getByLabelText("Toggle fullscreen mode"));
+    await userEvent.click(canvas.getByLabelText("切换全屏模式"));
     await waitUntil(() => editor?.classList.contains("is--fullscreen"));
     expect(editor).toHaveClass("is--fullscreen");
 
@@ -1043,7 +1043,7 @@ export const PreserveBasicHTMLStructure: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Another paragraph."));
 
     // Make it bold
-    await userEvent.click(canvas.getByLabelText("Bold"));
+    await userEvent.click(canvas.getByLabelText("加粗"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1079,7 +1079,7 @@ export const PreserveImageTags: MtTextEditorStory = defineStory({
     selectText(textElement);
 
     // Make it bold
-    await userEvent.click(canvas.getByLabelText("Bold"));
+    await userEvent.click(canvas.getByLabelText("加粗"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1112,7 +1112,7 @@ export const PreserveLinkAttributesInternal: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Some additional text."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1143,7 +1143,7 @@ export const PreserveLinkAttributesUnknown: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Some additional text."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1174,7 +1174,7 @@ export const PreserveLinkAttributesExternal: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Some additional text."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1205,7 +1205,7 @@ export const PreserveSpanTags: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Another paragraph."));
 
     // Make it bold
-    await userEvent.click(canvas.getByLabelText("Bold"));
+    await userEvent.click(canvas.getByLabelText("加粗"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1238,7 +1238,7 @@ export const PreserveDivTags: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Additional text."));
 
     // Make it bold
-    await userEvent.click(canvas.getByLabelText("Bold"));
+    await userEvent.click(canvas.getByLabelText("加粗"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1270,7 +1270,7 @@ export const PreserveSemanticElements: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Some additional text."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1302,7 +1302,7 @@ export const PreserveFigureAndFigcaption: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Analysis below."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1334,7 +1334,7 @@ export const PreserveCSSStylesInTables: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Some additional text."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1366,7 +1366,7 @@ export const PreserveCSSClasses: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("This is important content."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1400,7 +1400,7 @@ export const PreserveComplexHTMLStructure: MtTextEditorStory = defineStory({
     selectText(canvas.getByText("Some additional text."));
 
     // Make it italic
-    await userEvent.click(canvas.getByLabelText("Italic"));
+    await userEvent.click(canvas.getByLabelText("斜体"));
 
     // Wait until args was triggered with new content
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
@@ -1429,7 +1429,7 @@ export const VisualTestGateOnInitialUnsupportedHTML: MtTextEditorStory = defineS
     await waitUntil(() => !!document.querySelector(".mt-text-editor__gate"));
 
     // Assert gate actions are visible
-    expect(canvas.getByText("View code")).toBeDefined();
+    expect(canvas.getByText("查看代码")).toBeDefined();
   },
 });
 
@@ -1442,7 +1442,7 @@ export const AcceptUnsupportedHtmlDiff_AppliesParsedCode: MtTextEditorStory = de
     const canvas = within(canvasElement);
 
     // Go to code view
-    await userEvent.click(canvas.getByLabelText("Switch to code mode"));
+    await userEvent.click(canvas.getByLabelText("切换到代码模式"));
 
     // Replace code with unsupported HTML (data-custom)
     const codeEditor = canvas.getByRole("textbox") as HTMLElement;
@@ -1453,19 +1453,19 @@ export const AcceptUnsupportedHtmlDiff_AppliesParsedCode: MtTextEditorStory = de
     );
 
     // Switch back to WYSIWYG (triggers diff modal)
-    await userEvent.click(canvas.getByLabelText("Switch to visual mode"));
+    await userEvent.click(canvas.getByLabelText("切换到可视化模式"));
 
     // Wait for diff modal
     await waitUntil(() => document.body.querySelector("div[role='dialog']"));
     const body = within(document.body);
-    expect(body.getByText("Code changes required")).toBeDefined();
+    expect(body.getByText("需要修改代码")).toBeDefined();
 
     // Accept changes
-    await userEvent.click(body.getByText("Apply changes"));
+    await userEvent.click(body.getByText("应用修改"));
     await waitUntil(() => args.updateModelValue?.mock?.calls?.length > 0);
 
     // Open code view again
-    await userEvent.click(canvas.getByLabelText("Switch to code mode"));
+    await userEvent.click(canvas.getByLabelText("切换到代码模式"));
 
     const updatedEditor = canvas.getByRole("textbox") as HTMLElement;
 
@@ -1487,7 +1487,7 @@ export const CancelUnsupportedHtmlDiff_StaysInCode: MtTextEditorStory = defineSt
     const canvas = within(canvasElement);
 
     // Go to code view
-    await userEvent.click(canvas.getByLabelText("Switch to code mode"));
+    await userEvent.click(canvas.getByLabelText("切换到代码模式"));
 
     // Replace code with unsupported HTML (data-custom)
     const codeEditor = canvas.getByRole("textbox") as HTMLElement;
@@ -1498,15 +1498,15 @@ export const CancelUnsupportedHtmlDiff_StaysInCode: MtTextEditorStory = defineSt
     );
 
     // Switch back to WYSIWYG (triggers diff modal)
-    await userEvent.click(canvas.getByLabelText("Switch to visual mode"));
+    await userEvent.click(canvas.getByLabelText("切换到可视化模式"));
 
     // Wait for diff modal
     await waitUntil(() => document.body.querySelector("div[role='dialog']"));
     const body = within(document.body);
-    expect(body.getByText("Code changes required")).toBeDefined();
+    expect(body.getByText("需要修改代码")).toBeDefined();
 
     // Cancel: stay in code editor
-    await userEvent.click(body.getByText("Continue in code mode"));
+    await userEvent.click(body.getByText("继续使用代码模式"));
 
     // Wait until modal is closed
     await waitUntil(() => !document.body.querySelector("div[role='dialog']"));
@@ -1527,7 +1527,7 @@ export const VisualTestDiffModalShownAfterEditingUnsupportedHTML: MtTextEditorSt
     const canvas = within(canvasElement);
 
     // Go to code view
-    await userEvent.click(canvas.getByLabelText("Switch to code mode"));
+    await userEvent.click(canvas.getByLabelText("切换到代码模式"));
 
     // Replace code with unsupported HTML (data-custom)
     const codeEditor = canvas.getByRole("textbox") as HTMLElement;
@@ -1538,13 +1538,13 @@ export const VisualTestDiffModalShownAfterEditingUnsupportedHTML: MtTextEditorSt
     );
 
     // Switch back to WYSIWYG (triggers diff modal)
-    await userEvent.click(canvas.getByLabelText("Switch to visual mode"));
+    await userEvent.click(canvas.getByLabelText("切换到可视化模式"));
 
     // Wait for diff modal and assert basic elements
     await waitUntil(() => document.body.querySelector("div[role='dialog']"));
     const body = within(document.body);
-    expect(body.getByText("Code changes required")).toBeDefined();
-    expect(body.getByText("Continue in code mode")).toBeDefined();
+    expect(body.getByText("需要修改代码")).toBeDefined();
+    expect(body.getByText("继续使用代码模式")).toBeDefined();
     expect(body.getByText("Apply changes")).toBeDefined();
   },
 });
@@ -1587,9 +1587,9 @@ export const TestShowToolbar: MtTextEditorStory = defineStory({
     await waitUntil(() => canvas.queryByText("Editor with toolbar"));
 
     // Assert toolbar buttons are present
-    expect(canvas.getByLabelText("Format")).toBeDefined();
-    expect(canvas.getByLabelText("Bold")).toBeDefined();
-    expect(canvas.getByLabelText("Italic")).toBeDefined();
+    expect(canvas.getByLabelText("格式")).toBeDefined();
+    expect(canvas.getByLabelText("加粗")).toBeDefined();
+    expect(canvas.getByLabelText("斜体")).toBeDefined();
   },
 });
 
@@ -1615,7 +1615,7 @@ export const TestCodeModeDefault: MtTextEditorStory = defineStory({
     expect(codeEditor.innerText).toBe("<p>Hello World</p>");
 
     // Expect the toggle button to show "Switch to visual mode"
-    expect(canvas.getByLabelText("Switch to visual mode")).toBeDefined();
+    expect(canvas.getByLabelText("切换到可视化模式")).toBeDefined();
   },
 });
 
@@ -1635,7 +1635,7 @@ export const TestCodeModeFalse: MtTextEditorStory = defineStory({
     expect(canvas.getByText("Hello World")).toBeDefined();
 
     // Expect the toggle button to show "Switch to code mode"
-    expect(canvas.getByLabelText("Switch to code mode")).toBeDefined();
+    expect(canvas.getByLabelText("切换到代码模式")).toBeDefined();
   },
 });
 

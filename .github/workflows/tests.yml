@@ -173,16 +173,3 @@ jobs:
         with:
           name: nuxt-app--playwright-test-results
           path: examples/nuxt-app/test-results/
-
-  tested-versions:
-    name: tested-versions
-    runs-on: ubuntu-latest
-    outputs:
-      first-version: ${{ steps.versions.outputs.first-version }}
-      latest-version: ${{ steps.versions.outputs.latest-version }}
-      lts-first-version: ${{ steps.versions.outputs.lts-first-version }}
-      lts-latest-version: ${{ steps.versions.outputs.lts-latest-version }}
-    steps:
-      - name: Generate versions
-        id: versions
-        uses: contena/github-actions/versions@main

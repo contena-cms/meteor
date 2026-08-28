@@ -43,7 +43,7 @@ export const VisualTestRenderEmptyState: MtDataTableStory = {
       return document.querySelector(".mt-empty-state");
     });
 
-    await expect(canvas.getByText("Add your first item")).toBeInTheDocument();
+    await expect(canvas.getByText("添加第一条记录")).toBeInTheDocument();
   },
 };
 
@@ -185,7 +185,7 @@ export const VisualTestOpenSettingsMenu: MtDataTableStory = {
 
     await waitUntil(() => document.querySelector('.mt-button[aria-label="reload-data"]'));
 
-    const toggleTableSettingsButton = canvas.getByLabelText("Toggle view settings");
+    const toggleTableSettingsButton = canvas.getByLabelText("切换表格设置");
 
     await userEvent.click(toggleTableSettingsButton);
 
@@ -194,12 +194,12 @@ export const VisualTestOpenSettingsMenu: MtDataTableStory = {
     const popover = within(
       document.querySelector('.mt-floating-ui__content[data-show="true"]') as HTMLElement,
     );
-    await expect(popover.getByText("Settings")).toBeInTheDocument();
-    await expect(popover.getByText("Columns")).toBeInTheDocument();
+    await expect(popover.getByText("设置")).toBeInTheDocument();
+    await expect(popover.getByText("列")).toBeInTheDocument();
 
     await waitUntil(() => !document.querySelector('[class*="popoverTransition"]'));
 
-    await expect(popover.getByText("Reset all changes")).toBeInTheDocument();
+    await expect(popover.getByText("重置全部修改")).toBeInTheDocument();
   },
 };
 
@@ -212,7 +212,7 @@ export const VisualTestOpenColumnSettingsMenu: MtDataTableStory = {
     await waitUntil(() => document.querySelector('.mt-button[aria-label="reload-data"]'));
 
     const toggleTableSettingsButton = canvas.getByRole("button", {
-      name: "Toggle view settings",
+      name: "切换表格设置",
     });
 
     await userEvent.click(toggleTableSettingsButton);
@@ -222,9 +222,9 @@ export const VisualTestOpenColumnSettingsMenu: MtDataTableStory = {
     let popover = within(
       document.querySelector('.mt-floating-ui__content[data-show="true"]') as HTMLElement,
     );
-    await expect(popover.getByText("Settings")).toBeInTheDocument();
+    await expect(popover.getByText("设置")).toBeInTheDocument();
 
-    const columnSettingsPopoverItem = popover.getByText("Columns");
+    const columnSettingsPopoverItem = popover.getByText("列");
 
     await userEvent.click(columnSettingsPopoverItem);
 
@@ -235,13 +235,13 @@ export const VisualTestOpenColumnSettingsMenu: MtDataTableStory = {
     await waitUntil(() => document.querySelector(".mt-popover-item-result__group-label"));
 
     // check if correct items are visible
-    await expect(popover.getByText("Shown in table")).toBeInTheDocument();
-    await expect(popover.getByText("Hidden in table")).toBeInTheDocument();
+    await expect(popover.getByText("表格中显示")).toBeInTheDocument();
+    await expect(popover.getByText("表格中隐藏")).toBeInTheDocument();
 
-    await expect(popover.getAllByText("Columns")[0]).toBeInTheDocument();
+    await expect(popover.getAllByText("列")[0]).toBeInTheDocument();
 
-    await expect(popover.getByText("Hide all")).toBeInTheDocument();
-    await expect(popover.getByText("Show all")).toBeInTheDocument();
+    await expect(popover.getByText("全部隐藏")).toBeInTheDocument();
+    await expect(popover.getByText("全部显示")).toBeInTheDocument();
 
     await expect(popover.getByText("Name")).toBeInTheDocument();
     await expect(popover.getByText("Manufacturer")).toBeInTheDocument();
@@ -334,8 +334,8 @@ export const VisualTestColumnSettingsPopover: MtDataTableStory = {
       ) as HTMLElement,
     );
     await expect(columnSettingsPopover.getByText("Name")).toBeInTheDocument();
-    await expect(columnSettingsPopover.getByText("Sort ascending")).toBeInTheDocument();
-    await expect(columnSettingsPopover.getByText("Sort descending")).toBeInTheDocument();
+    await expect(columnSettingsPopover.getByText("升序排列")).toBeInTheDocument();
+    await expect(columnSettingsPopover.getByText("降序排列")).toBeInTheDocument();
   },
 };
 
@@ -386,10 +386,10 @@ export const VisualTestDataSortingInColumnSettings: MtDataTableStory = {
       ) as HTMLElement,
     );
     await expect(columnSettingsPopover.getByText("Name")).toBeInTheDocument();
-    await expect(columnSettingsPopover.getByText("Sort ascending")).toBeInTheDocument();
-    await expect(columnSettingsPopover.getByText("Sort descending")).toBeInTheDocument();
+    await expect(columnSettingsPopover.getByText("升序排列")).toBeInTheDocument();
+    await expect(columnSettingsPopover.getByText("降序排列")).toBeInTheDocument();
 
-    const sortDescendingButton = await columnSettingsPopover.getByText("Sort descending");
+    const sortDescendingButton = await columnSettingsPopover.getByText("降序排列");
     await userEvent.click(sortDescendingButton);
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
@@ -571,7 +571,7 @@ export const EmitOpenDetailsEventOnClickingEdit: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const editLink = canvas.getAllByText("Edit")[0];
+    const editLink = canvas.getAllByText("编辑")[0];
 
     await userEvent.click(editLink);
 
@@ -611,7 +611,7 @@ export const EmitOpenDetailsEventOnClickingEdit: MtDataTableStory = {
       document.querySelector('.mt-floating-ui__content[data-show="true"]') as HTMLElement,
     );
 
-    const editOption = popover.getByText("Edit");
+    const editOption = popover.getByText("编辑");
 
     await userEvent.click(editOption);
 
@@ -637,7 +637,7 @@ export const EmitItemDeleteEventOnClickingDelete: MtDataTableStory = {
       document.querySelector('.mt-floating-ui__content[data-show="true"]') as HTMLElement,
     );
 
-    const deleteOption = popover.getByText("Delete");
+    const deleteOption = popover.getByText("删除");
 
     await userEvent.click(deleteOption);
 
@@ -701,7 +701,7 @@ export const VisualTestAddFilterViaFilterMenu: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getByRole("button", { name: "Add filter" });
+    const filterMenuToggleButton = canvas.getByRole("button", { name: "添加筛选" });
     expect(filterMenuToggleButton).toBeVisible();
     await userEvent.click(filterMenuToggleButton);
 
@@ -776,7 +776,7 @@ export const VisualTestRemoveFilterViaFilterMenu: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "Add filter" })[0];
+    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "添加筛选" })[0];
     expect(filterMenuToggleButton).toBeVisible();
     await userEvent.click(filterMenuToggleButton);
 
@@ -838,7 +838,7 @@ export const VisualTestAddFilterViaIconButton: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "Add filter" })[1];
+    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "添加筛选" })[1];
     expect(filterMenuToggleButton).toBeVisible();
     await userEvent.click(filterMenuToggleButton);
 
@@ -916,7 +916,7 @@ export const VisualTestRemoveFilterViaIconButton: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "Add filter" })[1];
+    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "添加筛选" })[1];
     expect(filterMenuToggleButton).toBeVisible();
     await userEvent.click(filterMenuToggleButton);
 
@@ -1128,7 +1128,7 @@ export const VisualTestRemoveOptionViaTheRemoveButton: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    await userEvent.click(canvas.getAllByRole("button", { name: "Remove filter" })[0]);
+    await userEvent.click(canvas.getAllByRole("button", { name: "移除筛选" })[0]);
 
     expect(canvas.queryAllByTestId("mt-data-table-filter")).toHaveLength(0);
     expect(args["onUpdate:appliedFilters"]).toHaveBeenNthCalledWith(1, []);
@@ -1203,7 +1203,7 @@ export const VisualTestRemoveOptionViaTheRemoveAllButton: MtDataTableStory = {
 
     expect(canvas.queryAllByTestId("mt-data-table-filter")).toHaveLength(2);
 
-    await userEvent.click(canvas.getByRole("button", { name: "Remove filters" }));
+    await userEvent.click(canvas.getByRole("button", { name: "移除筛选" }));
 
     expect(canvas.queryAllByTestId("mt-data-table-filter")).toHaveLength(0);
     expect(args["onUpdate:appliedFilters"]).toHaveBeenNthCalledWith(1, []);
@@ -1387,7 +1387,7 @@ export const VisualTestShouldHideTheLastColumnWithViaDisableContextMenuAndSettin
       await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
       await expect(canvas.queryByLabelText("Context menu")).toBeNull();
-      await expect(canvas.queryByLabelText("Toggle view settings")).toBeNull();
+      await expect(canvas.queryByLabelText("切换表格设置")).toBeNull();
     },
   };
 
@@ -1413,7 +1413,7 @@ export const VisualTestBulkEdit: MtDataTableStory = {
     await userEvent.click(checkbox2);
 
     // Check if the bulk edit bar is visible
-    const bulkEditBar = canvas.getByLabelText("2 items selected");
+    const bulkEditBar = canvas.getByLabelText("已选择 2 项");
     expect(bulkEditBar).toBeInTheDocument();
   },
 };

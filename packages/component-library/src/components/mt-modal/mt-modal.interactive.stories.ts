@@ -16,6 +16,29 @@ export default {
   tags: ["!autodocs"],
 };
 
+export const InteractionTestFooterActionsAlignEnd = {
+  name: "Align footer actions to the end",
+  render: () => ({
+    components: { MtModal, MtModalRoot, MtButton },
+    template: `
+<mt-modal-root isOpen>
+  <mt-modal title="Modal Title">
+    <template #default>Modal content</template>
+    <template #footer>
+      <mt-button variant="secondary">Close</mt-button>
+    </template>
+  </mt-modal>
+</mt-modal-root>`,
+  }),
+  play: async () => {
+    await waitUntil(() => document.querySelector(".mt-modal__footer") !== null);
+
+    const footer = document.querySelector(".mt-modal__footer");
+    expect(footer).not.toBeNull();
+    expect(footer).toHaveStyle({ display: "flex", "justify-content": "flex-end" });
+  },
+};
+
 export const VisualTestContent = {
   name: "Render the modal with content",
   render: (args: unknown) => ({

@@ -106,7 +106,7 @@ export const TestShouldCopyValue: MtEmailFieldStory = {
     });
 
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole("button", { name: "Copy to clipboard" }));
+    await userEvent.click(canvas.getByRole("button", { name: "复制到剪贴板" }));
 
     // Get the second text field
     const secondTextField = canvas.getByRole("textbox", { name: "Textfield for testing" });

@@ -34,7 +34,7 @@ export const VisualTestMinimalPageWithLinkedInheritance: MtCardStory = {
   async play({ canvasElement, args }) {
     const canvas = within(canvasElement);
 
-    await userEvent.click(canvas.getByRole("button", { name: "Disable inheritance" }));
+    await userEvent.click(canvas.getByRole("button", { name: "禁用继承" }));
 
     expect(args.updateInheritance).toHaveBeenNthCalledWith(1, false);
   },
@@ -50,7 +50,7 @@ export const VisualTestMinimalPageWithUnlinkedInheritance: MtCardStory = {
   async play({ canvasElement, args }) {
     const canvas = within(canvasElement);
 
-    await userEvent.click(canvas.getByRole("button", { name: "Enable inheritance" }));
+    await userEvent.click(canvas.getByRole("button", { name: "启用继承" }));
 
     expect(args.updateInheritance).toHaveBeenNthCalledWith(1, true);
   },

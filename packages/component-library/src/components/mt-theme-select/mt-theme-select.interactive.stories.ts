@@ -21,7 +21,7 @@ export const TestSelectTheme: MtThemeSelectStory = {
     await userEvent.click(popover.getByTestId("mt-select-option--dark"));
 
     expect(args["onUpdate:modelValue"]).toHaveBeenCalledWith("dark");
-    expect(canvas.getByRole("textbox")).toHaveValue("Dark");
+    expect(canvas.getByRole("textbox")).toHaveValue("深色");
   },
 };
 

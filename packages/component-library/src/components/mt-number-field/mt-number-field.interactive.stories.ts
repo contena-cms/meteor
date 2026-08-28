@@ -255,10 +255,10 @@ export const VisualTestDisabled: MtNumberFieldStory = {
 
     expect((canvas.getByRole("textbox") as HTMLInputElement).value).toBe("44");
 
-    await userEvent.click(canvas.getByRole("button", { name: "Decrease" }));
+    await userEvent.click(canvas.getByRole("button", { name: "减少" }));
     expect((canvas.getByRole("textbox") as HTMLInputElement).value).toBe("44");
 
-    await userEvent.click(canvas.getByRole("button", { name: "Increase" }));
+    await userEvent.click(canvas.getByRole("button", { name: "增加" }));
     expect((canvas.getByRole("textbox") as HTMLInputElement).value).toBe("44");
   },
 };

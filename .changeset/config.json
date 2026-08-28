@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "contena/meteor"
+      "repo": "contena-cms/meteor"
     }
   ],
   "commit": false,
