@@ -68,7 +68,7 @@ function generateUUID(): string {
 async function getAuthToken(): Promise<string> {
   const appUrl = process.env.APP_URL || 'http://localhost:8000'
   const username = process.env.CONTENA_ADMIN_USERNAME || 'admin'
-  const password = process.env.CONTENA_ADMIN_PASSWORD || 'contena'
+  const password = process.env.CONTENA_ADMIN_PASSWORD || 'contenaAdmin'
 
   const response = await fetch(`${appUrl}api/oauth/token`, {
     method: 'POST',

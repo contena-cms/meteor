@@ -128,7 +128,7 @@ jobs:
         env:
           APP_URL: http://localhost:8000
           CONTENA_ADMIN_USERNAME: admin
-          CONTENA_ADMIN_PASSWORD: contena
+          CONTENA_ADMIN_PASSWORD: contenaAdmin
           CI: true
         run: npx playwright test --reporter=github --trace=on-first-retry
 

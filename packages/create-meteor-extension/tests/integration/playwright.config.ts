@@ -7,7 +7,7 @@ dotenv.config()
 process.env['CONTENA_ADMIN_USERNAME'] =
   process.env['CONTENA_ADMIN_USERNAME'] || 'admin'
 process.env['CONTENA_ADMIN_PASSWORD'] =
-  process.env['CONTENA_ADMIN_PASSWORD'] || 'contena'
+  process.env['CONTENA_ADMIN_PASSWORD'] || 'contenaAdmin'
 
 process.env['APP_URL'] = process.env['APP_URL'] ?? 'http://localhost:8000'
 

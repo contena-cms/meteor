@@ -6,7 +6,7 @@ import type { Page } from '@playwright/test'
 export async function loginToContena(page: Page): Promise<void> {
   const adminUrl = process.env.ADMIN_URL || 'http://localhost:8000/admin/'
   const username = process.env.CONTENA_ADMIN_USERNAME || 'admin'
-  const password = process.env.CONTENA_ADMIN_PASSWORD || 'contena'
+  const password = process.env.CONTENA_ADMIN_PASSWORD || 'contenaAdmin'
 
   // Navigate to admin login page
   await page.goto(adminUrl)
