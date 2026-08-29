@@ -27,8 +27,8 @@ function selectText(element: HTMLElement) {
 }
 
 function getCharacterCount(canvasElement: HTMLElement) {
-  const counter = within(canvasElement).queryByText(/characters$/);
-  const match = counter?.textContent?.match(/(\d+) characters/);
+  const counter = within(canvasElement).queryByText(/(?:characters|个字符)$/);
+  const match = counter?.textContent?.match(/(\d+)\s*(?:characters|个字符)/);
   if (!match) return null;
   return Number.parseInt(match[1], 10);
 }
@@ -964,8 +964,8 @@ export const VisualTestShowContextualButtons: MtTextEditorStory = defineStory({
     await userEvent.click(tableCell);
 
     // Expect the contextual buttons to be rendered
-    expect(canvas.getByLabelText("Insert row before")).toBeDefined();
-    expect(canvas.getByLabelText("Insert row after")).toBeDefined();
+    expect(canvas.getByLabelText("在上方插入行")).toBeDefined();
+    expect(canvas.getByLabelText("在下方插入行")).toBeDefined();
     expect(canvas.getByLabelText("删除行")).toBeDefined();
     expect(canvas.getByLabelText("在左侧插入列")).toBeDefined();
     expect(canvas.getByLabelText("在右侧插入列")).toBeDefined();
@@ -1545,7 +1545,7 @@ export const VisualTestDiffModalShownAfterEditingUnsupportedHTML: MtTextEditorSt
     const body = within(document.body);
     expect(body.getByText("需要修改代码")).toBeDefined();
     expect(body.getByText("继续使用代码模式")).toBeDefined();
-    expect(body.getByText("Apply changes")).toBeDefined();
+    expect(body.getByText("应用修改")).toBeDefined();
   },
 });
 

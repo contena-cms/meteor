@@ -103,11 +103,11 @@ export const VisualTestCharacterCountExceeding: MtTextFieldStory = {
     expect(canvas.getByText("60/60")).toBeDefined();
 
     expect(args.updateModelValue).toHaveBeenCalledWith(
-      "Contena is a trendsetting ecommerce platform to power your ",
+      "Contena is a trendsetting ecommerce platform to power your o",
     );
 
     expect((canvas.getByRole("textbox") as HTMLInputElement).value).toBe(
-      "Contena is a trendsetting ecommerce platform to power your ",
+      "Contena is a trendsetting ecommerce platform to power your o",
     );
   },
 };

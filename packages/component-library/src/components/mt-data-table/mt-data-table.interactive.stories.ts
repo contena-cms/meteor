@@ -1203,7 +1203,7 @@ export const VisualTestRemoveOptionViaTheRemoveAllButton: MtDataTableStory = {
 
     expect(canvas.queryAllByTestId("mt-data-table-filter")).toHaveLength(2);
 
-    await userEvent.click(canvas.getByRole("button", { name: "移除筛选" }));
+    await userEvent.click(canvas.getAllByRole("button", { name: "移除筛选" })[0]);
 
     expect(canvas.queryAllByTestId("mt-data-table-filter")).toHaveLength(0);
     expect(args["onUpdate:appliedFilters"]).toHaveBeenNthCalledWith(1, []);

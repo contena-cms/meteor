@@ -256,7 +256,7 @@ export const InteractionTestApplyBooleanFilter: MtEntityDataTableStory = {
     await waitUntil(() => !dialogContent.queryByText("Manufacturer"));
 
     // Select "Active" option which has the role "menuitem"
-    const activeOption = await dialogContent.findByRole("menuitem", { name: "Active" });
+    const activeOption = await dialogContent.findByRole("menuitem", { name: /Active|启用/ });
     await userEvent.click(activeOption);
 
     await waitFor(() => {
@@ -387,7 +387,7 @@ export const InteractionTestEmitBulkEdit: MtEntityDataTableStory = {
     await waitFor(() => canvas.getByText("已选择 25 项"));
 
     // Click on "Edit" button
-    const editButton = await waitFor(() => canvas.getByRole("button", { name: /Edit/i }));
+    const editButton = await waitFor(() => canvas.getByRole("button", { name: /Edit|编辑/i }));
     await userEvent.click(editButton);
 
     // Check if "onBulkEdit" event was emitted with the correct IDs
@@ -444,7 +444,11 @@ export const VisualTestDeleteModal: MtEntityDataTableStory = {
     await userEvent.click(deleteMenuItem);
 
     // Wait for the delete modal to be visible
-    await waitFor(() => screen.getByText("Are you sure you want to delete the selected items?"));
+    await waitFor(() =>
+      screen.getByText(
+        /Are you sure you want to delete the selected items\?|确定要删除所选记录吗？/,
+      ),
+    );
 
     // Do nothing anymore because we want to check the visual state of the modal
   },
