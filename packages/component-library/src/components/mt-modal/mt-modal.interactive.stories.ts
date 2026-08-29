@@ -26,6 +26,7 @@ export const InteractionTestFooterActionsAlignEnd = {
     <template #default>Modal content</template>
     <template #footer>
       <mt-button variant="secondary">Close</mt-button>
+      <mt-button variant="primary">Continue</mt-button>
     </template>
   </mt-modal>
 </mt-modal-root>`,
@@ -36,6 +37,7 @@ export const InteractionTestFooterActionsAlignEnd = {
     const footer = document.querySelector(".mt-modal__footer");
     expect(footer).not.toBeNull();
     expect(footer).toHaveStyle({ display: "flex", "justify-content": "flex-end" });
+    expect(footer).toHaveStyle({ gap: "var(--scale-size-8)" });
   },
 };
 

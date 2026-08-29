@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.6.1
+
+### Patch Changes
+
+- Add spacing between actions in modal footers.
+
 ## 5.6.0
 
 ### Minor Changes

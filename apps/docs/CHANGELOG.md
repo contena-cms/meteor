@@ -1,5 +1,12 @@
 # meteor-docs
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @contena/meteor-component-library@5.6.1
+
 ## 0.0.7
 
 ### Patch Changes

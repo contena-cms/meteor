@@ -388,6 +388,7 @@ onUnmounted(() => {
 .mt-modal__footer {
   display: flex;
   justify-content: flex-end;
+  gap: var(--scale-size-8);
   padding: var(--scale-size-24);
   border-top: 1px solid var(--color-border-secondary-default);
 }
