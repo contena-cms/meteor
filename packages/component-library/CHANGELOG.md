@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.6.2
+
+### Patch Changes
+
+- Publish the component library with resolved workspace dependencies.
+
 ## 5.6.1
 
 ### Patch Changes
