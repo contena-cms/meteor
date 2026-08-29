@@ -44,7 +44,7 @@ async function waitForCharacterCounter(canvasElement: HTMLElement) {
 
 function withinLinkDialog() {
   const dialogs = within(document.body).getAllByRole("dialog", {
-    name: "Insert/Edit Link",
+    name: "插入或编辑链接",
   });
   return within(dialogs[dialogs.length - 1]!);
 }
@@ -796,7 +796,7 @@ export const SetLink: MtTextEditorStory = defineStory({
     await userEvent.type(linkInput, "https://www.contena.cn");
 
     // Toggle link target
-    await userEvent.click(linkDialog.getByRole("checkbox", { name: "Open in new tab" }));
+    await userEvent.click(linkDialog.getByRole("checkbox", { name: "在新标签页打开" }));
 
     // Click on button with text "Apply link"
     await userEvent.click(linkDialog.getByText("应用链接"));
