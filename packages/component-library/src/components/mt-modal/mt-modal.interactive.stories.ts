@@ -37,7 +37,12 @@ export const InteractionTestFooterActionsAlignEnd = {
     const footer = document.querySelector(".mt-modal__footer");
     expect(footer).not.toBeNull();
     expect(footer).toHaveStyle({ display: "flex", "justify-content": "flex-end" });
-    expect(footer).toHaveStyle({ gap: "var(--scale-size-8)" });
+
+    const buttons = footer?.querySelectorAll("button");
+    expect(buttons).toHaveLength(2);
+    expect(
+      buttons?.[1].getBoundingClientRect().left - buttons?.[0].getBoundingClientRect().right,
+    ).toBe(8);
   },
 };
 
