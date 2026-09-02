@@ -1092,7 +1092,7 @@ export default defineComponent({
           itemsPerPage: "每页条数",
           filter: {
             numberOfResults: "未找到结果 | 找到 1 条结果 | 找到 {n} 条结果",
-            addFilter: "添加筛选",
+            addFilter: "筛选",
             fetchingFilteredResults: "正在加载筛选结果...",
           },
           columnSettings: {
