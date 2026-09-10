@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.13.0
+
+### Minor Changes
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Add additional configuration options to the Admin SDK modal API (size variant and z-index).
+
 ## 6.12.0
 
 ### Minor Changes
