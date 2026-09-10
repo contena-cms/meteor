@@ -701,7 +701,7 @@ export const VisualTestAddFilterViaFilterMenu: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getByRole("button", { name: "添加筛选" });
+    const filterMenuToggleButton = canvas.getByRole("button", { name: /Add filter|筛选/ });
     expect(filterMenuToggleButton).toBeVisible();
     await userEvent.click(filterMenuToggleButton);
 
@@ -776,7 +776,7 @@ export const VisualTestRemoveFilterViaFilterMenu: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "添加筛选" })[0];
+    const filterMenuToggleButton = canvas.getAllByRole("button", { name: /Add filter|筛选/ })[0];
     expect(filterMenuToggleButton).toBeVisible();
     await userEvent.click(filterMenuToggleButton);
 
@@ -838,11 +838,12 @@ export const VisualTestAddFilterViaIconButton: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "添加筛选" })[1];
+    const filterMenuToggleButton = canvasElement.querySelector(".mt-data-table__add-filter-button");
     expect(filterMenuToggleButton).toBeVisible();
-    await userEvent.click(filterMenuToggleButton);
+    await userEvent.click(filterMenuToggleButton as HTMLElement);
 
-    const popover = within(document.querySelector(".mt-floating-ui__content") as HTMLElement);
+    const popoverElement = await waitFor(() => document.querySelector(".mt-floating-ui__content"));
+    const popover = within(popoverElement as HTMLElement);
 
     await userEvent.click(popover.getByText("Manufacturer"));
 
@@ -916,11 +917,12 @@ export const VisualTestRemoveFilterViaIconButton: MtDataTableStory = {
 
     await waitUntil(() => document.querySelectorAll(".mt-skeleton-bar").length === 0);
 
-    const filterMenuToggleButton = canvas.getAllByRole("button", { name: "添加筛选" })[1];
+    const filterMenuToggleButton = canvasElement.querySelector(".mt-data-table__add-filter-button");
     expect(filterMenuToggleButton).toBeVisible();
-    await userEvent.click(filterMenuToggleButton);
+    await userEvent.click(filterMenuToggleButton as HTMLElement);
 
-    const popover = within(document.querySelector(".mt-floating-ui__content") as HTMLElement);
+    const popoverElement = await waitFor(() => document.querySelector(".mt-floating-ui__content"));
+    const popover = within(popoverElement as HTMLElement);
 
     await userEvent.click(popover.getByText("Manufacturer"));
 

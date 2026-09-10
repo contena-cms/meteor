@@ -242,7 +242,7 @@ export const InteractionTestApplyBooleanFilter: MtEntityDataTableStory = {
     await waitForLoadingComplete(canvasElement);
 
     // Open "Add filter" button which opens the filter dialog
-    const addFilterButton = canvas.getByRole("button", { name: /添加筛选/ });
+    const addFilterButton = canvas.getByRole("button", { name: /Add filter|筛选/ });
     await userEvent.click(addFilterButton);
 
     // Open "Active" filter in the opened dialog
@@ -279,7 +279,7 @@ export const InteractionTestApplyMultiSelectFilter: MtEntityDataTableStory = {
     await waitForLoadingComplete(canvasElement);
 
     // Open "Add filter" button which opens the filter dialog
-    const addFilterButton = canvas.getByRole("button", { name: /添加筛选/ });
+    const addFilterButton = canvas.getByRole("button", { name: /Add filter|筛选/ });
     await userEvent.click(addFilterButton);
 
     // Open "Manufacturer" filter in the opened dialog
@@ -314,7 +314,7 @@ export const InteractionTestClearFilter: MtEntityDataTableStory = {
     await waitForLoadingComplete(canvasElement);
 
     // Open "Add filter" button which opens the filter dialog
-    const addFilterButton = canvas.getByRole("button", { name: /添加筛选/ });
+    const addFilterButton = canvas.getByRole("button", { name: /Add filter|筛选/ });
     await userEvent.click(addFilterButton);
 
     // Open "Manufacturer" filter in the opened dialog
