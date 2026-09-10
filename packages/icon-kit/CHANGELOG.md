@@ -1,5 +1,11 @@
 # CHANGELOG.md
 
+## 5.11.0
+
+### Minor Changes
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Replace the generated SCSS stylesheet with pure CSS. Import `icons/meteor-icon-kit.css` — stable filename, fixed `px` units. The SCSS and hash-suffixed CSS files are no longer generated.
+
 ## 5.10.0
 
 ### Minor Changes

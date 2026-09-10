@@ -1,5 +1,12 @@
 # nuxt-app
 
+## 0.0.76
+
+### Patch Changes
+
+- Updated dependencies [[`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714)]:
+  - @contena/meteor-component-library@5.7.0
+
 ## 0.0.75
 
 ### Patch Changes

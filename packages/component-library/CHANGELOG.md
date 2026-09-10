@@ -1,5 +1,37 @@
 # Changelog
 
+## 5.7.0
+
+### Minor Changes
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Remove the SCSS/Sass dependency — all styles are plain CSS. Legacy SCSS colors were replaced with design tokens and popovers/data table now inherit the global typography, which slightly changes some colors and glyphs. The shipped CSS is now minified.
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - mt-datepicker: add the `hint` prop and `#hint` slot for an optional caption below the field, matching the other form fields. A custom hint replaces the default time zone hint of datetime pickers, which now uses the same shared hint styling.
+
+  The time zone hint is now rendered by `mt-field-hint`, which changes its DOM. It used to be `div.mt-datepicker__hint.field-hint > (mt-icon.mt-datepicker__hint-icon, p)` and is now `span.mt-field-hint.mt-datepicker__hint.field-hint > (span.mt-field-hint__icon-wrapper > mt-icon.mt-field-hint__icon, span.mt-field-hint__text)`. The `data-testid="time-zone-hint"` attribute is unchanged. Custom styles that target `.mt-datepicker__hint-icon` or `.mt-datepicker__hint p` need to be updated, and the clock icon is now `aria-hidden`.
+
+### Patch Changes
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Align the unit select dropdown styling with the select result list
+
+  The dropdown of `mt-unit-field` now uses the same edge spacing, item padding, border radius and hover color as `mt-select-result-list`. The unit trigger no longer shows a pointer cursor while it is disabled. The trigger chevron uses the same icon variant and size as `mt-select` and the number field controls. The dropdown is capped at a maximum width and long unit labels truncate with an ellipsis.
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - mt-field-hint, mt-datepicker: keep the hint icon at its size and centered on the first line when the hint text wraps onto multiple lines. The alignment no longer depends on the `--font-line-height-xs` token or the icon size.
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Fix autofilled input fields rendering with a white background in dark mode: the `:-webkit-autofill` override hardcoded `#fff`, so Chrome's autofill and autofill-preview states painted the field white with unreadable light text. It now uses the themed background and text tokens, and matches the critical background when the field has an error
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - mt-floating-ui: hide the floating content while its reference element is fully scrolled out of view, instead of letting it float over unrelated UI; consumer-supplied `floatingUiOptions.middleware` now extends the default middleware instead of replacing it
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Give consumers control over browser and password-manager autofill across form fields. All text-entry fields (`mt-text-field`, `mt-email-field`, `mt-password-field`, `mt-url-field`, `mt-number-field`, `mt-textarea`) forward a new `autocomplete` prop to their native input, e.g. `autocomplete="new-password"` or `autocomplete="off"`. `mt-select` exposes an `enableSearch` prop — disabling it renders a readonly search input that browsers skip — and its search input now opts out of autofill (`autocomplete="off"`, `data-1p-ignore`, `data-lpignore`, `data-bwignore`), as does `mt-search` by default (overridable via the same `autocomplete` prop). `mt-theme-select` disables its unneeded search input
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Remove the unused date-fns-tz dependency. Nothing in the library imports it, so it only added weight to every install.
+
+- [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Stop `mt-snackbar` from stealing keyboard focus when a notification appears
+
+- Updated dependencies [[`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714), [`e127148`](https://github.com/contena-cms/meteor/commit/e1271482a32fbfb5b19f16eb1d04ddf867b85714)]:
+  - @contena/meteor-icon-kit@5.11.0
+  - @contena/meteor-admin-sdk@6.13.0
+
 ## 5.6.2
 
 ### Patch Changes
