@@ -1,6 +1,6 @@
 <template>
   <!-- The container establishes the query context the banner sizes itself against. -->
-  <div v-if="isShowUI" class="mt-grant-permission-service-banner__container">
+  <div v-if="isShowPermissionUI" class="mt-grant-permission-service-banner__container">
     <section class="mt-grant-permission-service-banner" :aria-labelledby="titleId">
       <mt-icon
         class="mt-grant-permission-service-banner__icon"
@@ -33,7 +33,7 @@
         <mt-button
           variant="primary"
           class="mt-grant-permission-service-banner__grant"
-          :is-loading="isLoading"
+          :is-loading="isGranting"
           @click="handleGrantPermission"
         >
           <span class="mt-grant-permission-service-banner__label--short">
@@ -60,17 +60,27 @@
   </div>
 </template>
 
+<script lang="ts">
+/**
+ * For internal Contena Services only.
+ *
+ * Displays a permission grant section for Contena Services.
+ */
+export default {
+  name: "MtGrantPermissionServiceBanner",
+};
+</script>
+
 <script setup lang="ts">
-import { ref, useId } from "vue";
+import { useId } from "vue";
 import { asyncComputed } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
 import MtIcon from "@/components/mt-icon/mt-icon.vue";
 import MtText from "@/components/mt-text/mt-text.vue";
 import MtButton from "@/components/mt-button/mt-button.vue";
+import { useServicePermission } from "@/composables/useServicePermission";
 import { getAppInformation } from "@contena/meteor-admin-sdk/es/context";
 import { dispatch } from "@contena/meteor-admin-sdk/es/telemetry";
-import { isService } from "@contena/meteor-admin-sdk/es/_private/context";
-import { grant, isGranted } from "@contena/meteor-admin-sdk/es/_private/permissions";
 
 const { t } = useI18n({
   messages: {
@@ -95,11 +105,13 @@ const { t } = useI18n({
 
 const titleId = useId();
 
-const isLoading = ref(false);
+const emit = defineEmits<{
+  "grant-success": [];
+  "grant-error": [error: unknown];
+  "more-info": [];
+}>();
 
-const isShowUI = asyncComputed(async () => {
-  return (await isService()) && !(await isGranted());
-}, false);
+const { isGranting, isShowPermissionUI, grant } = useServicePermission();
 
 // Resolving the app information is a channel round-trip, so the banner starts
 // out without it and the telemetry payload has to tolerate the empty state.
@@ -118,23 +130,17 @@ async function handleGrantPermission() {
     contena_version: appInfo.value?.version,
   });
 
-  if (isLoading.value) {
-    return;
-  }
-
-  isLoading.value = true;
-
   try {
     await grant();
+    emit("grant-success");
   } catch (error) {
-    console.error("Error granting permission:", error);
-  } finally {
-    isLoading.value = false;
+    emit("grant-error", error);
   }
 }
 
 function handleClickMoreInfo() {
   track(`${appInfo.value?.name}_grant_permission_more_info`);
+  emit("more-info");
 }
 </script>
 

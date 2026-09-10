@@ -123,11 +123,12 @@ describe("mt-grant-permission-service-banner", () => {
 
   it("grants the service permission when the user confirms", async () => {
     const user = userEvent.setup();
-    await renderBanner();
+    const { emitted } = await renderBanner();
 
     await user.click(getGrantButton());
 
     expect(grant).toHaveBeenCalledTimes(1);
+    expect(emitted("grant-success")).toEqual([[]]);
   });
 
   it("shows a loading state while the permission is being granted", async () => {
@@ -184,6 +185,21 @@ describe("mt-grant-permission-service-banner", () => {
     consoleError.mockRestore();
   });
 
+  it("emits the grant error for consumers", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const user = userEvent.setup();
+    const error = new Error("permission denied");
+    grant.mockRejectedValue(error);
+
+    const { emitted } = await renderBanner();
+    await user.click(getGrantButton());
+
+    expect(emitted("grant-error")).toEqual([[error]]);
+    expect(emitted("grant-success")).toBeUndefined();
+
+    consoleError.mockRestore();
+  });
+
   it("reports the grant click to telemetry", async () => {
     const user = userEvent.setup();
     await renderBanner();
@@ -218,13 +234,14 @@ describe("mt-grant-permission-service-banner", () => {
 
   it("reports the more info click to telemetry", async () => {
     const user = userEvent.setup();
-    await renderBanner();
+    const { emitted } = await renderBanner();
 
     await user.click(screen.getByRole("link", { name: "More info" }));
 
     expect(dispatch).toHaveBeenCalledWith({
       event: "ContenaExample_grant_permission_more_info",
     });
+    expect(emitted("more-info")).toEqual([[]]);
   });
 
   it("opens the more info target in a new tab", async () => {

@@ -62,8 +62,8 @@ const debounceInput = (event) => {
 };
 </script>
 
-<style lang="scss">
-@import "../public/icons/meteor-icon-kit.scss";
+<style>
+@import "../public/icons/meteor-icon-kit.css";
 
 .search-container {
   display: flex;

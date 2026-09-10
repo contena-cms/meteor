@@ -49,20 +49,16 @@ $ yarn add @contena/meteor-icon-kit
 
 ## Usage
 
-Start by importing/using the provided styling.
-Either utilizing sass/scss:
+Start by importing the provided stylesheet:
 
-```scss
-@import "@contena/meteor-icon-kit/icons/meteor-icon-kit.scss";
+```css
+@import "@contena/meteor-icon-kit/icons/meteor-icon-kit.css";
 ```
 
-Or classic via the css file:
+Or classic via a `<link>`:
 
 ```html
-<link
-  rel="stylesheet"
-  href="your-asset-folder/meteor-icon-kit-8e350007463127dbe9f66c60cd6896ca.css"
-/>
+<link rel="stylesheet" href="your-asset-folder/meteor-icon-kit.css" />
 ```
 
 Then, you can use the icons:

@@ -56,6 +56,10 @@ import {
   type UseThemeOptions,
   type UseThemeReturn,
 } from "./composables/useTheme";
+import {
+  useServicePermission,
+  type UseServicePermissionReturn,
+} from "./composables/useServicePermission";
 import TooltipDirective from "./directives/tooltip.directive";
 import DeviceHelperPlugin from "./plugin/device-helper.plugin";
 import MtTooltip from "./components/mt-tooltip/mt-tooltip.vue";
@@ -79,7 +83,7 @@ import {
   DropdownMenuSub,
 } from "reka-ui";
 // Import global styling
-import "./assets/scss/all.scss";
+import "./assets/css/all.css";
 
 // Importing types
 import type { Filter, Option } from "./components/mt-data-table/mt-data-table.interfaces";
@@ -157,6 +161,8 @@ export {
   DeviceHelperPlugin,
   useSnackbar,
   useTheme,
+  useServicePermission,
+  type UseServicePermissionReturn,
   // @deprecated
   MtBanner as SwBanner,
   // @deprecated
