@@ -58,14 +58,14 @@ jobs:
           printf '%s\n' 'export {};' > custom/plugins/TestExtensionPlugin/src/Resources/app/administration/src/main.js
           cat > custom/plugins/TestExtensionPlugin/src/Resources/app/administration/src/module/ct-dashboard/page/ct-dashboard-index/ct-dashboard-index.override.vue <<'EOF'
           <template>
-              <ct-block extends="sw_dashboard_index_content">
+              <ct-block extends="ct_dashboard_index_content">
                   <ct-block-parent />
                   <div data-testid="meteor-native-dashboard-block">Meteor native extension</div>
               </ct-block>
           </template>
 
           <script setup lang="ts">
-          swDefineOverride({});
+          ctDefineOverride({});
           </script>
           EOF
 
