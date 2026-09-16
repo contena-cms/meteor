@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.8.0
+
+### Minor Changes
+
+- [`cbb85dc`](https://github.com/contena-cms/meteor/commit/cbb85dcdeef368ae44e6dae7b161510b8a954c06) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Add `mt-divider`: a horizontal or vertical separator line with solid and dashed variants, configurable color token, optional slot content with `center` / `left` / `right` alignment, a `decorative` mode that removes the separator semantics, and a `full-bleed` option that stretches the divider across the padding of surrounding containers such as cards
+
+- [`cbb85dc`](https://github.com/contena-cms/meteor/commit/cbb85dcdeef368ae44e6dae7b161510b8a954c06) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Add `MtBreadcrumb` for hierarchy navigation, rendered from an `items` array, with sizes `xs` and `s` and automatic truncation and collapsing of crumbs on narrow containers. Collapsed crumbs stay reachable through an overflow menu.
+
+  `MtActionMenuItem` now also accepts a component for `as`.
+
 ## 5.7.0
 
 ### Minor Changes
