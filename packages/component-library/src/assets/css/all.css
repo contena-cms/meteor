@@ -1,6 +1,6 @@
 /* 1. CSS preflight/reset */
 @import "./preflight.css";
-/* 2. Design tokens synced from Figma */
+/* 2. Design tokens */
 @import "@contena/meteor-tokens/primitives.css";
 @import "@contena/meteor-tokens/administration/light.css";
 @import "@contena/meteor-tokens/administration/dark.css";

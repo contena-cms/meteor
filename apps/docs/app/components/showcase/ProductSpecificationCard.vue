@@ -4,7 +4,7 @@ import MtText from "@contena/meteor-component-library/MtText";
 import MtTextField from "@contena/meteor-component-library/MtTextField";
 import MtNumberField from "@contena/meteor-component-library/MtNumberField";
 
-// Figma node 3466-33258. Editing the fields updates the header live.
+// Editing the fields updates the header live.
 const productName = ref("Flowsphere No. 1");
 const productPrice = ref(54.95);
 const muted = "color-text-secondary-default";
@@ -70,8 +70,8 @@ const productImage = "/showcase-product.jpg";
 </template>
 
 <style scoped>
-/* Figma "Card": a header strip on a sunken surface with a stacked product photo
-   + title + price pill, then two fields below. Card padding is zeroed so each
+/* A header strip on a sunken surface with a stacked product photo, title, and
+   price pill, followed by two fields. Card padding is zeroed so each
    section owns its 24px padding (and the header strip bleeds edge-to-edge).
    The `.mt-card` in the selector lifts specificity above MtCard's own
    `.mt-card__content` var declaration so the override wins. */

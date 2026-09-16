@@ -2,7 +2,7 @@
 
 # meteor-icon-kit
 
-> An icon library and toolkit that follows a minimal, yet highly expressive style perfectly aligned with Contena's product language
+> An icon library that follows a minimal, yet highly expressive style perfectly aligned with Contena's product language
 
 ## Prerequisites
 
@@ -27,8 +27,6 @@ $ yarn -v
   - [Installation](#installation)
   - [Usage](#usage)
   - [Vite example](#example)
-  - [Built With](#built-with)
-  - [Figma library](#figma-library)
   - [License](#license)
 
 ## Installation
@@ -127,17 +125,6 @@ import ActivityIcon from "@contena/meteor-icon-kit/icons/regular/activity.svg";
 ```
 
 You can find this example as a CodeSandbox template [here](https://codesandbox.io/p/sandbox/meteor-icon-kit-example-revdlr).
-
-## Built With
-
-- Typescript
-- Figma API
-- VS-Code
-- Love :blue_heart: :blue_heart: :blue_heart:
-
-## Figma library
-
-Meteor Icon Kit is available as a [Figma library](https://www.figma.com/community/file/1032564947404478461/Meteor-Icon-Kit-%E2%80%93-Contena) through the Figma Community. To use the icons, log in to your Figma account and duplicate the file to your drafts.
 
 ## License
 

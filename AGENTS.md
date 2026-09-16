@@ -13,8 +13,8 @@ High-level repo guide for orientation. Stay at this level first; read package-lo
 
 - `packages/admin-sdk` — Contena Administration SDK
 - `packages/component-library` — Vue 3 component library
-- `packages/tokens` — design tokens pipeline and outputs
-- `packages/icon-kit` — icon assets and sync/build tooling
+- `packages/tokens` — published design token dictionaries and CSS
+- `packages/icon-kit` — published icon assets, metadata, and CSS
 - `packages/stylelint-plugin-meteor` — stylelint rules for Meteor token usage
 - `packages/create-meteor-extension` — scaffolding CLI and templates
 - `packages/prettier-config` — shared Prettier config

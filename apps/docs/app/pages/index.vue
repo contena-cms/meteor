@@ -104,10 +104,10 @@ const benefits = [
   },
   {
     icon: "sync",
-    title: "Design and code in sync",
-    text: "Figma libraries, components, and tokens stay aligned, so decisions are made once and applied everywhere.",
+    title: "One coherent system",
+    text: "Components, patterns, tokens, and icons evolve together, so decisions are made once and applied everywhere.",
     detail:
-      "The same design tokens drive both Figma and code, so a change to a color or spacing value lands in both places at the same time.",
+      "Shared design tokens keep color, spacing, typography, and themes consistent across every Meteor package and consuming application.",
   },
   {
     icon: "universal-access",

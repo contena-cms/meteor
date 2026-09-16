@@ -46,7 +46,7 @@
         @change-switch="($event) => $emit('change-show-stripes', $event)"
       />
 
-      <!-- TODO: the icon in figma solid-grip-lines was rotated and is not available -->
+      <!-- TODO: the source solid-grip-lines icon was rotated and is not available -->
       <mt-popover-item
         :label="t('showOutlines')"
         show-switch
