@@ -14,6 +14,20 @@ body {
   color: var(--color-text-primary-default);
 }
 
+/*
+ * The Inter stylistic sets above are inherited by every element and also apply
+ * to glyphs served by CJK fallback fonts. Chinese fonts such as Source Han
+ * Sans / Sarasa map the same OpenType tags (e.g. "ss01") to traditional or
+ * alternate glyph variants, which renders simplified Chinese text in
+ * traditional form. Reset the features for CJK content; Latin-only features
+ * keep working for other locales.
+ */
+:lang(zh),
+:lang(ja),
+:lang(ko) {
+  font-feature-settings: normal;
+}
+
 [data-theme="dark"] {
   color-scheme: dark;
 }
