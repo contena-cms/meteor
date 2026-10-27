@@ -21,6 +21,7 @@ jobs:
         with:
           shopware-version: trunk
           shopware-repository: contena-cms/contena
+          php-version: "8.5"
           install: true
           install-locale: en-GB
           install-currency: EUR
