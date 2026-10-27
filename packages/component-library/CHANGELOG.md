@@ -1,5 +1,37 @@
 # Changelog
 
+## 5.9.0
+
+### Minor Changes
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Add the `mt-nav` component for the main application navigation, with sections, up to three levels of nested rows and keyboard navigation
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Add a `disabled` prop to `mt-radio-group-item`, `mt-radio-group-card-item` and `mt-radio-group-custom-item` to disable a single option of a radio group. The `mt-radio-group-indicator` inside a disabled `mt-radio-group-custom-item` is disabled as well, and the custom item passes the state to its default slot as `disabled`.
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Add a `disabled` prop to `MtStatusDot` that renders the dot in the disabled color token of its variant and turns off `pulse`.
+
+### Patch Changes
+
+- [`ae2c185`](https://github.com/contena-cms/meteor/commit/ae2c185be1c49c08fa88dc258d4b8413c3b3fbc7) Thanks [@gxiaosong](https://github.com/gxiaosong)! - Fix simplified Chinese text rendering in traditional glyph variants: the Inter font-feature-settings ("ss01", "cv10", "cv11") on `body` are inherited by CJK fallback fonts that map the same OpenType tags to traditional/alternate glyph forms. The component library now resets `font-feature-settings` to `normal` for `:lang(zh)`, `:lang(ja)` and `:lang(ko)` content, so Chinese text always renders with the font's default (simplified) glyphs while Latin locales keep the Inter stylistic sets.
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Fix `mt-tooltip` not updating when the `content` prop changes
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Fix an invalid `@media speech` rule with an empty selector in `mt-tabs.css`. Strict CSS minifiers such as Lightning CSS, which Vite 8 uses, no longer fail when they bundle the stylesheet.
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Fix `mt-radio-group-item` and `mt-radio-group-custom-item` emitting `update:modelValue` twice when a label is clicked. Both now select on the native `change` event, like `mt-radio-group-card-item`. Clicks on links, buttons and form controls inside `mt-radio-group-custom-item` no longer select it.
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Fix `mt-radio-group-root` leaving its radio group without an accessible name. The group is now labelled by `label` and described by `hint` and `error` in addition to `ariaDescribedBy`, and the label no longer points at an element that does not exist.
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Fix Shift+Tab in `mt-select`: leaving a select backwards no longer clicks the element before it, such as a checkbox or a button, and entering a select backwards opens it like Tab does.
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Fix notifications showing twice when `mt-snackbar` is mounted more than once. Only one mounted `mt-snackbar` renders them now.
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Fix `mt-tooltip` closing again by itself when its trigger gets focus right after rendering, for example through a quick Tab or a `focus()` call.
+
+- Updated dependencies [[`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34)]:
+  - @contena-ag/meteor-admin-sdk@6.15.1
+  - @contena-ag/meteor-icon-kit@5.12.0
+
 ## 5.8.0
 
 ### Minor Changes

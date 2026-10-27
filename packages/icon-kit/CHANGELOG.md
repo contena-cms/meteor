@@ -1,5 +1,13 @@
 # CHANGELOG.md
 
+## 5.12.0
+
+### Minor Changes
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Added multiple icons:
+  `regular-shopping-bag-return`
+  `solid-shopping-bag-return`
+
 ## 5.11.0
 
 ### Minor Changes
