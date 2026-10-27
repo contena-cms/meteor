@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.15.1
+
+### Patch Changes
+
+- [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34) - Stop requiring read privileges for empty entity collections in dataset messages. Write privileges are still checked.
+
 ## 6.15.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # meteor-docs
 
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`ae2c185`](https://github.com/contena-cms/meteor/commit/ae2c185be1c49c08fa88dc258d4b8413c3b3fbc7), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34), [`9bbbf18`](https://github.com/contena-cms/meteor/commit/9bbbf18a2612616d4784ffef79ad33c9fd2efe34)]:
+  - @contena-ag/meteor-component-library@5.9.0
+  - @contena-ag/meteor-icon-kit@5.12.0
+
 ## 0.0.12
 
 ### Patch Changes
