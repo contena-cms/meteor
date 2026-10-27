@@ -3,11 +3,11 @@ import MtAvatar from "@contena-ag/meteor-component-library/MtAvatar";
 </script>
 
 <template>
-  <mt-avatar first-name="Jane" />
-  <mt-avatar first-name="James" />
-  <mt-avatar first-name="Amanda" />
-  <mt-avatar first-name="Abigail" />
-  <mt-avatar first-name="A" />
-  <mt-avatar first-name="Jo" />
-  <mt-avatar first-name="Joe" />
+  <mt-avatar name="Jane" />
+  <mt-avatar name="James" />
+  <mt-avatar name="Amanda" />
+  <mt-avatar name="Abigail" />
+  <mt-avatar name="A" />
+  <mt-avatar name="Jo" />
+  <mt-avatar name="Joe" />
 </template>

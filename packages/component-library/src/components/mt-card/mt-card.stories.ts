@@ -170,7 +170,7 @@ export const ExtendedStory: StoryObj<MtCardMeta> = {
         </template>
 
         <template #avatar>
-          <mt-avatar v-if="args.avatar" firstName="Max" lastName="Mustermann" variant="square" />
+          <mt-avatar v-if="args.avatar" name="Max Mustermann" variant="square" />
         </template>
 
         <template #headerRight>
@@ -231,7 +231,7 @@ export const HeaderContent: StoryObj<MtCardMeta> = {
     template: `
     <mt-card v-bind="args">
       <template #avatar>
-        <mt-avatar firstName="Max" lastName="Mustermann" variant="square" />
+        <mt-avatar name="Max Mustermann" variant="square" />
       </template>
 
       <template #headerRight>
@@ -250,8 +250,7 @@ export const HeaderContent: StoryObj<MtCardMeta> = {
         code: `<mt-card title="Customer details">
   <template #avatar>
     <mt-avatar
-      first-name="Max"
-      last-name="Mustermann"
+      name="Max Mustermann"
       variant="square"
     />
   </template>

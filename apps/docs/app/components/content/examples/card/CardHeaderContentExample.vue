@@ -7,7 +7,7 @@ import MtButton from "@contena-ag/meteor-component-library/MtButton";
 <template>
   <mt-card title="Customer details">
     <template #avatar>
-      <mt-avatar first-name="Max" last-name="Mustermann" variant="square" />
+      <mt-avatar name="Max Mustermann" variant="square" />
     </template>
 
     <template #headerRight>

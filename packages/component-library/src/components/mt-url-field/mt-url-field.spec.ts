@@ -61,9 +61,9 @@ describe("mt-url-field", () => {
     // ASSERT
     expect(screen.getByRole("textbox")).toHaveValue("www.contena.cn");
 
-    expect(handler).toHaveBeenCalledTimes(16);
+    expect(handler).toHaveBeenCalledTimes(14);
     expect(handler).toHaveBeenNthCalledWith(1, "https://w");
-    expect(handler).toHaveBeenNthCalledWith(16, "https://www.contena.cn");
+    expect(handler).toHaveBeenNthCalledWith(14, "https://www.contena.cn");
   });
 
   it("preserves IP address input without rewriting numeric hosts", async () => {
@@ -450,9 +450,9 @@ describe("mt-url-field", () => {
     // ASSERT
     expect(screen.getByRole("textbox")).not.toBeDisabled();
 
-    expect(handler).toHaveBeenCalledTimes(16);
+    expect(handler).toHaveBeenCalledTimes(14);
     expect(handler).toHaveBeenNthCalledWith(1, "https://w");
-    expect(handler).toHaveBeenNthCalledWith(16, "https://www.contena.cn");
+    expect(handler).toHaveBeenNthCalledWith(14, "https://www.contena.cn");
   });
 
   it("does not change the http protocol when the field's inheritance is linked", async () => {

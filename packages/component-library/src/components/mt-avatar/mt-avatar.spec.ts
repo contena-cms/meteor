@@ -3,7 +3,7 @@ import MtAvatar from "./mt-avatar.vue";
 
 describe("mt-avatar", () => {
   it("shows initials", () => {
-    render(MtAvatar, { props: { firstName: "John", lastName: "Doe" } });
+    render(MtAvatar, { props: { name: "John Doe" } });
 
     const result = screen.getByTestId("mt-avatar-initials");
 

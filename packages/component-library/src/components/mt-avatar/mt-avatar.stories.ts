@@ -17,8 +17,7 @@ const meta: MtAvatarMeta = {
     },
   }),
   args: {
-    firstName: "John",
-    lastName: "Doe",
+    name: "John Doe",
     size: "m",
     variant: "circle",
   },
@@ -42,7 +41,7 @@ export const Default: MtAvatarStory = {
     docs: {
       source: {
         language: "html",
-        code: `<mt-avatar first-name="John" last-name="Doe" size="m" variant="circle" />`,
+        code: `<mt-avatar name="John Doe" size="m" variant="circle" />`,
       },
     },
   },
@@ -54,11 +53,11 @@ export const AllSizes: MtAvatarStory = {
     docs: {
       source: {
         language: "html",
-        code: `<mt-avatar first-name="John" last-name="Doe" size="2xs" />
-<mt-avatar first-name="John" last-name="Doe" size="xs" />
-<mt-avatar first-name="John" last-name="Doe" size="s" />
-<mt-avatar first-name="John" last-name="Doe" size="m" />
-<mt-avatar first-name="John" last-name="Doe" size="l" />`,
+        code: `<mt-avatar name="John Doe" size="2xs" />
+<mt-avatar name="John Doe" size="xs" />
+<mt-avatar name="John Doe" size="s" />
+<mt-avatar name="John Doe" size="m" />
+<mt-avatar name="John Doe" size="l" />`,
       },
     },
   },
@@ -66,11 +65,11 @@ export const AllSizes: MtAvatarStory = {
     components: { MtAvatar },
     template: `
       <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-        <mt-avatar first-name="John" last-name="Doe" size="2xs" />
-        <mt-avatar first-name="John" last-name="Doe" size="xs" />
-        <mt-avatar first-name="John" last-name="Doe" size="s" />
-        <mt-avatar first-name="John" last-name="Doe" size="m" />
-        <mt-avatar first-name="John" last-name="Doe" size="l" />
+        <mt-avatar name="John Doe" size="2xs" />
+        <mt-avatar name="John Doe" size="xs" />
+        <mt-avatar name="John Doe" size="s" />
+        <mt-avatar name="John Doe" size="m" />
+        <mt-avatar name="John Doe" size="l" />
       </div>`,
   }),
 };
@@ -79,8 +78,7 @@ export const WithImage: MtAvatarStory = {
   name: "With image",
   args: {
     imageUrl: "/avatar.jpg",
-    firstName: undefined,
-    lastName: undefined,
+    name: undefined,
   },
   parameters: {
     docs: {
@@ -94,15 +92,14 @@ export const WithImage: MtAvatarStory = {
 
 export const Square: MtAvatarStory = {
   args: {
-    firstName: "John",
-    lastName: "Doe",
+    name: "John Doe",
     variant: "square",
   },
   parameters: {
     docs: {
       source: {
         language: "html",
-        code: `<mt-avatar first-name="John" last-name="Doe" variant="square" size="m" />`,
+        code: `<mt-avatar name="John Doe" variant="square" size="m" />`,
       },
     },
   },
@@ -114,13 +111,13 @@ export const AllBackgroundColors: MtAvatarStory = {
     docs: {
       source: {
         language: "html",
-        code: `<mt-avatar first-name="Jane" />
-<mt-avatar first-name="James" />
-<mt-avatar first-name="Amanda" />
-<mt-avatar first-name="Abigail" />
-<mt-avatar first-name="A" />
-<mt-avatar first-name="Jo" />
-<mt-avatar first-name="Joe" />`,
+        code: `<mt-avatar name="Jane" />
+<mt-avatar name="James" />
+<mt-avatar name="Amanda" />
+<mt-avatar name="Abigail" />
+<mt-avatar name="A" />
+<mt-avatar name="Jo" />
+<mt-avatar name="Joe" />`,
       },
     },
   },
@@ -128,13 +125,13 @@ export const AllBackgroundColors: MtAvatarStory = {
     components: { MtAvatar },
     template: `
       <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-        <mt-avatar first-name="Jane" />
-        <mt-avatar first-name="James" />
-        <mt-avatar first-name="Amanda" />
-        <mt-avatar first-name="Abigail" />
-        <mt-avatar first-name="A" />
-        <mt-avatar first-name="Jo" />
-        <mt-avatar first-name="Joe" />
+        <mt-avatar name="Jane" />
+        <mt-avatar name="James" />
+        <mt-avatar name="Amanda" />
+        <mt-avatar name="Abigail" />
+        <mt-avatar name="A" />
+        <mt-avatar name="Jo" />
+        <mt-avatar name="Joe" />
       </div>`,
   }),
 };

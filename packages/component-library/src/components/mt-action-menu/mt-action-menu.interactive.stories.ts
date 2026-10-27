@@ -666,9 +666,8 @@ export const VisualTestUserProfileTrigger: MtActionMenuStory = {
 <dropdown-menu-root open>
     <dropdown-menu-trigger as-child>
         <button style="display: flex; align-items: center;" class="user-profile-trigger">
-          <mt-avatar 
-            first-name="John" 
-            last-name="Doe" 
+          <mt-avatar
+            name="John Doe"
             size="s"
           />
 

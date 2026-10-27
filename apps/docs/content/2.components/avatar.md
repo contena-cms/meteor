@@ -62,7 +62,7 @@ The background color is derived from the provided name, so repeated names get a 
 
 ## Behavior
 
-- If no `imageUrl` is provided, **Avatar** falls back to initials derived from `firstName` and `lastName`.
+- If no `imageUrl` is provided, **Avatar** falls back to initials derived from the `name` prop (the first letters of its first two words).
 - The background color is derived from the provided name, which gives repeated names a stable visual treatment.
 - **Avatar** is presentational. If the avatar should trigger an action, place it inside an interactive wrapper instead of making the avatar itself responsible for interaction.
 

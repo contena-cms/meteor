@@ -436,10 +436,9 @@ Promise<{
   admin: boolean;
   avatarId: string;
   email: string;
-  firstName: string;
   id: string;
-  lastName: string;
   localeId: string;
+  name: string;
   title: string;
   type: string;
   username: string;
@@ -455,10 +454,9 @@ Promise<{
     "admin": true,
     "avatarId": "",
     "email": "info@contena.cn",
-    "firstName": "",
     "id": "e2a77f4c718d407591b4826222aa3546",
-    "lastName": "admin",
     "localeId": "35bbb8c4305c47ec88b13ab30c0c5c5a",
+    "name": "admin",
     "title": "",
     "type": "user",
     "username": "admin"

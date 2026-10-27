@@ -3,5 +3,5 @@ import MtAvatar from "@contena-ag/meteor-component-library/MtAvatar";
 </script>
 
 <template>
-  <mt-avatar first-name="John" last-name="Doe" variant="square" size="m" />
+  <mt-avatar name="John Doe" variant="square" size="m" />
 </template>

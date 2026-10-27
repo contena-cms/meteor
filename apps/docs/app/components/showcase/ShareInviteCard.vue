@@ -19,9 +19,9 @@ const { addSnackbar } = useSnackbar();
 
 const inviteEmail = ref("");
 const shareUsers = [
-  { firstName: "Mia", lastName: "Chen", email: "mia.chen@example.com" },
-  { firstName: "Jonas", lastName: "Weber", email: "jonas.weber@example.com" },
-  { firstName: "Adrian", lastName: "Silva", email: "adrian.silva@example.com" },
+  { name: "Mia Chen", email: "mia.chen@example.com" },
+  { name: "Jonas Weber", email: "jonas.weber@example.com" },
+  { name: "Adrian Silva", email: "adrian.silva@example.com" },
 ];
 const muted = "color-text-secondary-default";
 </script>
@@ -52,17 +52,13 @@ const muted = "color-text-secondary-default";
         <div class="people-list">
           <div
             v-for="u in shareUsers"
-            :key="u.lastName"
+            :key="u.name"
             class="flex items-center gap-3"
           >
-            <mt-avatar
-              :first-name="u.firstName"
-              :last-name="u.lastName"
-              variant="circle"
-            />
+            <mt-avatar :name="u.name" variant="circle" />
             <div class="min-w-0 flex-1">
               <mt-text size="xs" weight="medium" class="w-full truncate"
-                >{{ u.firstName }} {{ u.lastName }}</mt-text
+                >{{ u.name }}</mt-text
               >
               <mt-text size="xs" :color="muted" class="w-full truncate">{{
                 u.email
@@ -99,7 +95,7 @@ const muted = "color-text-secondary-default";
                       icon="paper-plane"
                       @select="
                         addSnackbar({
-                          message: `Invitation sent to ${u.firstName}`,
+                          message: `Invitation sent to ${u.name}`,
                           variant: 'success',
                         })
                       "
@@ -113,7 +109,7 @@ const muted = "color-text-secondary-default";
                       variant="critical"
                       @select="
                         addSnackbar({
-                          message: `${u.firstName} ${u.lastName} removed`,
+                          message: `${u.name} removed`,
                           variant: 'error',
                         })
                       "
