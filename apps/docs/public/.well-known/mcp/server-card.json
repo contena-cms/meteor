@@ -1,0 +1,21 @@
+{
+  "url": "https://meteor.contena.cn/mcp",
+  "protocolVersion": "2025-06-18",
+  "serverInfo": {
+    "name": "Contena Meteor",
+    "title": "Contena Meteor",
+    "version": "1.0.0"
+  },
+  "description": "Documentation, components, examples, icons, and design tokens of the Contena Meteor design system.",
+  "iconUrl": "https://meteor.contena.cn/contena-signet.svg",
+  "documentationUrl": "https://meteor.contena.cn/documentation/getting-started/agents",
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://meteor.contena.cn/mcp"
+  },
+  "authentication": {
+    "required": false
+  },
+  "tools": "dynamic",
+  "resources": "dynamic"
+}
