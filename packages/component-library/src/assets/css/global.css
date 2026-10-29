@@ -2,7 +2,6 @@ body {
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-feature-settings:
-    "ss01" on,
     "cv10" on,
     "cv11" on;
   -webkit-font-smoothing: antialiased;
@@ -15,12 +14,15 @@ body {
 }
 
 /*
- * The Inter stylistic sets above are inherited by every element and also apply
- * to glyphs served by CJK fallback fonts. Chinese fonts such as Source Han
- * Sans / Sarasa map the same OpenType tags (e.g. "ss01") to traditional or
- * alternate glyph variants, which renders simplified Chinese text in
- * traditional form. Reset the features for CJK content; Latin-only features
- * keep working for other locales.
+ * The Inter stylistic set "ss01" is deliberately NOT enabled on body. Feature
+ * settings are inherited by every element and also apply to glyphs served by
+ * CJK fallback fonts. Chinese fonts (PingFang, Source Han Sans, Sarasa) map the
+ * same OpenType tag to traditional/alternate glyph variants, so a document-wide
+ * "ss01" renders simplified Chinese text with traditional glyph shapes while
+ * the underlying text stays simplified. Scope any Latin-only feature here
+ * carefully, and keep the CJK reset below as a safety net — note that it only
+ * matches documents that declare a language, which the Contena/Shopware
+ * administration shell does not.
  */
 :lang(zh),
 :lang(ja),
