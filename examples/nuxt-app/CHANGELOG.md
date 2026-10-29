@@ -1,5 +1,12 @@
 # nuxt-app
 
+## 0.0.80
+
+### Patch Changes
+
+- Updated dependencies [[`1c11503`](https://github.com/contena-cms/meteor/commit/1c1150321c49fe4f1be5f368f2aed9da5187e4ed)]:
+  - @contena-ag/meteor-component-library@5.9.1
+
 ## 0.0.79
 
 ### Patch Changes
